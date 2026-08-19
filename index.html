@@ -854,7 +854,8 @@ $$ <span class="kw">LANGUAGE</span> plpgsql;
                             <td>07</td>
                             <td><strong>Rank Functions</strong></td>
                             <td><span class="code-inline">ROW_NUMBER</span>, <span class="code-inline">RANK</span>,
-                                <span class="code-inline">DENSE_RANK</span></td>
+                                <span class="code-inline">DENSE_RANK</span>
+                            </td>
                             <td>ROW_NUMBER is strictly sequential; RANK skips numbers on ties; DENSE_RANK has no gaps.
                             </td>
                         </tr>
@@ -1143,881 +1144,881 @@ $$ <span class="kw">LANGUAGE</span> plpgsql;
         // ==========================================
 
         const QUIZ_DATA = [
-          // Module 1 (20 questions)
-          [
-            {
-              question: "Which of the following SQL commands is classified under Data Definition Language (DDL)?",
-              options: ["INSERT", "UPDATE", "TRUNCATE", "ROLLBACK"],
-              correct: 2,
-              explanation: "TRUNCATE is a DDL command because it alters the physical storage structure of the table by deallocating its data pages. Unlike DELETE (DML), it does not scan rows."
-            },
-            {
-              question: "Which SQL subset is responsible for row-level modifications inside transactions that can be rolled back?",
-              options: ["DDL", "DML", "DCL", "DQL"],
-              correct: 1,
-              explanation: "Data Manipulation Language (DML) commands like INSERT, UPDATE, and DELETE operate on rows inside active transactions and can be rolled back."
-            },
-            {
-              question: "In MySQL and Oracle, what is the effect of this transaction block containing a DDL command?",
-              code: "BEGIN;\nTRUNCATE TABLE students;\nROLLBACK;",
-              options: ["The table contents are restored", "The table remains truncated because TRUNCATE commits implicitly and cannot be rolled back", "An execution error is thrown", "The rollback is held in a savepoint"],
-              correct: 1,
-              explanation: "In MySQL and Oracle, DDL commands (including TRUNCATE) trigger an implicit auto-commit. Therefore, they cannot be rolled back."
-            },
-            {
-              question: "Which SQL subset manages access privileges, permissions, and database security?",
-              options: ["TCL", "DDL", "DCL", "DQL"],
-              correct: 2,
-              explanation: "Data Control Language (DCL) includes commands like GRANT and REVOKE which establish role permissions and manage database security."
-            },
-            {
-              question: "Which SQL statement is the sole representative of Data Query Language (DQL)?",
-              options: ["SELECT", "SHOW", "DESCRIBE", "EXPLAIN"],
-              correct: 0,
-              explanation: "SELECT is classified as Data Query Language (DQL) as its primary purpose is data retrieval without modifying state."
-            },
-            {
-              question: "What is the primary function of the COMMIT command in Transaction Control Language (TCL)?",
-              options: ["To rollback active changes", "To temporarily save a checkpoint", "To save all transaction modifications permanently to disk", "To lock the database tables"],
-              correct: 2,
-              explanation: "COMMIT makes all modifications made in the current transaction permanent and visible to other users."
-            },
-            {
-              question: "What is a SAVEPOINT in Transaction Control Language (TCL)?",
-              options: ["A command to backup the database", "A marker within a transaction that allows partial rollback", "The starting point of every database query", "A database recovery point after crashes"],
-              correct: 1,
-              explanation: "A SAVEPOINT is a sub-transaction boundary marker. You can rollback to a savepoint without aborting the entire transaction."
-            },
-            {
-              question: "Which column constraint ensures that every row has a unique value and is not NULL?",
-              options: ["UNIQUE", "NOT NULL", "CHECK", "PRIMARY KEY"],
-              correct: 3,
-              explanation: "A PRIMARY KEY constraint implicitly combines UNIQUE and NOT NULL constraints, uniquely identifying each row."
-            },
-            {
-              question: "Which of the following commands does NOT trigger an automatic commit in standard relational database engines?",
-              options: ["CREATE TABLE", "ALTER TABLE", "UPDATE employees SET salary = 5000", "TRUNCATE TABLE"],
-              correct: 2,
-              explanation: "UPDATE is a DML statement. DML statements do not auto-commit (unless the connection is explicitly in auto-commit mode); DDL statements always auto-commit."
-            },
-            {
-              question: "Is ALTER TABLE classified as DDL or DML?",
-              options: ["DDL", "DML", "TCL", "DCL"],
-              correct: 0,
-              explanation: "ALTER TABLE modifies the database schema (metadata), placing it in the Data Definition Language (DDL) subset."
-            },
-            {
-              question: "Which of the following best describes the difference in locking behavior between DELETE and TRUNCATE?",
-              options: ["DELETE locks the catalog; TRUNCATE locks nothing", "DELETE acquires row-level locks; TRUNCATE locks the entire table", "DELETE locks the entire table; TRUNCATE locks rows", "Both acquire identical shared locks"],
-              correct: 1,
-              explanation: "DELETE scans row-by-row, acquiring individual row locks. TRUNCATE locks the table schema and database catalog pages, bypassing row locks."
-            },
-            {
-              question: "What command is used to remove specific access rights from a user role?",
-              options: ["DENY", "BLOCK", "REVOKE", "REMOVE"],
-              correct: 2,
-              explanation: "The REVOKE command (DCL) removes privileges previously granted to users or roles."
-            },
-            {
-              question: "Which command belongs to Transaction Control Language (TCL)?",
-              options: ["GRANT", "ROLLBACK", "TRUNCATE", "DROP"],
-              correct: 1,
-              explanation: "ROLLBACK is a TCL command used to undo operations performed in the current transaction."
-            },
-            {
-              question: "Which command adds a new column to an existing table schema?",
-              options: ["UPDATE TABLE", "ADD COLUMN", "ALTER TABLE", "CREATE COLUMN"],
-              correct: 2,
-              explanation: "ALTER TABLE is the standard DDL command used to modify an existing table's schema."
-            },
-            {
-              question: "If a transaction begins, executes an UPDATE, and then runs ROLLBACK, what is the result?",
-              options: ["The update is saved partially", "The update is aborted and database state is restored", "The table structure is dropped", "The database triggers an error"],
-              correct: 1,
-              explanation: "ROLLBACK restores the database to its state before the transaction began, discarding the UPDATE."
-            },
-            {
-              question: "What does the clause 'ON CONFLICT (student_id) DO UPDATE SET gpa = EXCLUDED.gpa' perform?",
-              options: ["Throws an error on conflict", "Inserts the row if no conflict occurs, else updates the existing row", "Deletes conflicting records", "Checks if student_id is valid"],
-              correct: 1,
-              explanation: "This is a standard UPSERT statement. If inserting fails due to a student_id conflict, it updates the existing student's GPA instead."
-            },
-            {
-              question: "What column constraint evaluates a boolean expression before allowing data insertion?",
-              options: ["CHECK", "DEFAULT", "UNIQUE", "FOREIGN KEY"],
-              correct: 0,
-              explanation: "The CHECK constraint validates that values inserted into a column satisfy a specific boolean condition (e.g. gpa >= 0.0)."
-            },
-            {
-              question: "Which statement permanently deletes both a table's data and its schema definition from the database catalog?",
-              options: ["DELETE TABLE", "TRUNCATE TABLE", "DROP TABLE", "REMOVE TABLE"],
-              correct: 2,
-              explanation: "DROP TABLE deletes the table schema, indexes, triggers, and all data rows. TRUNCATE and DELETE keep the schema."
-            },
-            {
-              question: "Which command requires Data Control Language (DCL) privileges to execute?",
-              options: ["GRANT SELECT ON students TO analyst_role", "BEGIN TRANSACTION", "ALTER TABLE students DROP COLUMN age", "SAVEPOINT sp1"],
-              correct: 0,
-              explanation: "GRANT is a DCL command used to allocate select/modify permissions to roles or users."
-            },
-            {
-              question: "Why is TRUNCATE faster than DELETE for large tables?",
-              options: ["It runs in background threads", "It deletes rows one by one without checking keys", "It deallocates the table's data pages directly rather than deleting rows row-by-row", "It does not write to the transaction log in any database engine"],
-              correct: 2,
-              explanation: "TRUNCATE operates by reclaiming the database pages allocated to the table, avoiding the overhead of row-by-row scanning, locking, and individual undo log writes."
-            }
-          ],
+            // Module 1 (20 questions)
+            [
+                {
+                    question: "Which of the following SQL commands is classified under Data Definition Language (DDL)?",
+                    options: ["INSERT", "UPDATE", "TRUNCATE", "ROLLBACK"],
+                    correct: 2,
+                    explanation: "TRUNCATE is a DDL command because it alters the physical storage structure of the table by deallocating its data pages. Unlike DELETE (DML), it does not scan rows."
+                },
+                {
+                    question: "Which SQL subset is responsible for row-level modifications inside transactions that can be rolled back?",
+                    options: ["DDL", "DML", "DCL", "DQL"],
+                    correct: 1,
+                    explanation: "Data Manipulation Language (DML) commands like INSERT, UPDATE, and DELETE operate on rows inside active transactions and can be rolled back."
+                },
+                {
+                    question: "In MySQL and Oracle, what is the effect of this transaction block containing a DDL command?",
+                    code: "BEGIN;\nTRUNCATE TABLE students;\nROLLBACK;",
+                    options: ["The table contents are restored", "The table remains truncated because TRUNCATE commits implicitly and cannot be rolled back", "An execution error is thrown", "The rollback is held in a savepoint"],
+                    correct: 1,
+                    explanation: "In MySQL and Oracle, DDL commands (including TRUNCATE) trigger an implicit auto-commit. Therefore, they cannot be rolled back."
+                },
+                {
+                    question: "Which SQL subset manages access privileges, permissions, and database security?",
+                    options: ["TCL", "DDL", "DCL", "DQL"],
+                    correct: 2,
+                    explanation: "Data Control Language (DCL) includes commands like GRANT and REVOKE which establish role permissions and manage database security."
+                },
+                {
+                    question: "Which SQL statement is the sole representative of Data Query Language (DQL)?",
+                    options: ["SELECT", "SHOW", "DESCRIBE", "EXPLAIN"],
+                    correct: 0,
+                    explanation: "SELECT is classified as Data Query Language (DQL) as its primary purpose is data retrieval without modifying state."
+                },
+                {
+                    question: "What is the primary function of the COMMIT command in Transaction Control Language (TCL)?",
+                    options: ["To rollback active changes", "To temporarily save a checkpoint", "To save all transaction modifications permanently to disk", "To lock the database tables"],
+                    correct: 2,
+                    explanation: "COMMIT makes all modifications made in the current transaction permanent and visible to other users."
+                },
+                {
+                    question: "What is a SAVEPOINT in Transaction Control Language (TCL)?",
+                    options: ["A command to backup the database", "A marker within a transaction that allows partial rollback", "The starting point of every database query", "A database recovery point after crashes"],
+                    correct: 1,
+                    explanation: "A SAVEPOINT is a sub-transaction boundary marker. You can rollback to a savepoint without aborting the entire transaction."
+                },
+                {
+                    question: "Which column constraint ensures that every row has a unique value and is not NULL?",
+                    options: ["UNIQUE", "NOT NULL", "CHECK", "PRIMARY KEY"],
+                    correct: 3,
+                    explanation: "A PRIMARY KEY constraint implicitly combines UNIQUE and NOT NULL constraints, uniquely identifying each row."
+                },
+                {
+                    question: "Which of the following commands does NOT trigger an automatic commit in standard relational database engines?",
+                    options: ["CREATE TABLE", "ALTER TABLE", "UPDATE employees SET salary = 5000", "TRUNCATE TABLE"],
+                    correct: 2,
+                    explanation: "UPDATE is a DML statement. DML statements do not auto-commit (unless the connection is explicitly in auto-commit mode); DDL statements always auto-commit."
+                },
+                {
+                    question: "Is ALTER TABLE classified as DDL or DML?",
+                    options: ["DDL", "DML", "TCL", "DCL"],
+                    correct: 0,
+                    explanation: "ALTER TABLE modifies the database schema (metadata), placing it in the Data Definition Language (DDL) subset."
+                },
+                {
+                    question: "Which of the following best describes the difference in locking behavior between DELETE and TRUNCATE?",
+                    options: ["DELETE locks the catalog; TRUNCATE locks nothing", "DELETE acquires row-level locks; TRUNCATE locks the entire table", "DELETE locks the entire table; TRUNCATE locks rows", "Both acquire identical shared locks"],
+                    correct: 1,
+                    explanation: "DELETE scans row-by-row, acquiring individual row locks. TRUNCATE locks the table schema and database catalog pages, bypassing row locks."
+                },
+                {
+                    question: "What command is used to remove specific access rights from a user role?",
+                    options: ["DENY", "BLOCK", "REVOKE", "REMOVE"],
+                    correct: 2,
+                    explanation: "The REVOKE command (DCL) removes privileges previously granted to users or roles."
+                },
+                {
+                    question: "Which command belongs to Transaction Control Language (TCL)?",
+                    options: ["GRANT", "ROLLBACK", "TRUNCATE", "DROP"],
+                    correct: 1,
+                    explanation: "ROLLBACK is a TCL command used to undo operations performed in the current transaction."
+                },
+                {
+                    question: "Which command adds a new column to an existing table schema?",
+                    options: ["UPDATE TABLE", "ADD COLUMN", "ALTER TABLE", "CREATE COLUMN"],
+                    correct: 2,
+                    explanation: "ALTER TABLE is the standard DDL command used to modify an existing table's schema."
+                },
+                {
+                    question: "If a transaction begins, executes an UPDATE, and then runs ROLLBACK, what is the result?",
+                    options: ["The update is saved partially", "The update is aborted and database state is restored", "The table structure is dropped", "The database triggers an error"],
+                    correct: 1,
+                    explanation: "ROLLBACK restores the database to its state before the transaction began, discarding the UPDATE."
+                },
+                {
+                    question: "What does the clause 'ON CONFLICT (student_id) DO UPDATE SET gpa = EXCLUDED.gpa' perform?",
+                    options: ["Throws an error on conflict", "Inserts the row if no conflict occurs, else updates the existing row", "Deletes conflicting records", "Checks if student_id is valid"],
+                    correct: 1,
+                    explanation: "This is a standard UPSERT statement. If inserting fails due to a student_id conflict, it updates the existing student's GPA instead."
+                },
+                {
+                    question: "What column constraint evaluates a boolean expression before allowing data insertion?",
+                    options: ["CHECK", "DEFAULT", "UNIQUE", "FOREIGN KEY"],
+                    correct: 0,
+                    explanation: "The CHECK constraint validates that values inserted into a column satisfy a specific boolean condition (e.g. gpa >= 0.0)."
+                },
+                {
+                    question: "Which statement permanently deletes both a table's data and its schema definition from the database catalog?",
+                    options: ["DELETE TABLE", "TRUNCATE TABLE", "DROP TABLE", "REMOVE TABLE"],
+                    correct: 2,
+                    explanation: "DROP TABLE deletes the table schema, indexes, triggers, and all data rows. TRUNCATE and DELETE keep the schema."
+                },
+                {
+                    question: "Which command requires Data Control Language (DCL) privileges to execute?",
+                    options: ["GRANT SELECT ON students TO analyst_role", "BEGIN TRANSACTION", "ALTER TABLE students DROP COLUMN age", "SAVEPOINT sp1"],
+                    correct: 0,
+                    explanation: "GRANT is a DCL command used to allocate select/modify permissions to roles or users."
+                },
+                {
+                    question: "Why is TRUNCATE faster than DELETE for large tables?",
+                    options: ["It runs in background threads", "It deletes rows one by one without checking keys", "It deallocates the table's data pages directly rather than deleting rows row-by-row", "It does not write to the transaction log in any database engine"],
+                    correct: 2,
+                    explanation: "TRUNCATE operates by reclaiming the database pages allocated to the table, avoiding the overhead of row-by-row scanning, locking, and individual undo log writes."
+                }
+            ],
 
-          // Module 2 (20 questions)
-          [
-            {
-              question: "What is returned by a standard INNER JOIN?",
-              options: ["All rows from both tables", "Only rows that have matching values in both tables", "All rows from the left table and matching rows from the right", "All rows from the right table and matching rows from the left"],
-              correct: 1,
-              explanation: "An INNER JOIN returns the intersection of the two tables. It only includes rows that meet the join condition."
-            },
-            {
-              question: "In a LEFT JOIN (or LEFT OUTER JOIN), what values are populated for the right table's columns when a left row has no match?",
-              options: ["Blank spaces", "Zeros", "NULL", "An empty string"],
-              correct: 2,
-              explanation: "A LEFT JOIN guarantees all rows from the left table. If there is no matching row on the right, the right columns are filled with NULLs."
-            },
-            {
-              question: "Which join type returns all records from both tables, filling in NULLs where keys do not match?",
-              options: ["INNER JOIN", "CROSS JOIN", "FULL OUTER JOIN", "SELF JOIN"],
-              correct: 2,
-              explanation: "FULL OUTER JOIN returns the union of both tables, generating NULLs for missing matches on either side."
-            },
-            {
-              question: "What is a CROSS JOIN?",
-              options: ["A join that matches columns by name", "A join that returns the Cartesian product of the two tables", "A join that compares a table to itself", "A join using non-equality operators"],
-              correct: 1,
-              explanation: "A CROSS JOIN pairs every row of the first table with every row of the second table, creating a Cartesian product."
-            },
-            {
-              question: "What is a SELF JOIN?",
-              options: ["A join that requires no ON clause", "A join that matches a table to itself using aliases", "A join between a table and a view", "A join that automatically commits"],
-              correct: 1,
-              explanation: "A SELF JOIN joins a table to itself. Table aliases (e.g., FROM employees e1 JOIN employees e2) are required to differentiate the instances."
-            },
-            {
-              question: "What is a non-equi join?",
-              options: ["A join with no keys", "A join condition that uses comparisons other than '=' (e.g., <, >, BETWEEN)", "A join returning mismatched rows", "A join that fails due to type mismatches"],
-              correct: 1,
-              explanation: "A non-equi join links tables using operators like <, >, <=, >=, or BETWEEN instead of checking for exact equality (=)."
-            },
-            {
-              question: "How does a standard SQL JOIN condition ON a.id = b.id handle NULL values in those columns?",
-              options: ["It joins them because NULL equals NULL", "It returns an error", "It ignores them because NULL = NULL evaluates to UNKNOWN", "It joins them only in outer joins"],
-              correct: 2,
-              explanation: "In SQL, NULL comparison (NULL = NULL) evaluates to UNKNOWN (not TRUE). Thus, join conditions will not match NULLs."
-            },
-            {
-              question: "Which query structure finds records in Table A that have no matching records in Table B?",
-              options: ["SELECT * FROM A INNER JOIN B ON A.id = B.id", "SELECT * FROM A LEFT JOIN B ON A.id = B.id WHERE B.id IS NULL", "SELECT * FROM A RIGHT JOIN B ON A.id = B.id WHERE A.id IS NULL", "SELECT * FROM A CROSS JOIN B WHERE A.id = B.id"],
-              correct: 1,
-              explanation: "By doing a LEFT JOIN and filtering for rows where B's joining column IS NULL, you isolate the rows in A that failed to match any row in B."
-            },
-            {
-              question: "If Table A has 10 rows and Table B has 5 rows, how many rows are returned by a CROSS JOIN?",
-              options: ["15", "5", "50", "2"],
-              correct: 2,
-              explanation: "A CROSS JOIN produces a Cartesian product. The total rows returned is the product of both table sizes (10 * 5 = 50)."
-            },
-            {
-              question: "What is mandatory to write a valid SELF JOIN query?",
-              options: ["A subquery", "The UNION operator", "Table aliases to distinguish the table references", "A primary key index"],
-              correct: 2,
-              explanation: "Since you reference the same table name multiple times, you must assign aliases (e.g., 't1' and 't2') so the query compiler can resolve column references."
-            },
-            {
-              question: "Can multiple tables be joined together in a single query?",
-              options: ["No, only two tables can be joined at a time", "Yes, by chaining join clauses sequentially", "Yes, but only using subqueries", "Only if they share a single compound key"],
-              correct: 1,
-              explanation: "You can join multiple tables by sequentially adding JOIN clauses. The result of the first join is joined to the next table, and so on."
-            },
-            {
-              question: "What is the default join type if the JOIN keyword is used on its own?",
-              options: ["LEFT JOIN", "INNER JOIN", "CROSS JOIN", "FULL OUTER JOIN"],
-              correct: 1,
-              explanation: "In SQL, writing 'JOIN' without any outer/cross qualifier default-resolves to an 'INNER JOIN'."
-            },
-            {
-              question: "How does a NATURAL JOIN match columns between two tables?",
-              options: ["By comparing primary key to foreign key definitions", "By matching columns that have the same name in both tables", "By matching columns in physical order", "By selecting the first indexed column"],
-              correct: 1,
-              explanation: "A NATURAL JOIN matches columns sharing the same name in both tables. It does not require an ON clause."
-            },
-            {
-              question: "Why is NATURAL JOIN generally avoided in professional production database code?",
-              options: ["It has terrible index usage", "Adding or renaming a column in either table can silently alter the join condition and break queries", "It is not ANSI SQL compliant", "It only works with integer columns"],
-              correct: 1,
-              explanation: "If another developer adds a column to one of the tables that happens to share a name with a column in the other table, the NATURAL JOIN will match on both columns, silently corrupting query results."
-            },
-            {
-              question: "What is the computational complexity (growth) of a CROSS JOIN on two tables of size N and M?",
-              options: ["O(N + M)", "O(log N + log M)", "O(N * M)", "O(N^2)"],
-              correct: 2,
-              explanation: "Every row in N is matched with every row in M, yielding N * M rows. The work grows quadratically if table sizes are equal."
-            },
-            {
-              question: "What is the most effective database optimization for speeding up JOIN operations?",
-              options: ["Using the HAVING clause", "Creating indexes on the columns used in the join condition", "Replacing joins with UNION operations", "Converting all joins to CROSS JOINS"],
-              correct: 1,
-              explanation: "Creating indexes on join keys (especially foreign keys) allows the query engine to look up matching rows in O(log N) time rather than performing full table scans."
-            },
-            {
-              question: "In a LEFT JOIN, if table A has 5 rows and table B has 0 rows, how many rows will be returned?",
-              options: ["0", "5", "10", "Error"],
-              correct: 1,
-              explanation: "A LEFT JOIN preserves all rows from the left table. Thus, all 5 rows from Table A are returned, with B's columns set to NULL."
-            },
-            {
-              question: "Can you join tables on multiple columns (a composite join condition)?",
-              options: ["No, joins only support single-column conditions", "Yes, by connecting column matches with the AND operator in the ON clause", "Yes, by nesting multiple JOIN statements", "Only if the columns are in a UNIQUE index"],
-              correct: 1,
-              explanation: "You can join on multiple keys by combining them with AND (e.g. ON a.key1 = b.key1 AND a.key2 = b.key2)."
-            },
-            {
-              question: "Compare the filtering logic in these two queries:",
-              code: "-- Query A\nSELECT * FROM A LEFT JOIN B ON A.id = B.id AND B.status = 'Active';\n\n-- Query B\nSELECT * FROM A LEFT JOIN B ON A.id = B.id WHERE B.status = 'Active';",
-              options: ["They return identical result sets", "Query B filters out mismatched rows from A, effectively converting it to an INNER JOIN", "Query A throws a syntax error", "Query B runs significantly slower"],
-              correct: 1,
-              explanation: "Filtering in the ON clause decides what rows from the right table are joined. Mismatched left rows are still kept. Filtering in the WHERE clause applies to the final joined output, discarding any left rows that have NULL in b.status (effectively converting it to an INNER JOIN)."
-            },
-            {
-              question: "What is returned by a RIGHT JOIN of tables A and B?",
-              options: ["All rows from A, matching rows from B", "All rows from B, matching rows from A", "Only intersecting rows", "The Cartesian product of A and B"],
-              correct: 1,
-              explanation: "A RIGHT JOIN (or RIGHT OUTER JOIN) preserves all rows from the right table (B), returning NULLs for left table (A) columns where no match is found."
-            }
-          ],
+            // Module 2 (20 questions)
+            [
+                {
+                    question: "What is returned by a standard INNER JOIN?",
+                    options: ["All rows from both tables", "Only rows that have matching values in both tables", "All rows from the left table and matching rows from the right", "All rows from the right table and matching rows from the left"],
+                    correct: 1,
+                    explanation: "An INNER JOIN returns the intersection of the two tables. It only includes rows that meet the join condition."
+                },
+                {
+                    question: "In a LEFT JOIN (or LEFT OUTER JOIN), what values are populated for the right table's columns when a left row has no match?",
+                    options: ["Blank spaces", "Zeros", "NULL", "An empty string"],
+                    correct: 2,
+                    explanation: "A LEFT JOIN guarantees all rows from the left table. If there is no matching row on the right, the right columns are filled with NULLs."
+                },
+                {
+                    question: "Which join type returns all records from both tables, filling in NULLs where keys do not match?",
+                    options: ["INNER JOIN", "CROSS JOIN", "FULL OUTER JOIN", "SELF JOIN"],
+                    correct: 2,
+                    explanation: "FULL OUTER JOIN returns the union of both tables, generating NULLs for missing matches on either side."
+                },
+                {
+                    question: "What is a CROSS JOIN?",
+                    options: ["A join that matches columns by name", "A join that returns the Cartesian product of the two tables", "A join that compares a table to itself", "A join using non-equality operators"],
+                    correct: 1,
+                    explanation: "A CROSS JOIN pairs every row of the first table with every row of the second table, creating a Cartesian product."
+                },
+                {
+                    question: "What is a SELF JOIN?",
+                    options: ["A join that requires no ON clause", "A join that matches a table to itself using aliases", "A join between a table and a view", "A join that automatically commits"],
+                    correct: 1,
+                    explanation: "A SELF JOIN joins a table to itself. Table aliases (e.g., FROM employees e1 JOIN employees e2) are required to differentiate the instances."
+                },
+                {
+                    question: "What is a non-equi join?",
+                    options: ["A join with no keys", "A join condition that uses comparisons other than '=' (e.g., <, >, BETWEEN)", "A join returning mismatched rows", "A join that fails due to type mismatches"],
+                    correct: 1,
+                    explanation: "A non-equi join links tables using operators like <, >, <=, >=, or BETWEEN instead of checking for exact equality (=)."
+                },
+                {
+                    question: "How does a standard SQL JOIN condition ON a.id = b.id handle NULL values in those columns?",
+                    options: ["It joins them because NULL equals NULL", "It returns an error", "It ignores them because NULL = NULL evaluates to UNKNOWN", "It joins them only in outer joins"],
+                    correct: 2,
+                    explanation: "In SQL, NULL comparison (NULL = NULL) evaluates to UNKNOWN (not TRUE). Thus, join conditions will not match NULLs."
+                },
+                {
+                    question: "Which query structure finds records in Table A that have no matching records in Table B?",
+                    options: ["SELECT * FROM A INNER JOIN B ON A.id = B.id", "SELECT * FROM A LEFT JOIN B ON A.id = B.id WHERE B.id IS NULL", "SELECT * FROM A RIGHT JOIN B ON A.id = B.id WHERE A.id IS NULL", "SELECT * FROM A CROSS JOIN B WHERE A.id = B.id"],
+                    correct: 1,
+                    explanation: "By doing a LEFT JOIN and filtering for rows where B's joining column IS NULL, you isolate the rows in A that failed to match any row in B."
+                },
+                {
+                    question: "If Table A has 10 rows and Table B has 5 rows, how many rows are returned by a CROSS JOIN?",
+                    options: ["15", "5", "50", "2"],
+                    correct: 2,
+                    explanation: "A CROSS JOIN produces a Cartesian product. The total rows returned is the product of both table sizes (10 * 5 = 50)."
+                },
+                {
+                    question: "What is mandatory to write a valid SELF JOIN query?",
+                    options: ["A subquery", "The UNION operator", "Table aliases to distinguish the table references", "A primary key index"],
+                    correct: 2,
+                    explanation: "Since you reference the same table name multiple times, you must assign aliases (e.g., 't1' and 't2') so the query compiler can resolve column references."
+                },
+                {
+                    question: "Can multiple tables be joined together in a single query?",
+                    options: ["No, only two tables can be joined at a time", "Yes, by chaining join clauses sequentially", "Yes, but only using subqueries", "Only if they share a single compound key"],
+                    correct: 1,
+                    explanation: "You can join multiple tables by sequentially adding JOIN clauses. The result of the first join is joined to the next table, and so on."
+                },
+                {
+                    question: "What is the default join type if the JOIN keyword is used on its own?",
+                    options: ["LEFT JOIN", "INNER JOIN", "CROSS JOIN", "FULL OUTER JOIN"],
+                    correct: 1,
+                    explanation: "In SQL, writing 'JOIN' without any outer/cross qualifier default-resolves to an 'INNER JOIN'."
+                },
+                {
+                    question: "How does a NATURAL JOIN match columns between two tables?",
+                    options: ["By comparing primary key to foreign key definitions", "By matching columns that have the same name in both tables", "By matching columns in physical order", "By selecting the first indexed column"],
+                    correct: 1,
+                    explanation: "A NATURAL JOIN matches columns sharing the same name in both tables. It does not require an ON clause."
+                },
+                {
+                    question: "Why is NATURAL JOIN generally avoided in professional production database code?",
+                    options: ["It has terrible index usage", "Adding or renaming a column in either table can silently alter the join condition and break queries", "It is not ANSI SQL compliant", "It only works with integer columns"],
+                    correct: 1,
+                    explanation: "If another developer adds a column to one of the tables that happens to share a name with a column in the other table, the NATURAL JOIN will match on both columns, silently corrupting query results."
+                },
+                {
+                    question: "What is the computational complexity (growth) of a CROSS JOIN on two tables of size N and M?",
+                    options: ["O(N + M)", "O(log N + log M)", "O(N * M)", "O(N^2)"],
+                    correct: 2,
+                    explanation: "Every row in N is matched with every row in M, yielding N * M rows. The work grows quadratically if table sizes are equal."
+                },
+                {
+                    question: "What is the most effective database optimization for speeding up JOIN operations?",
+                    options: ["Using the HAVING clause", "Creating indexes on the columns used in the join condition", "Replacing joins with UNION operations", "Converting all joins to CROSS JOINS"],
+                    correct: 1,
+                    explanation: "Creating indexes on join keys (especially foreign keys) allows the query engine to look up matching rows in O(log N) time rather than performing full table scans."
+                },
+                {
+                    question: "In a LEFT JOIN, if table A has 5 rows and table B has 0 rows, how many rows will be returned?",
+                    options: ["0", "5", "10", "Error"],
+                    correct: 1,
+                    explanation: "A LEFT JOIN preserves all rows from the left table. Thus, all 5 rows from Table A are returned, with B's columns set to NULL."
+                },
+                {
+                    question: "Can you join tables on multiple columns (a composite join condition)?",
+                    options: ["No, joins only support single-column conditions", "Yes, by connecting column matches with the AND operator in the ON clause", "Yes, by nesting multiple JOIN statements", "Only if the columns are in a UNIQUE index"],
+                    correct: 1,
+                    explanation: "You can join on multiple keys by combining them with AND (e.g. ON a.key1 = b.key1 AND a.key2 = b.key2)."
+                },
+                {
+                    question: "Compare the filtering logic in these two queries:",
+                    code: "-- Query A\nSELECT * FROM A LEFT JOIN B ON A.id = B.id AND B.status = 'Active';\n\n-- Query B\nSELECT * FROM A LEFT JOIN B ON A.id = B.id WHERE B.status = 'Active';",
+                    options: ["They return identical result sets", "Query B filters out mismatched rows from A, effectively converting it to an INNER JOIN", "Query A throws a syntax error", "Query B runs significantly slower"],
+                    correct: 1,
+                    explanation: "Filtering in the ON clause decides what rows from the right table are joined. Mismatched left rows are still kept. Filtering in the WHERE clause applies to the final joined output, discarding any left rows that have NULL in b.status (effectively converting it to an INNER JOIN)."
+                },
+                {
+                    question: "What is returned by a RIGHT JOIN of tables A and B?",
+                    options: ["All rows from A, matching rows from B", "All rows from B, matching rows from A", "Only intersecting rows", "The Cartesian product of A and B"],
+                    correct: 1,
+                    explanation: "A RIGHT JOIN (or RIGHT OUTER JOIN) preserves all rows from the right table (B), returning NULLs for left table (A) columns where no match is found."
+                }
+            ],
 
-          // Module 3 (20 questions)
-          [
-            {
-              question: "What does COUNT(*) count?",
-              options: ["Only non-NULL values", "All rows, including NULL values and duplicate values", "Only unique values", "Only rows containing no duplicate values"],
-              correct: 1,
-              explanation: "COUNT(*) counts the total number of rows matching the query predicates, regardless of whether column values are NULL or duplicates."
-            },
-            {
-              question: "How does COUNT(column_name) differ from COUNT(*)?",
-              options: ["It performs faster", "It ignores rows where the specified column is NULL", "It only counts duplicate values", "It is syntax-invalid in standard SQL"],
-              correct: 1,
-              explanation: "COUNT(column_name) only counts rows where the specified column contains a non-NULL value."
-            },
-            {
-              question: "Why will this query fail to execute?",
-              code: "SELECT * FROM employees WHERE AVG(salary) > 50000;",
-              options: ["The column salary must be aggregated in the SELECT list", "Aggregate functions like AVG() are not allowed in the WHERE clause", "The WHERE clause requires a GROUP BY", "The salary column must be cast to FLOAT"],
-              correct: 1,
-              explanation: "Aggregate functions compute results across groups of rows. Since WHERE filters individual rows before grouping, aggregates are illegal in WHERE."
-            },
-            {
-              question: "Which clause is used to filter groups *after* aggregate functions have run?",
-              options: ["WHERE", "HAVING", "GROUP BY", "ORDER BY"],
-              correct: 1,
-              explanation: "The HAVING clause filters groups of rows. It is evaluated *after* aggregates and grouping are calculated."
-            },
-            {
-              question: "What is returned by SUM(salary) if the salary column contains only NULL values?",
-              options: ["0", "An error", "NULL", "The average salary"],
-              correct: 2,
-              explanation: "In SQL, aggregate functions like SUM, AVG, MIN, and MAX return NULL if they operate on a set containing only NULL values."
-            },
-            {
-              question: "Which set operation combines the results of two queries and removes all duplicates?",
-              options: ["UNION ALL", "UNION", "INTERSECT", "EXCEPT"],
-              correct: 1,
-              explanation: "UNION combines query results and performs a deduplication step to ensure only distinct rows are returned."
-            },
-            {
-              question: "Which set operation combines the results of two queries while retaining duplicate rows?",
-              options: ["UNION", "UNION ALL", "EXCEPT", "INTERSECT"],
-              correct: 1,
-              explanation: "UNION ALL combines results without a deduplication step, preserving all duplicates and executing faster than UNION."
-            },
-            {
-              question: "What does the INTERSECT operator do?",
-              options: ["Returns all rows from both queries", "Returns unique rows that appear in the first query but not the second", "Returns only unique rows that are common to both query results", "Joins tables horizontally"],
-              correct: 2,
-              explanation: "INTERSECT returns the mathematical intersection of the two query result sets, returning only unique rows found in both."
-            },
-            {
-              question: "What does the EXCEPT (or MINUS in Oracle) operator do?",
-              options: ["Returns common rows", "Returns unique rows in the first query that do not exist in the second query's results", "Adds a column to the table", "Exceptions log errors"],
-              correct: 1,
-              explanation: "EXCEPT returns rows unique to the first query that are not found in the second query's result set."
-            },
-            {
-              question: "What must be true about queries combined with set operations like UNION, INTERSECT, or EXCEPT?",
-              options: ["They must reference the same tables", "They must have the same number of columns in the same order, with compatible data types", "They must use the same WHERE clause", "They must have primary keys"],
-              correct: 1,
-              explanation: "Set operations combine rows vertically. Thus, the columns must match in number, position, and data type compatibility."
-            },
-            {
-              question: "How does GROUP BY handle rows with NULL values in the grouping column?",
-              options: ["It discards them", "It groups all NULL values together into a single group", "It places each NULL value in its own group", "It throws an error"],
-              correct: 1,
-              explanation: "GROUP BY treats NULL as a group. All rows with NULL in the grouping column are aggregated into one group."
-            },
-            {
-              question: "Can you group results by multiple columns (e.g. GROUP BY department_id, job_title)?",
-              options: ["No, you can only group by one column", "Yes, it creates group subdivisions for each unique combination of those columns", "Only if columns are part of a composite key", "Only if you use subqueries"],
-              correct: 1,
-              explanation: "Grouping by multiple columns forms sub-groups for each unique combination of values across those columns."
-            },
-            {
-              question: "Why will this query fail in standard ANSI SQL?",
-              code: "SELECT department_id, job_title, AVG(salary)\nFROM employees\nGROUP BY department_id;",
-              options: ["AVG cannot operate on the salary column", "job_title in the SELECT list is neither aggregated nor listed in the GROUP BY clause", "The table requires a primary key index", "The query is missing a WHERE clause"],
-              correct: 1,
-              explanation: "Every column in the SELECT list that is not part of an aggregate function must be specified in the GROUP BY clause."
-            },
-            {
-              question: "Why is UNION ALL generally faster than UNION?",
-              options: ["It skips sorting and hashing steps needed to eliminate duplicates", "It uses indices", "It runs in parallel threads", "It ignores NULLs"],
-              correct: 0,
-              explanation: "UNION must deduplicate, which requires sorting or hashing the combined result set. UNION ALL simply appends results, which is much cheaper."
-            },
-            {
-              question: "What does MAX(name) return on a string/VARCHAR column containing names?",
-              options: ["The longest name in bytes", "The name containing the most vowels", "The name that is alphabetically last", "NULL"],
-              correct: 2,
-              explanation: "For text columns, MIN and MAX use alphabetical sorting. MAX returns the value that appears last alphabetically."
-            },
-            {
-              question: "Does the INTERSECT operator remove duplicate rows?",
-              options: ["No, it keeps duplicates from both sides", "Yes, it returns only unique rows present in both sets", "Only if run on primary keys", "Only in MySQL"],
-              correct: 1,
-              explanation: "Like UNION, the standard INTERSECT operator filters out duplicate rows to return a distinct set of intersecting records."
-            },
-            {
-              question: "Which of the following aggregate functions does NOT ignore NULL values?",
-              options: ["SUM()", "AVG()", "COUNT(*)", "COUNT(column)"],
-              correct: 2,
-              explanation: "All aggregates ignore NULL values except COUNT(*), which counts every row regardless of NULL column states."
-            },
-            {
-              question: "Can you write a HAVING clause without a GROUP BY clause in the query?",
-              options: ["No, HAVING requires GROUP BY", "Yes, it treats the entire table as a single aggregated group", "Only in MySQL", "Only if there is an index"],
-              correct: 1,
-              explanation: "If you omit GROUP BY, HAVING treats all rows as one single group. For example, SELECT SUM(val) FROM t HAVING SUM(val) > 100 is valid."
-            },
-            {
-              question: "What is the correct syntax order of these clauses in a query?",
-              options: ["SELECT, WHERE, GROUP BY, HAVING, ORDER BY", "SELECT, GROUP BY, WHERE, HAVING, ORDER BY", "SELECT, WHERE, HAVING, GROUP BY, ORDER BY", "SELECT, HAVING, WHERE, GROUP BY, ORDER BY"],
-              correct: 0,
-              explanation: "The syntactical order of an SQL query is: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY."
-            },
-            {
-              question: "In what order does the database engine logically process the SQL query clauses?",
-              options: ["SELECT -> FROM -> WHERE -> GROUP BY", "FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY", "SELECT -> GROUP BY -> HAVING -> FROM -> WHERE", "FROM -> SELECT -> WHERE -> GROUP BY"],
-              correct: 1,
-              explanation: "The query planner begins at FROM (locate data), filters rows (WHERE), groups them (GROUP BY), filters groups (HAVING), extracts columns (SELECT), and finally sorts (ORDER BY)."
-            }
-          ],
+            // Module 3 (20 questions)
+            [
+                {
+                    question: "What does COUNT(*) count?",
+                    options: ["Only non-NULL values", "All rows, including NULL values and duplicate values", "Only unique values", "Only rows containing no duplicate values"],
+                    correct: 1,
+                    explanation: "COUNT(*) counts the total number of rows matching the query predicates, regardless of whether column values are NULL or duplicates."
+                },
+                {
+                    question: "How does COUNT(column_name) differ from COUNT(*)?",
+                    options: ["It performs faster", "It ignores rows where the specified column is NULL", "It only counts duplicate values", "It is syntax-invalid in standard SQL"],
+                    correct: 1,
+                    explanation: "COUNT(column_name) only counts rows where the specified column contains a non-NULL value."
+                },
+                {
+                    question: "Why will this query fail to execute?",
+                    code: "SELECT * FROM employees WHERE AVG(salary) > 50000;",
+                    options: ["The column salary must be aggregated in the SELECT list", "Aggregate functions like AVG() are not allowed in the WHERE clause", "The WHERE clause requires a GROUP BY", "The salary column must be cast to FLOAT"],
+                    correct: 1,
+                    explanation: "Aggregate functions compute results across groups of rows. Since WHERE filters individual rows before grouping, aggregates are illegal in WHERE."
+                },
+                {
+                    question: "Which clause is used to filter groups *after* aggregate functions have run?",
+                    options: ["WHERE", "HAVING", "GROUP BY", "ORDER BY"],
+                    correct: 1,
+                    explanation: "The HAVING clause filters groups of rows. It is evaluated *after* aggregates and grouping are calculated."
+                },
+                {
+                    question: "What is returned by SUM(salary) if the salary column contains only NULL values?",
+                    options: ["0", "An error", "NULL", "The average salary"],
+                    correct: 2,
+                    explanation: "In SQL, aggregate functions like SUM, AVG, MIN, and MAX return NULL if they operate on a set containing only NULL values."
+                },
+                {
+                    question: "Which set operation combines the results of two queries and removes all duplicates?",
+                    options: ["UNION ALL", "UNION", "INTERSECT", "EXCEPT"],
+                    correct: 1,
+                    explanation: "UNION combines query results and performs a deduplication step to ensure only distinct rows are returned."
+                },
+                {
+                    question: "Which set operation combines the results of two queries while retaining duplicate rows?",
+                    options: ["UNION", "UNION ALL", "EXCEPT", "INTERSECT"],
+                    correct: 1,
+                    explanation: "UNION ALL combines results without a deduplication step, preserving all duplicates and executing faster than UNION."
+                },
+                {
+                    question: "What does the INTERSECT operator do?",
+                    options: ["Returns all rows from both queries", "Returns unique rows that appear in the first query but not the second", "Returns only unique rows that are common to both query results", "Joins tables horizontally"],
+                    correct: 2,
+                    explanation: "INTERSECT returns the mathematical intersection of the two query result sets, returning only unique rows found in both."
+                },
+                {
+                    question: "What does the EXCEPT (or MINUS in Oracle) operator do?",
+                    options: ["Returns common rows", "Returns unique rows in the first query that do not exist in the second query's results", "Adds a column to the table", "Exceptions log errors"],
+                    correct: 1,
+                    explanation: "EXCEPT returns rows unique to the first query that are not found in the second query's result set."
+                },
+                {
+                    question: "What must be true about queries combined with set operations like UNION, INTERSECT, or EXCEPT?",
+                    options: ["They must reference the same tables", "They must have the same number of columns in the same order, with compatible data types", "They must use the same WHERE clause", "They must have primary keys"],
+                    correct: 1,
+                    explanation: "Set operations combine rows vertically. Thus, the columns must match in number, position, and data type compatibility."
+                },
+                {
+                    question: "How does GROUP BY handle rows with NULL values in the grouping column?",
+                    options: ["It discards them", "It groups all NULL values together into a single group", "It places each NULL value in its own group", "It throws an error"],
+                    correct: 1,
+                    explanation: "GROUP BY treats NULL as a group. All rows with NULL in the grouping column are aggregated into one group."
+                },
+                {
+                    question: "Can you group results by multiple columns (e.g. GROUP BY department_id, job_title)?",
+                    options: ["No, you can only group by one column", "Yes, it creates group subdivisions for each unique combination of those columns", "Only if columns are part of a composite key", "Only if you use subqueries"],
+                    correct: 1,
+                    explanation: "Grouping by multiple columns forms sub-groups for each unique combination of values across those columns."
+                },
+                {
+                    question: "Why will this query fail in standard ANSI SQL?",
+                    code: "SELECT department_id, job_title, AVG(salary)\nFROM employees\nGROUP BY department_id;",
+                    options: ["AVG cannot operate on the salary column", "job_title in the SELECT list is neither aggregated nor listed in the GROUP BY clause", "The table requires a primary key index", "The query is missing a WHERE clause"],
+                    correct: 1,
+                    explanation: "Every column in the SELECT list that is not part of an aggregate function must be specified in the GROUP BY clause."
+                },
+                {
+                    question: "Why is UNION ALL generally faster than UNION?",
+                    options: ["It skips sorting and hashing steps needed to eliminate duplicates", "It uses indices", "It runs in parallel threads", "It ignores NULLs"],
+                    correct: 0,
+                    explanation: "UNION must deduplicate, which requires sorting or hashing the combined result set. UNION ALL simply appends results, which is much cheaper."
+                },
+                {
+                    question: "What does MAX(name) return on a string/VARCHAR column containing names?",
+                    options: ["The longest name in bytes", "The name containing the most vowels", "The name that is alphabetically last", "NULL"],
+                    correct: 2,
+                    explanation: "For text columns, MIN and MAX use alphabetical sorting. MAX returns the value that appears last alphabetically."
+                },
+                {
+                    question: "Does the INTERSECT operator remove duplicate rows?",
+                    options: ["No, it keeps duplicates from both sides", "Yes, it returns only unique rows present in both sets", "Only if run on primary keys", "Only in MySQL"],
+                    correct: 1,
+                    explanation: "Like UNION, the standard INTERSECT operator filters out duplicate rows to return a distinct set of intersecting records."
+                },
+                {
+                    question: "Which of the following aggregate functions does NOT ignore NULL values?",
+                    options: ["SUM()", "AVG()", "COUNT(*)", "COUNT(column)"],
+                    correct: 2,
+                    explanation: "All aggregates ignore NULL values except COUNT(*), which counts every row regardless of NULL column states."
+                },
+                {
+                    question: "Can you write a HAVING clause without a GROUP BY clause in the query?",
+                    options: ["No, HAVING requires GROUP BY", "Yes, it treats the entire table as a single aggregated group", "Only in MySQL", "Only if there is an index"],
+                    correct: 1,
+                    explanation: "If you omit GROUP BY, HAVING treats all rows as one single group. For example, SELECT SUM(val) FROM t HAVING SUM(val) > 100 is valid."
+                },
+                {
+                    question: "What is the correct syntax order of these clauses in a query?",
+                    options: ["SELECT, WHERE, GROUP BY, HAVING, ORDER BY", "SELECT, GROUP BY, WHERE, HAVING, ORDER BY", "SELECT, WHERE, HAVING, GROUP BY, ORDER BY", "SELECT, HAVING, WHERE, GROUP BY, ORDER BY"],
+                    correct: 0,
+                    explanation: "The syntactical order of an SQL query is: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY."
+                },
+                {
+                    question: "In what order does the database engine logically process the SQL query clauses?",
+                    options: ["SELECT -> FROM -> WHERE -> GROUP BY", "FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY", "SELECT -> GROUP BY -> HAVING -> FROM -> WHERE", "FROM -> SELECT -> WHERE -> GROUP BY"],
+                    correct: 1,
+                    explanation: "The query planner begins at FROM (locate data), filters rows (WHERE), groups them (GROUP BY), filters groups (HAVING), extracts columns (SELECT), and finally sorts (ORDER BY)."
+                }
+            ],
 
-          // Module 4 (20 questions)
-          [
-            {
-              question: "What is the key difference between window functions and GROUP BY aggregates?",
-              options: ["Window functions are faster", "GROUP BY collapses individual rows; window functions compute aggregates while keeping all individual rows visible", "Window functions can only be run on numbers", "GROUP BY is only for SQL Server"],
-              correct: 1,
-              explanation: "While GROUP BY reduces multiple rows to single summary rows, window functions calculate values over frames of rows while returning all original detail rows."
-            },
-            {
-              question: "Which clause is mandatory in any query using a window function?",
-              options: ["GROUP BY", "HAVING", "OVER", "PARTITION BY"],
-              correct: 2,
-              explanation: "The OVER clause defines the window (partitioning, ordering, and framing) for the function. It is mandatory."
-            },
-            {
-              question: "What does the PARTITION BY sub-clause inside OVER() do?",
-              options: ["It divides the result set into partitions to apply the function independently to each partition", "It sorts the rows", "It deletes duplicate records", "It creates physical partitions on disk"],
-              correct: 0,
-              explanation: "PARTITION BY groups rows with similar values into partitions. The window function resets and recalculates for each partition."
-            },
-            {
-              question: "Given a scores list: [100, 100, 90], what are values of r and dr for the score 90 in this query?",
-              code: "SELECT score,\n       RANK() OVER (ORDER BY score DESC) as r,\n       DENSE_RANK() OVER (ORDER BY score DESC) as dr\nFROM scores;",
-              options: ["r = 2, dr = 2", "r = 3, dr = 2", "r = 2, dr = 3", "r = 3, dr = 3"],
-              correct: 1,
-              explanation: "RANK leaves gaps. The first two scores (100) are ranked 1, so the next score (90) is ranked 3. DENSE_RANK does not leave gaps, assigning rank 2 to 90."
-            },
-            {
-              question: "What does the ROW_NUMBER() window function assign?",
-              options: ["A random number", "A unique sequential integer to each row in the window partition, starting at 1", "The primary key of the row", "The count of rows"],
-              correct: 1,
-              explanation: "ROW_NUMBER() guarantees a unique sequential number from 1 to N for each row in a partition based on the window sort order."
-            },
-            {
-              question: "What does the LEAD() window function do?",
-              options: ["Retrieves a value from a subsequent row in the partition relative to the current row", "Retrieves a value from a preceding row", "Selects the highest value", "Creates an index"],
-              correct: 0,
-              explanation: "LEAD() lets you access data from rows further down the partition without doing self-joins."
-            },
-            {
-              question: "What does the LAG() window function do?",
-              options: ["Retrieves a value from a preceding row in the partition relative to the current row", "Retrieves a value from a subsequent row", "Finds the lowest value", "Introduces latency"],
-              correct: 0,
-              explanation: "LAG() accesses data from rows further up (preceding) in the partition relative to the current row's position."
-            },
-            {
-              question: "What is the function NTILE(4) used for?",
-              options: ["Selecting every fourth row", "Dividing rows in each partition into 4 numbered buckets as equally as possible", "Rounding numbers to 4 decimal places", "Grouping rows into 4 separate tables"],
-              correct: 1,
-              explanation: "NTILE(n) splits the ordered partition into 'n' groups and returns the group bucket number (1 to n) for each row."
-            },
-            {
-              question: "What is the default window frame if ORDER BY is specified, but no ROWS/RANGE frame is defined?",
-              options: ["ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING", "RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW", "ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING", "There is no default, it throws an error"],
-              correct: 1,
-              explanation: "When ORDER BY is present, the default frame is RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW, which calculates cumulative sums/aggregates."
-            },
-            {
-              question: "How do you define a window frame that includes exactly 3 preceding rows and the current row?",
-              options: ["ROWS 3 PRECEDING", "ROWS BETWEEN 3 PRECEDING AND CURRENT ROW", "RANGE 3 PRECEDING", "ROWS BETWEEN CURRENT ROW AND 3 FOLLOWING"],
-              correct: 1,
-              explanation: "Using 'ROWS BETWEEN 3 PRECEDING AND CURRENT ROW' establishes a sliding window frame of exactly 4 rows."
-            },
-            {
-              question: "Can window functions be placed in the WHERE clause (e.g. WHERE ROW_NUMBER() OVER (...) = 1)?",
-              options: ["Yes, always", "No, because WHERE filters rows *before* window functions are calculated", "Only in Oracle", "Only if grouping exists"],
-              correct: 1,
-              explanation: "Window functions execute in the SELECT phase, which happens *after* the WHERE clause. To filter on window outputs, you must wrap the query in a CTE or subquery."
-            },
-            {
-              question: "What does the FIRST_VALUE(col) function return?",
-              options: ["The lowest value of the column", "The value of col from the first row of the window frame", "The default value", "The value from row number 1 of the table"],
-              correct: 1,
-              explanation: "FIRST_VALUE retrieves the specified column's value from the very first row within the window frame boundaries."
-            },
-            {
-              question: "What is returned by LEAD(salary, 2, 0) if the offset goes beyond the partition bounds?",
-              options: ["NULL", "An error", "0", "The salary of the last row"],
-              correct: 2,
-              explanation: "The third argument in LEAD/LAG defines the default value to return if the offset falls out of partition bounds."
-            },
-            {
-              question: "How do you calculate a running total of sales ordered by date?",
-              options: ["SUM(sales) GROUP BY sales_date", "SUM(sales) OVER (ORDER BY sales_date)", "SUM(sales) OVER (PARTITION BY sales_date)", "SUM(sales) OVER (ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)"],
-              correct: 1,
-              explanation: "Using SUM(col) OVER (ORDER BY col2) creates a default running sum frame from start of partition to the current row."
-            },
-            {
-              question: "How does the default RANGE framing treat rows with identical ORDER BY sorting values?",
-              options: ["It assigns sequential ranks", "It aggregates them together as peers, summing them all at once in running totals", "It throws a duplicate error", "It ignores them"],
-              correct: 1,
-              explanation: "RANGE treats duplicate sorting values as equal peers. If two rows share a date, a RANGE running total sums both salaries and shows the same accumulated value for both."
-            },
-            {
-              question: "Why should you use ROW_NUMBER() instead of RANK() if you want to find the single latest login record?",
-              options: ["It executes faster", "It guarantees a unique index, ensuring exactly one row is chosen even if timestamps tie", "RANK does not support DESC sorting", "ROW_NUMBER ignores NULLs"],
-              correct: 1,
-              explanation: "If two logins tie for the latest timestamp, RANK will assign both a rank of 1. ROW_NUMBER assigns 1 and 2, allowing you to select exactly one row."
-            },
-            {
-              question: "In which clauses of an SQL query are window functions allowed?",
-              options: ["SELECT and WHERE", "SELECT and ORDER BY", "FROM and GROUP BY", "HAVING and SELECT"],
-              correct: 1,
-              explanation: "Under ANSI SQL standards, window functions are only allowed in the SELECT list and the final ORDER BY clause."
-            },
-            {
-              question: "What does LAST_VALUE(col) return under the default RANGE frame (RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)?",
-              options: ["The last row in the partition", "The current row's value, because the frame ends at the current row", "NULL", "An error"],
-              correct: 1,
-              explanation: "Since the default frame ends at the CURRENT ROW, LAST_VALUE only looks up to the current row, returning the current row's value instead of the absolute last value. To fix this, define the frame as BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING."
-            },
-            {
-              question: "How do you find the second-highest salary using window functions?",
-              options: ["SELECT DENSE_RANK() OVER (ORDER BY salary DESC) = 2", "Define DENSE_RANK() in a CTE or subquery, then filter rank = 2 in the outer query", "SELECT MAX(salary) WHERE salary < MAX(salary)", "Use NTILE(2)"],
-              correct: 1,
-              explanation: "Since window functions cannot be filtered in WHERE directly, you compute ranks in a subquery/CTE and filter on the alias in the outer query."
-            },
-            {
-              question: "How is the sorting order of rows inside a window partition determined?",
-              options: ["By the main ORDER BY clause at the end of the query", "By the ORDER BY sub-clause inside the OVER() clause of that window function", "By the table's clustered index", "By physical insert order"],
-              correct: 1,
-              explanation: "Each window function can have its own independent sorting sequence defined inside its OVER(ORDER BY ...) clause, which is independent of the query's main sorting."
-            }
-          ],
+            // Module 4 (20 questions)
+            [
+                {
+                    question: "What is the key difference between window functions and GROUP BY aggregates?",
+                    options: ["Window functions are faster", "GROUP BY collapses individual rows; window functions compute aggregates while keeping all individual rows visible", "Window functions can only be run on numbers", "GROUP BY is only for SQL Server"],
+                    correct: 1,
+                    explanation: "While GROUP BY reduces multiple rows to single summary rows, window functions calculate values over frames of rows while returning all original detail rows."
+                },
+                {
+                    question: "Which clause is mandatory in any query using a window function?",
+                    options: ["GROUP BY", "HAVING", "OVER", "PARTITION BY"],
+                    correct: 2,
+                    explanation: "The OVER clause defines the window (partitioning, ordering, and framing) for the function. It is mandatory."
+                },
+                {
+                    question: "What does the PARTITION BY sub-clause inside OVER() do?",
+                    options: ["It divides the result set into partitions to apply the function independently to each partition", "It sorts the rows", "It deletes duplicate records", "It creates physical partitions on disk"],
+                    correct: 0,
+                    explanation: "PARTITION BY groups rows with similar values into partitions. The window function resets and recalculates for each partition."
+                },
+                {
+                    question: "Given a scores list: [100, 100, 90], what are values of r and dr for the score 90 in this query?",
+                    code: "SELECT score,\n       RANK() OVER (ORDER BY score DESC) as r,\n       DENSE_RANK() OVER (ORDER BY score DESC) as dr\nFROM scores;",
+                    options: ["r = 2, dr = 2", "r = 3, dr = 2", "r = 2, dr = 3", "r = 3, dr = 3"],
+                    correct: 1,
+                    explanation: "RANK leaves gaps. The first two scores (100) are ranked 1, so the next score (90) is ranked 3. DENSE_RANK does not leave gaps, assigning rank 2 to 90."
+                },
+                {
+                    question: "What does the ROW_NUMBER() window function assign?",
+                    options: ["A random number", "A unique sequential integer to each row in the window partition, starting at 1", "The primary key of the row", "The count of rows"],
+                    correct: 1,
+                    explanation: "ROW_NUMBER() guarantees a unique sequential number from 1 to N for each row in a partition based on the window sort order."
+                },
+                {
+                    question: "What does the LEAD() window function do?",
+                    options: ["Retrieves a value from a subsequent row in the partition relative to the current row", "Retrieves a value from a preceding row", "Selects the highest value", "Creates an index"],
+                    correct: 0,
+                    explanation: "LEAD() lets you access data from rows further down the partition without doing self-joins."
+                },
+                {
+                    question: "What does the LAG() window function do?",
+                    options: ["Retrieves a value from a preceding row in the partition relative to the current row", "Retrieves a value from a subsequent row", "Finds the lowest value", "Introduces latency"],
+                    correct: 0,
+                    explanation: "LAG() accesses data from rows further up (preceding) in the partition relative to the current row's position."
+                },
+                {
+                    question: "What is the function NTILE(4) used for?",
+                    options: ["Selecting every fourth row", "Dividing rows in each partition into 4 numbered buckets as equally as possible", "Rounding numbers to 4 decimal places", "Grouping rows into 4 separate tables"],
+                    correct: 1,
+                    explanation: "NTILE(n) splits the ordered partition into 'n' groups and returns the group bucket number (1 to n) for each row."
+                },
+                {
+                    question: "What is the default window frame if ORDER BY is specified, but no ROWS/RANGE frame is defined?",
+                    options: ["ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING", "RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW", "ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING", "There is no default, it throws an error"],
+                    correct: 1,
+                    explanation: "When ORDER BY is present, the default frame is RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW, which calculates cumulative sums/aggregates."
+                },
+                {
+                    question: "How do you define a window frame that includes exactly 3 preceding rows and the current row?",
+                    options: ["ROWS 3 PRECEDING", "ROWS BETWEEN 3 PRECEDING AND CURRENT ROW", "RANGE 3 PRECEDING", "ROWS BETWEEN CURRENT ROW AND 3 FOLLOWING"],
+                    correct: 1,
+                    explanation: "Using 'ROWS BETWEEN 3 PRECEDING AND CURRENT ROW' establishes a sliding window frame of exactly 4 rows."
+                },
+                {
+                    question: "Can window functions be placed in the WHERE clause (e.g. WHERE ROW_NUMBER() OVER (...) = 1)?",
+                    options: ["Yes, always", "No, because WHERE filters rows *before* window functions are calculated", "Only in Oracle", "Only if grouping exists"],
+                    correct: 1,
+                    explanation: "Window functions execute in the SELECT phase, which happens *after* the WHERE clause. To filter on window outputs, you must wrap the query in a CTE or subquery."
+                },
+                {
+                    question: "What does the FIRST_VALUE(col) function return?",
+                    options: ["The lowest value of the column", "The value of col from the first row of the window frame", "The default value", "The value from row number 1 of the table"],
+                    correct: 1,
+                    explanation: "FIRST_VALUE retrieves the specified column's value from the very first row within the window frame boundaries."
+                },
+                {
+                    question: "What is returned by LEAD(salary, 2, 0) if the offset goes beyond the partition bounds?",
+                    options: ["NULL", "An error", "0", "The salary of the last row"],
+                    correct: 2,
+                    explanation: "The third argument in LEAD/LAG defines the default value to return if the offset falls out of partition bounds."
+                },
+                {
+                    question: "How do you calculate a running total of sales ordered by date?",
+                    options: ["SUM(sales) GROUP BY sales_date", "SUM(sales) OVER (ORDER BY sales_date)", "SUM(sales) OVER (PARTITION BY sales_date)", "SUM(sales) OVER (ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)"],
+                    correct: 1,
+                    explanation: "Using SUM(col) OVER (ORDER BY col2) creates a default running sum frame from start of partition to the current row."
+                },
+                {
+                    question: "How does the default RANGE framing treat rows with identical ORDER BY sorting values?",
+                    options: ["It assigns sequential ranks", "It aggregates them together as peers, summing them all at once in running totals", "It throws a duplicate error", "It ignores them"],
+                    correct: 1,
+                    explanation: "RANGE treats duplicate sorting values as equal peers. If two rows share a date, a RANGE running total sums both salaries and shows the same accumulated value for both."
+                },
+                {
+                    question: "Why should you use ROW_NUMBER() instead of RANK() if you want to find the single latest login record?",
+                    options: ["It executes faster", "It guarantees a unique index, ensuring exactly one row is chosen even if timestamps tie", "RANK does not support DESC sorting", "ROW_NUMBER ignores NULLs"],
+                    correct: 1,
+                    explanation: "If two logins tie for the latest timestamp, RANK will assign both a rank of 1. ROW_NUMBER assigns 1 and 2, allowing you to select exactly one row."
+                },
+                {
+                    question: "In which clauses of an SQL query are window functions allowed?",
+                    options: ["SELECT and WHERE", "SELECT and ORDER BY", "FROM and GROUP BY", "HAVING and SELECT"],
+                    correct: 1,
+                    explanation: "Under ANSI SQL standards, window functions are only allowed in the SELECT list and the final ORDER BY clause."
+                },
+                {
+                    question: "What does LAST_VALUE(col) return under the default RANGE frame (RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)?",
+                    options: ["The last row in the partition", "The current row's value, because the frame ends at the current row", "NULL", "An error"],
+                    correct: 1,
+                    explanation: "Since the default frame ends at the CURRENT ROW, LAST_VALUE only looks up to the current row, returning the current row's value instead of the absolute last value. To fix this, define the frame as BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING."
+                },
+                {
+                    question: "How do you find the second-highest salary using window functions?",
+                    options: ["SELECT DENSE_RANK() OVER (ORDER BY salary DESC) = 2", "Define DENSE_RANK() in a CTE or subquery, then filter rank = 2 in the outer query", "SELECT MAX(salary) WHERE salary < MAX(salary)", "Use NTILE(2)"],
+                    correct: 1,
+                    explanation: "Since window functions cannot be filtered in WHERE directly, you compute ranks in a subquery/CTE and filter on the alias in the outer query."
+                },
+                {
+                    question: "How is the sorting order of rows inside a window partition determined?",
+                    options: ["By the main ORDER BY clause at the end of the query", "By the ORDER BY sub-clause inside the OVER() clause of that window function", "By the table's clustered index", "By physical insert order"],
+                    correct: 1,
+                    explanation: "Each window function can have its own independent sorting sequence defined inside its OVER(ORDER BY ...) clause, which is independent of the query's main sorting."
+                }
+            ],
 
-          // Module 5 (20 questions)
-          [
-            {
-              question: "What value does this query return?",
-              code: "SELECT COALESCE(NULL, NULL, 'Gemini', 'SQL') as res;",
-              options: ["NULL", "'Gemini'", "'SQL'", "'Gemini, SQL'"],
-              correct: 1,
-              explanation: "COALESCE returns the first non-NULL value in its arguments list. Here, 'Gemini' is the first non-NULL value."
-            },
-            {
-              question: "What does NULLIF(100, 100) return?",
-              options: ["0", "100", "NULL", "An error"],
-              correct: 2,
-              explanation: "NULLIF(x, y) returns NULL if x equals y. If they are different, it returns the first argument (x)."
-            },
-            {
-              question: "What is the result of '100 + NULL' in standard SQL math operations?",
-              options: ["100", "0", "NULL", "Throws a type error"],
-              correct: 2,
-              explanation: "Any arithmetic operation containing a NULL operand (e.g. +, -, *, /) results in NULL."
-            },
-            {
-              question: "How do you write conditional logic inside an SQL SELECT statement?",
-              options: ["IF/THEN statements", "CASE WHEN condition THEN value ELSE fallback END", "DECODE()", "SWITCH statements"],
-              correct: 1,
-              explanation: "The CASE expression is the standard, cross-platform way to implement conditional branch logic in SQL."
-            },
-            {
-              question: "What does the comparison 'NULL = NULL' evaluate to in SQL's three-valued logic?",
-              options: ["TRUE", "FALSE", "UNKNOWN", "NULL"],
-              correct: 2,
-              explanation: "In SQL, NULL represents missing/unknown data. Thus, comparing NULL to anything (even NULL itself) yields UNKNOWN."
-            },
-            {
-              question: "What standard function converts a value from one data type to another?",
-              options: ["TRANSFORM", "CONVERT_TYPE", "CAST(value AS target_type)", "FORMAT"],
-              correct: 2,
-              explanation: "The CAST function is the ANSI SQL standard for explicit type conversions."
-            },
-            {
-              question: "What is returned by CONCAT('A', NULL, 'B') in standard ANSI SQL?",
-              options: ["'AB'", "NULL", "'ANULLB'", "An error"],
-              correct: 1,
-              explanation: "Under ANSI SQL standard, concatenating a string with NULL yields NULL. Note that some engines (like SQL Server or MySQL) have settings or functions that treat NULL as empty strings."
-            },
-            {
-              question: "What is returned by SUBSTRING('Database', 1, 4)?",
-              options: ["'Data'", "'atab'", "'Datab'", "'base'"],
-              correct: 0,
-              explanation: "SUBSTRING extraction starts at position 1 (inclusive) and takes a length of 4 characters, returning 'Data'."
-            },
-            {
-              question: "What is the primary role of the PIVOT operator?",
-              options: ["To delete duplicate records", "To rotate rows into columns, performing aggregations along the way", "To join tables horizontally", "To sort columns"],
-              correct: 1,
-              explanation: "PIVOT transforms row-level unique keys into multiple distinct columns, summarizing data from vertical to horizontal format."
-            },
-            {
-              question: "What does the UNPIVOT operator do?",
-              options: ["Reverts a join", "Rotates columns into rows", "Deletes pivoted columns", "Splits strings into rows"],
-              correct: 1,
-              explanation: "UNPIVOT rotates columns of data into a vertical row-based format."
-            },
-            {
-              question: "How do you search for text fields that start with the letter 'A'?",
-              options: ["LIKE '%A'", "LIKE 'A%'", "LIKE '_A'", "LIKE '[A]'"],
-              correct: 1,
-              explanation: "The % wildcard matches zero or more characters. Placing it after 'A' matches any string starting with 'A'."
-            },
-            {
-              question: "In LIKE wildcards, what does the underscore (_) character match?",
-              options: ["Any string of any length", "Exactly one character", "Spaces only", "Numeric digits only"],
-              correct: 1,
-              explanation: "An underscore (_) matches exactly one character, acting as a single-character wildcard."
-            },
-            {
-              question: "If a subquery returns a set containing a NULL (e.g. 10, 20, NULL), how does 'WHERE col NOT IN (subquery)' behave?",
-              options: ["It ignores the NULL", "It returns all rows except 10 and 20", "It always returns an empty set (no rows)", "It throws a syntax error"],
-              correct: 2,
-              explanation: "NOT IN translates to (col != 10 AND col != 20 AND col != NULL). Since 'col != NULL' is UNKNOWN, the entire AND expression evaluates to UNKNOWN, returning no rows."
-            },
-            {
-              question: "What is returned by COALESCE(NULL, NULL, NULL)?",
-              options: ["0", "NULL", "An error", "Empty string"],
-              correct: 1,
-              explanation: "If all arguments passed to COALESCE are NULL, it returns NULL."
-            },
-            {
-              question: "What function transforms string inputs to all caps?",
-              options: ["CAPS()", "UPPER()", "UPCASE()", "TO_UPPER()"],
-              correct: 1,
-              explanation: "The UPPER() function converts all characters in a string to uppercase."
-            },
-            {
-              question: "What is the standard operator used to check if a field contains no data?",
-              options: ["= NULL", "!= NULL", "IS NULL", "== NULL"],
-              correct: 2,
-              explanation: "Because NULL comparisons yield UNKNOWN, you must check for NULLs using the specialized 'IS NULL' operator."
-            },
-            {
-              question: "What is evaluated by: CASE WHEN 1=1 THEN 'Yes' ELSE 'No' END?",
-              options: ["'Yes'", "'No'", "NULL", "An error"],
-              correct: 0,
-              explanation: "Since 1=1 is TRUE, the CASE expression evaluates the first branch, returning 'Yes'."
-            },
-            {
-              question: "What is the Oracle database function that performs NVL(col, default) behavior?",
-              options: ["ISNULL", "COALESCE", "NVL", "IFNULL"],
-              correct: 2,
-              explanation: "Oracle uses NVL() to replace NULL values with default values, which is equivalent to COALESCE or SQL Server's ISNULL."
-            },
-            {
-              question: "What is the SQL Server specific function that replaces NULL with a default (takes exactly 2 arguments)?",
-              options: ["NVL", "IFNULL", "ISNULL", "COALESCE"],
-              correct: 2,
-              explanation: "SQL Server provides ISNULL(check_expression, replacement_value) as a fast, 2-argument NULL-replacement helper."
-            },
-            {
-              question: "Why does the query 'SELECT * FROM users WHERE age != 30' exclude users whose age is NULL?",
-              options: ["Because age must be indexed", "Because NULL != 30 evaluates to UNKNOWN, and SQL only returns rows that evaluate to TRUE", "Because NULL is equal to 30", "Because SELECT excludes NULLs by default"],
-              correct: 1,
-              explanation: "WHERE filters only allow rows evaluating to TRUE. Since NULL comparisons evaluate to UNKNOWN, NULL rows are discarded."
-            }
-          ],
+            // Module 5 (20 questions)
+            [
+                {
+                    question: "What value does this query return?",
+                    code: "SELECT COALESCE(NULL, NULL, 'Gemini', 'SQL') as res;",
+                    options: ["NULL", "'Gemini'", "'SQL'", "'Gemini, SQL'"],
+                    correct: 1,
+                    explanation: "COALESCE returns the first non-NULL value in its arguments list. Here, 'Gemini' is the first non-NULL value."
+                },
+                {
+                    question: "What does NULLIF(100, 100) return?",
+                    options: ["0", "100", "NULL", "An error"],
+                    correct: 2,
+                    explanation: "NULLIF(x, y) returns NULL if x equals y. If they are different, it returns the first argument (x)."
+                },
+                {
+                    question: "What is the result of '100 + NULL' in standard SQL math operations?",
+                    options: ["100", "0", "NULL", "Throws a type error"],
+                    correct: 2,
+                    explanation: "Any arithmetic operation containing a NULL operand (e.g. +, -, *, /) results in NULL."
+                },
+                {
+                    question: "How do you write conditional logic inside an SQL SELECT statement?",
+                    options: ["IF/THEN statements", "CASE WHEN condition THEN value ELSE fallback END", "DECODE()", "SWITCH statements"],
+                    correct: 1,
+                    explanation: "The CASE expression is the standard, cross-platform way to implement conditional branch logic in SQL."
+                },
+                {
+                    question: "What does the comparison 'NULL = NULL' evaluate to in SQL's three-valued logic?",
+                    options: ["TRUE", "FALSE", "UNKNOWN", "NULL"],
+                    correct: 2,
+                    explanation: "In SQL, NULL represents missing/unknown data. Thus, comparing NULL to anything (even NULL itself) yields UNKNOWN."
+                },
+                {
+                    question: "What standard function converts a value from one data type to another?",
+                    options: ["TRANSFORM", "CONVERT_TYPE", "CAST(value AS target_type)", "FORMAT"],
+                    correct: 2,
+                    explanation: "The CAST function is the ANSI SQL standard for explicit type conversions."
+                },
+                {
+                    question: "What is returned by CONCAT('A', NULL, 'B') in standard ANSI SQL?",
+                    options: ["'AB'", "NULL", "'ANULLB'", "An error"],
+                    correct: 1,
+                    explanation: "Under ANSI SQL standard, concatenating a string with NULL yields NULL. Note that some engines (like SQL Server or MySQL) have settings or functions that treat NULL as empty strings."
+                },
+                {
+                    question: "What is returned by SUBSTRING('Database', 1, 4)?",
+                    options: ["'Data'", "'atab'", "'Datab'", "'base'"],
+                    correct: 0,
+                    explanation: "SUBSTRING extraction starts at position 1 (inclusive) and takes a length of 4 characters, returning 'Data'."
+                },
+                {
+                    question: "What is the primary role of the PIVOT operator?",
+                    options: ["To delete duplicate records", "To rotate rows into columns, performing aggregations along the way", "To join tables horizontally", "To sort columns"],
+                    correct: 1,
+                    explanation: "PIVOT transforms row-level unique keys into multiple distinct columns, summarizing data from vertical to horizontal format."
+                },
+                {
+                    question: "What does the UNPIVOT operator do?",
+                    options: ["Reverts a join", "Rotates columns into rows", "Deletes pivoted columns", "Splits strings into rows"],
+                    correct: 1,
+                    explanation: "UNPIVOT rotates columns of data into a vertical row-based format."
+                },
+                {
+                    question: "How do you search for text fields that start with the letter 'A'?",
+                    options: ["LIKE '%A'", "LIKE 'A%'", "LIKE '_A'", "LIKE '[A]'"],
+                    correct: 1,
+                    explanation: "The % wildcard matches zero or more characters. Placing it after 'A' matches any string starting with 'A'."
+                },
+                {
+                    question: "In LIKE wildcards, what does the underscore (_) character match?",
+                    options: ["Any string of any length", "Exactly one character", "Spaces only", "Numeric digits only"],
+                    correct: 1,
+                    explanation: "An underscore (_) matches exactly one character, acting as a single-character wildcard."
+                },
+                {
+                    question: "If a subquery returns a set containing a NULL (e.g. 10, 20, NULL), how does 'WHERE col NOT IN (subquery)' behave?",
+                    options: ["It ignores the NULL", "It returns all rows except 10 and 20", "It always returns an empty set (no rows)", "It throws a syntax error"],
+                    correct: 2,
+                    explanation: "NOT IN translates to (col != 10 AND col != 20 AND col != NULL). Since 'col != NULL' is UNKNOWN, the entire AND expression evaluates to UNKNOWN, returning no rows."
+                },
+                {
+                    question: "What is returned by COALESCE(NULL, NULL, NULL)?",
+                    options: ["0", "NULL", "An error", "Empty string"],
+                    correct: 1,
+                    explanation: "If all arguments passed to COALESCE are NULL, it returns NULL."
+                },
+                {
+                    question: "What function transforms string inputs to all caps?",
+                    options: ["CAPS()", "UPPER()", "UPCASE()", "TO_UPPER()"],
+                    correct: 1,
+                    explanation: "The UPPER() function converts all characters in a string to uppercase."
+                },
+                {
+                    question: "What is the standard operator used to check if a field contains no data?",
+                    options: ["= NULL", "!= NULL", "IS NULL", "== NULL"],
+                    correct: 2,
+                    explanation: "Because NULL comparisons yield UNKNOWN, you must check for NULLs using the specialized 'IS NULL' operator."
+                },
+                {
+                    question: "What is evaluated by: CASE WHEN 1=1 THEN 'Yes' ELSE 'No' END?",
+                    options: ["'Yes'", "'No'", "NULL", "An error"],
+                    correct: 0,
+                    explanation: "Since 1=1 is TRUE, the CASE expression evaluates the first branch, returning 'Yes'."
+                },
+                {
+                    question: "What is the Oracle database function that performs NVL(col, default) behavior?",
+                    options: ["ISNULL", "COALESCE", "NVL", "IFNULL"],
+                    correct: 2,
+                    explanation: "Oracle uses NVL() to replace NULL values with default values, which is equivalent to COALESCE or SQL Server's ISNULL."
+                },
+                {
+                    question: "What is the SQL Server specific function that replaces NULL with a default (takes exactly 2 arguments)?",
+                    options: ["NVL", "IFNULL", "ISNULL", "COALESCE"],
+                    correct: 2,
+                    explanation: "SQL Server provides ISNULL(check_expression, replacement_value) as a fast, 2-argument NULL-replacement helper."
+                },
+                {
+                    question: "Why does the query 'SELECT * FROM users WHERE age != 30' exclude users whose age is NULL?",
+                    options: ["Because age must be indexed", "Because NULL != 30 evaluates to UNKNOWN, and SQL only returns rows that evaluate to TRUE", "Because NULL is equal to 30", "Because SELECT excludes NULLs by default"],
+                    correct: 1,
+                    explanation: "WHERE filters only allow rows evaluating to TRUE. Since NULL comparisons evaluate to UNKNOWN, NULL rows are discarded."
+                }
+            ],
 
-          // Module 6 (20 questions)
-          [
-            {
-              question: "What salary position does this query return from the database?",
-              code: "SELECT salary FROM employee\nORDER BY salary DESC\nLIMIT 1 OFFSET 2;",
-              options: ["The 2nd highest salary", "The 3rd highest salary", "The 1st highest salary", "The 4th highest salary"],
-              correct: 1,
-              explanation: "LIMIT 1 returns 1 row. OFFSET 2 skips the first 2 rows (1st and 2nd highest), returning the 3rd highest salary."
-            },
-            {
-              question: "How do you calculate a running total of deposits in a transactions table?",
-              options: ["SUM(amount) GROUP BY trans_date", "SUM(amount) OVER (ORDER BY trans_date)", "SUM(amount) OVER (PARTITION BY trans_date)", "AVG(amount) OVER (ORDER BY trans_date)"],
-              correct: 1,
-              explanation: "Using SUM(amount) OVER (ORDER BY trans_date) calculates a running sum by accumulating amounts chronologically."
-            },
-            {
-              question: "How do you find duplicate user records based on email?",
-              options: ["SELECT email FROM users WHERE COUNT(email) > 1", "SELECT email FROM users GROUP BY email HAVING COUNT(*) > 1", "SELECT DISTINCT email FROM users", "SELECT email FROM users WHERE email IS DUPLICATE"],
-              correct: 1,
-              explanation: "Grouping by email aggregates duplicates. HAVING COUNT(*) > 1 filters for emails occurring more than once."
-            },
-            {
-              question: "What is the standard strategy for calculating consecutive login streaks?",
-              options: ["Using the Lead function only", "Subtracting a ROW_NUMBER() sequence from the login date to create a constant grouped date anchor", "Doing a self-join on id = id + 1", "Grouping by week"],
-              correct: 1,
-              explanation: "Subtracting ROW_NUMBER() from a date sequence yields a constant date for consecutive intervals, which you can then GROUP BY to find streaks."
-            },
-            {
-              question: "In a self-referencing table of categories, how do you locate root-level categories?",
-              options: ["WHERE parent_id = 0", "WHERE parent_id IS NULL", "WHERE parent_id = self_id", "WHERE level = 1"],
-              correct: 1,
-              explanation: "In relational tree designs, root-level categories have no parent, indicated by NULL in the foreign key parent_id column."
-            },
-            {
-              question: "How do you delete duplicate employee names while keeping only the one with the lowest ID?",
-              options: ["DELETE FROM emp WHERE id NOT IN (SELECT MIN(id) FROM emp GROUP BY name)", "DELETE DUPLICATES FROM emp", "DELETE FROM emp WHERE id IN (SELECT MIN(id) FROM emp)", "DROP TABLE emp"],
-              correct: 0,
-              explanation: "By keeping the MIN(id) for each name group and deleting any ID not in that list, you remove all duplicates."
-            },
-            {
-              question: "Which window function is best for finding the top N highest earners in each department?",
-              options: ["DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC)", "RANK() OVER (ORDER BY salary DESC)", "ROW_NUMBER() OVER (ORDER BY dept_id)", "SUM(salary) OVER (PARTITION BY dept_id)"],
-              correct: 0,
-              explanation: "DENSE_RANK partitioned by department rankings ensures you can filter rank <= N in an outer query."
-            },
-            {
-              question: "How do you calculate active users month-over-month (users active in consecutive months)?",
-              options: ["A self-join on user_id and months difference = 1", "Doing a UNION of monthly tables", "Using the ROW_NUMBER function", "Grouping by year"],
-              correct: 0,
-              explanation: "Self-joining user logs on user_id and matching month numbers with an offset of 1 checks if a user was active in consecutive months."
-            },
-            {
-              question: "What CTE type is required to query hierarchies like corporate org charts?",
-              options: ["Nested CTE", "Recursive CTE", "Iterative CTE", "Standard CTE"],
-              correct: 1,
-              explanation: "A recursive CTE references itself, allowing you to walk down or up parent-child pointer structures recursively."
-            },
-            {
-              question: "What function helps find the time difference between consecutive events?",
-              options: ["LAG() or LEAD() to fetch the timestamp of the prior/next row", "DATEDIFF() alone", "SUM(event_time)", "NTILE()"],
-              correct: 0,
-              explanation: "Using LAG(event_time) OVER (...) fetches the previous event's timestamp, enabling subtraction from the current event's time."
-            },
-            {
-              question: "How do you isolate rows where a status column changed compared to the previous chronological record?",
-              options: ["Using LAG(status) and comparing it to the current status row-by-row", "WHERE status != status", "GROUP BY status", "Using the CROSS JOIN operator"],
-              correct: 0,
-              explanation: "Compare status with LAG(status) OVER (ORDER BY date). If they differ, the status changed at that point."
-            },
-            {
-              question: "How do you prevent division-by-zero errors in SQL calculations like rates?",
-              options: ["Use a check constraint", "Wrap the denominator in NULLIF(denominator, 0)", "Use the COALESCE function on the numerator", "Convert the numbers to floats"],
-              correct: 1,
-              explanation: "NULLIF(val, 0) converts 0 to NULL. Since dividing by NULL yields NULL rather than crashing, this prevents division errors."
-            },
-            {
-              question: "How is the median value computed in SQL databases?",
-              options: ["Using the AVG() function", "Using PERCENTILE_CONT(0.5) or sorting rows and selecting the middle row(s)", "Using SUM(val)/2", "Using the MEDIAN() keyword (standard in all SQL dialects)"],
-              correct: 1,
-              explanation: "PERCENTILE_CONT(0.5) OVER () computes the median. In databases without it, you assign row numbers and locate middle values."
-            },
-            {
-              question: "What does the LIMIT clause restrict in SQL?",
-              options: ["The number of columns", "The maximum number of rows returned by the query", "The database file size", "The execution time in seconds"],
-              correct: 1,
-              explanation: "LIMIT constrains the row count of the output result set."
-            },
-            {
-              question: "How do you extract the single latest purchase transaction for each user?",
-              options: ["SELECT MAX(purchase_date) GROUP BY user_id", "Using ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY purchase_date DESC) = 1 in a subquery", "SELECT DISTINCT user_id, purchase_date", "Using LAG()"],
-              correct: 1,
-              explanation: "ROW_NUMBER partitions by user and orders by date descending. Filtering row number = 1 gives the latest record for each user."
-            },
-            {
-              question: "In hierarchical category tables, what characterizes a leaf category row?",
-              options: ["Its parent_id is NULL", "Its ID does not appear in any row's parent_id column", "It has no primary key", "It is at level 0"],
-              correct: 1,
-              explanation: "Leaf categories have no children referencing them. Therefore, their ID is absent from the parent_id foreign key column."
-            },
-            {
-              question: "How do you calculate the cumulative percentage contribution of sales?",
-              options: ["Running total of sales divided by the grand total of sales", "Sales divided by average sales", "Running total of sales * 100", "Using the NTILE function"],
-              correct: 0,
-              explanation: "Cumulative percentage is: SUM(sales) OVER (ORDER BY date) / SUM(sales) OVER ()."
-            },
-            {
-              question: "What does LAG(col) return if there is no preceding row available?",
-              options: ["0", "An error", "NULL", "The current row's value"],
-              correct: 2,
-              explanation: "By default, LAG returns NULL if it attempts to read a row that is out of partition boundaries."
-            },
-            {
-              question: "How do you find the top 10% of earners in a table?",
-              options: ["Filter on PERCENT_RANK() OVER (ORDER BY salary DESC) <= 0.1", "LIMIT 10", "WHERE salary > AVG(salary) * 0.1", "Using the DENSE_RANK function"],
-              correct: 0,
-              explanation: "PERCENT_RANK calculates relative rank from 0.0 to 1.0. A value <= 0.1 isolates the top 10% of rows."
-            },
-            {
-              question: "What is a correlated subquery?",
-              options: ["A subquery that runs once before the outer query", "A subquery that references columns from the outer query, executing once for each candidate row in the outer query", "A subquery combined with UNION", "A subquery containing a JOIN"],
-              correct: 1,
-              explanation: "Correlated subqueries depend on the outer query's row variables. The subquery executes repeatedly for each row evaluated by the outer query."
-            }
-          ],
+            // Module 6 (20 questions)
+            [
+                {
+                    question: "What salary position does this query return from the database?",
+                    code: "SELECT salary FROM employee\nORDER BY salary DESC\nLIMIT 1 OFFSET 2;",
+                    options: ["The 2nd highest salary", "The 3rd highest salary", "The 1st highest salary", "The 4th highest salary"],
+                    correct: 1,
+                    explanation: "LIMIT 1 returns 1 row. OFFSET 2 skips the first 2 rows (1st and 2nd highest), returning the 3rd highest salary."
+                },
+                {
+                    question: "How do you calculate a running total of deposits in a transactions table?",
+                    options: ["SUM(amount) GROUP BY trans_date", "SUM(amount) OVER (ORDER BY trans_date)", "SUM(amount) OVER (PARTITION BY trans_date)", "AVG(amount) OVER (ORDER BY trans_date)"],
+                    correct: 1,
+                    explanation: "Using SUM(amount) OVER (ORDER BY trans_date) calculates a running sum by accumulating amounts chronologically."
+                },
+                {
+                    question: "How do you find duplicate user records based on email?",
+                    options: ["SELECT email FROM users WHERE COUNT(email) > 1", "SELECT email FROM users GROUP BY email HAVING COUNT(*) > 1", "SELECT DISTINCT email FROM users", "SELECT email FROM users WHERE email IS DUPLICATE"],
+                    correct: 1,
+                    explanation: "Grouping by email aggregates duplicates. HAVING COUNT(*) > 1 filters for emails occurring more than once."
+                },
+                {
+                    question: "What is the standard strategy for calculating consecutive login streaks?",
+                    options: ["Using the Lead function only", "Subtracting a ROW_NUMBER() sequence from the login date to create a constant grouped date anchor", "Doing a self-join on id = id + 1", "Grouping by week"],
+                    correct: 1,
+                    explanation: "Subtracting ROW_NUMBER() from a date sequence yields a constant date for consecutive intervals, which you can then GROUP BY to find streaks."
+                },
+                {
+                    question: "In a self-referencing table of categories, how do you locate root-level categories?",
+                    options: ["WHERE parent_id = 0", "WHERE parent_id IS NULL", "WHERE parent_id = self_id", "WHERE level = 1"],
+                    correct: 1,
+                    explanation: "In relational tree designs, root-level categories have no parent, indicated by NULL in the foreign key parent_id column."
+                },
+                {
+                    question: "How do you delete duplicate employee names while keeping only the one with the lowest ID?",
+                    options: ["DELETE FROM emp WHERE id NOT IN (SELECT MIN(id) FROM emp GROUP BY name)", "DELETE DUPLICATES FROM emp", "DELETE FROM emp WHERE id IN (SELECT MIN(id) FROM emp)", "DROP TABLE emp"],
+                    correct: 0,
+                    explanation: "By keeping the MIN(id) for each name group and deleting any ID not in that list, you remove all duplicates."
+                },
+                {
+                    question: "Which window function is best for finding the top N highest earners in each department?",
+                    options: ["DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC)", "RANK() OVER (ORDER BY salary DESC)", "ROW_NUMBER() OVER (ORDER BY dept_id)", "SUM(salary) OVER (PARTITION BY dept_id)"],
+                    correct: 0,
+                    explanation: "DENSE_RANK partitioned by department rankings ensures you can filter rank <= N in an outer query."
+                },
+                {
+                    question: "How do you calculate active users month-over-month (users active in consecutive months)?",
+                    options: ["A self-join on user_id and months difference = 1", "Doing a UNION of monthly tables", "Using the ROW_NUMBER function", "Grouping by year"],
+                    correct: 0,
+                    explanation: "Self-joining user logs on user_id and matching month numbers with an offset of 1 checks if a user was active in consecutive months."
+                },
+                {
+                    question: "What CTE type is required to query hierarchies like corporate org charts?",
+                    options: ["Nested CTE", "Recursive CTE", "Iterative CTE", "Standard CTE"],
+                    correct: 1,
+                    explanation: "A recursive CTE references itself, allowing you to walk down or up parent-child pointer structures recursively."
+                },
+                {
+                    question: "What function helps find the time difference between consecutive events?",
+                    options: ["LAG() or LEAD() to fetch the timestamp of the prior/next row", "DATEDIFF() alone", "SUM(event_time)", "NTILE()"],
+                    correct: 0,
+                    explanation: "Using LAG(event_time) OVER (...) fetches the previous event's timestamp, enabling subtraction from the current event's time."
+                },
+                {
+                    question: "How do you isolate rows where a status column changed compared to the previous chronological record?",
+                    options: ["Using LAG(status) and comparing it to the current status row-by-row", "WHERE status != status", "GROUP BY status", "Using the CROSS JOIN operator"],
+                    correct: 0,
+                    explanation: "Compare status with LAG(status) OVER (ORDER BY date). If they differ, the status changed at that point."
+                },
+                {
+                    question: "How do you prevent division-by-zero errors in SQL calculations like rates?",
+                    options: ["Use a check constraint", "Wrap the denominator in NULLIF(denominator, 0)", "Use the COALESCE function on the numerator", "Convert the numbers to floats"],
+                    correct: 1,
+                    explanation: "NULLIF(val, 0) converts 0 to NULL. Since dividing by NULL yields NULL rather than crashing, this prevents division errors."
+                },
+                {
+                    question: "How is the median value computed in SQL databases?",
+                    options: ["Using the AVG() function", "Using PERCENTILE_CONT(0.5) or sorting rows and selecting the middle row(s)", "Using SUM(val)/2", "Using the MEDIAN() keyword (standard in all SQL dialects)"],
+                    correct: 1,
+                    explanation: "PERCENTILE_CONT(0.5) OVER () computes the median. In databases without it, you assign row numbers and locate middle values."
+                },
+                {
+                    question: "What does the LIMIT clause restrict in SQL?",
+                    options: ["The number of columns", "The maximum number of rows returned by the query", "The database file size", "The execution time in seconds"],
+                    correct: 1,
+                    explanation: "LIMIT constrains the row count of the output result set."
+                },
+                {
+                    question: "How do you extract the single latest purchase transaction for each user?",
+                    options: ["SELECT MAX(purchase_date) GROUP BY user_id", "Using ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY purchase_date DESC) = 1 in a subquery", "SELECT DISTINCT user_id, purchase_date", "Using LAG()"],
+                    correct: 1,
+                    explanation: "ROW_NUMBER partitions by user and orders by date descending. Filtering row number = 1 gives the latest record for each user."
+                },
+                {
+                    question: "In hierarchical category tables, what characterizes a leaf category row?",
+                    options: ["Its parent_id is NULL", "Its ID does not appear in any row's parent_id column", "It has no primary key", "It is at level 0"],
+                    correct: 1,
+                    explanation: "Leaf categories have no children referencing them. Therefore, their ID is absent from the parent_id foreign key column."
+                },
+                {
+                    question: "How do you calculate the cumulative percentage contribution of sales?",
+                    options: ["Running total of sales divided by the grand total of sales", "Sales divided by average sales", "Running total of sales * 100", "Using the NTILE function"],
+                    correct: 0,
+                    explanation: "Cumulative percentage is: SUM(sales) OVER (ORDER BY date) / SUM(sales) OVER ()."
+                },
+                {
+                    question: "What does LAG(col) return if there is no preceding row available?",
+                    options: ["0", "An error", "NULL", "The current row's value"],
+                    correct: 2,
+                    explanation: "By default, LAG returns NULL if it attempts to read a row that is out of partition boundaries."
+                },
+                {
+                    question: "How do you find the top 10% of earners in a table?",
+                    options: ["Filter on PERCENT_RANK() OVER (ORDER BY salary DESC) <= 0.1", "LIMIT 10", "WHERE salary > AVG(salary) * 0.1", "Using the DENSE_RANK function"],
+                    correct: 0,
+                    explanation: "PERCENT_RANK calculates relative rank from 0.0 to 1.0. A value <= 0.1 isolates the top 10% of rows."
+                },
+                {
+                    question: "What is a correlated subquery?",
+                    options: ["A subquery that runs once before the outer query", "A subquery that references columns from the outer query, executing once for each candidate row in the outer query", "A subquery combined with UNION", "A subquery containing a JOIN"],
+                    correct: 1,
+                    explanation: "Correlated subqueries depend on the outer query's row variables. The subquery executes repeatedly for each row evaluated by the outer query."
+                }
+            ],
 
-          // Module 7 (20 questions)
-          [
-            {
-              question: "What default index structure is used by most relational database engines?",
-              options: ["Hash Index", "B-Tree Index", "Bitmap Index", "GIST Index"],
-              correct: 1,
-              explanation: "B-Trees (Balanced Trees) are the default because they keep data sorted and support logarithmic search, insertion, deletion, and range queries."
-            },
-            {
-              question: "What is a clustered index?",
-              options: ["An index on multiple columns", "An index that defines the physical storage order of rows in the table", "A temp index", "An index containing no keys"],
-              correct: 1,
-              explanation: "A clustered index forces the table data to be stored on disk sorted in the order of the index key. This is why a table can only have one clustered index."
-            },
-            {
-              question: "How many clustered indexes can exist on a single table?",
-              options: ["Unlimited", "One", "Two", "Zero"],
-              correct: 1,
-              explanation: "Since the physical data rows can only be sorted in one physical sequence on disk, a table is restricted to exactly one clustered index."
-            },
-            {
-              question: "What is a non-clustered index?",
-              options: ["An index that is not sorted", "An index stored separately from the data rows, containing pointers to the physical rows", "An index on NULL values", "An invalid index"],
-              correct: 1,
-              explanation: "Non-clustered indexes are stored in separate structures. They map keys to row locators (pointers to physical data positions)."
-            },
-            {
-              question: "What is the primary goal of database normalization?",
-              options: ["Speeding up inserts", "Eliminating redundant data and preventing update/delete anomalies", "Adding columns automatically", "Compressing database backups"],
-              correct: 1,
-              explanation: "Normalization organizes tables to reduce duplicate data storage, which prevents data integrity inconsistencies (anomalies)."
-            },
-            {
-              question: "What condition must be met for a table to satisfy First Normal Form (1NF)?",
-              options: ["No foreign keys", "Atomic column values and no repeating groups/arrays", "Single column primary keys", "No NULL values"],
-              correct: 1,
-              explanation: "1NF requires each table cell to contain only single, indivisible (atomic) values, with no arrays or multi-value repeating groups."
-            },
-            {
-              question: "What is required for a table to be in Second Normal Form (2NF)?",
-              options: ["Must be in 1NF and have no partial dependencies (every non-prime attribute must depend on the whole primary key)", "Must have no nullable columns", "Must have a clustered index", "Must be in 3NF"],
-              correct: 0,
-              explanation: "2NF eliminates partial dependencies. In tables with composite keys, all non-key columns must depend on the entire composite primary key, not just a subset of it."
-            },
-            {
-              question: "What is required for a table to be in Third Normal Form (3NF)?",
-              options: ["Must have no foreign keys", "Must be in 2NF and contain no transitive dependencies (non-key columns depending on other non-key columns)", "Must have 3 indexes", "Must have zero NULL values"],
-              correct: 1,
-              explanation: "3NF ensures that non-key attributes depend only on the primary key, removing indirect (transitive) dependencies."
-            },
-            {
-              question: "What is Boyce-Codd Normal Form (BCNF)?",
-              options: ["A weaker version of 2NF", "A strict version of 3NF where for every functional dependency X -> Y, X must be a superkey", "An index optimization rule", "A database backup standard"],
-              correct: 1,
-              explanation: "BCNF is a stricter form of 3NF that handles overlapping candidate keys, requiring every determinant to be a superkey."
-            },
-            {
-              question: "What does the letter 'A' stand for in the ACID transaction acronym?",
-              options: ["Availability", "Atomicity", "Aggregation", "Authorization"],
-              correct: 1,
-              explanation: "Atomicity ensures that transactions are all-or-nothing: either all modifications succeed, or the database is rolled back to its original state."
-            },
-            {
-              question: "What does Consistency guarantee in ACID?",
-              options: ["That the database is always available", "That transactions only transition the database from one valid state to another, preserving all schemas and constraints", "That data is not duplicated", "That queries run instantly"],
-              correct: 1,
-              explanation: "Consistency guarantees that a transaction cannot violate any defined database constraints (like primary keys, foreign keys, or check constraints)."
-            },
-            {
-              question: "What transaction isolation issue occurs when Transaction 1 reads uncommitted modifications made by Transaction 2?",
-              options: ["Non-repeatable Read", "Phantom Read", "Dirty Read", "Lost Update"],
-              correct: 2,
-              explanation: "A Dirty Read occurs when a transaction reads uncommitted data, which might subsequently be rolled back by the other transaction."
-            },
-            {
-              question: "What isolation level prevents Dirty Reads but allows Non-repeatable Reads?",
-              options: ["Read Uncommitted", "Read Committed", "Repeatable Read", "Serializable"],
-              correct: 1,
-              explanation: "Read Committed prevents reading uncommitted changes, but since shared read locks are released immediately, values can change if read again later."
-            },
-            {
-              question: "What is a Phantom Read?",
-              options: ["Reading deleted rows", "Re-running a query returns new rows inserted by another transaction that committed in the meantime", "Reading data that is corrupted", "A lock failure"],
-              correct: 1,
-              explanation: "A Phantom Read occurs when a transaction queries a range of rows and a concurrent transaction inserts new matching rows, which appear in subsequent reads."
-            },
-            {
-              question: "Which isolation level offers the highest level of isolation, protecting against all read anomalies?",
-              options: ["Read Committed", "Repeatable Read", "Serializable", "Snapshot Isolation"],
-              correct: 2,
-              explanation: "Serializable is the strictest isolation level. It makes transactions behave as if they ran sequentially one after another."
-            },
-            {
-              question: "What limitation does a Hash Index have compared to a B-Tree Index?",
-              options: ["It is slower for point lookups", "It does not support range queries (e.g. WHERE val > 10) because keys are hashed without sorting", "It cannot be created on integer columns", "It requires more disk space"],
-              correct: 1,
-              explanation: "Hash indexes assign keys to buckets via a hashing function, which lacks order. Thus, they support equality checks (=) but cannot optimize range searches (>, <, BETWEEN)."
-            },
-            {
-              question: "What execution details does this command print?",
-              code: "EXPLAIN SELECT * FROM users WHERE email = 'test@example.com';",
-              options: ["The index contents", "The performance path and operations chosen by the query planner", "The error log details", "The rows in matching tables"],
-              correct: 1,
-              explanation: "EXPLAIN prints the execution path (e.g., nested loops, table scans, index scans) selected by the database query planner."
-            },
-            {
-              question: "What is a table scan (sequential scan)?",
-              options: ["Scanning the indexes", "Reading every page of the physical table on disk to find matching rows", "Checking column constraints", "A table backup process"],
-              correct: 1,
-              explanation: "A sequential scan reads all rows of a table from disk. It occurs when no indexes are available to help satisfy query filters."
-            },
-            {
-              question: "What is a covering index?",
-              options: ["An index on all tables", "An index containing all columns requested by a query, allowing the engine to return results entirely from the index without looking up rows on disk", "A clustered index", "An index that is hidden"],
-              correct: 1,
-              explanation: "A covering index contains all selected columns, allowing index-only scans, which drastically speeds up data retrieval by avoiding disk access."
-            },
-            {
-              question: "What is the default transaction isolation level in PostgreSQL?",
-              options: ["Read Uncommitted", "Read Committed", "Repeatable Read", "Serializable"],
-              correct: 1,
-              explanation: "PostgreSQL defaults to Read Committed, ensuring readers do not see uncommitted changes but allowing values to change during long transactions."
-            }
-          ]
+            // Module 7 (20 questions)
+            [
+                {
+                    question: "What default index structure is used by most relational database engines?",
+                    options: ["Hash Index", "B-Tree Index", "Bitmap Index", "GIST Index"],
+                    correct: 1,
+                    explanation: "B-Trees (Balanced Trees) are the default because they keep data sorted and support logarithmic search, insertion, deletion, and range queries."
+                },
+                {
+                    question: "What is a clustered index?",
+                    options: ["An index on multiple columns", "An index that defines the physical storage order of rows in the table", "A temp index", "An index containing no keys"],
+                    correct: 1,
+                    explanation: "A clustered index forces the table data to be stored on disk sorted in the order of the index key. This is why a table can only have one clustered index."
+                },
+                {
+                    question: "How many clustered indexes can exist on a single table?",
+                    options: ["Unlimited", "One", "Two", "Zero"],
+                    correct: 1,
+                    explanation: "Since the physical data rows can only be sorted in one physical sequence on disk, a table is restricted to exactly one clustered index."
+                },
+                {
+                    question: "What is a non-clustered index?",
+                    options: ["An index that is not sorted", "An index stored separately from the data rows, containing pointers to the physical rows", "An index on NULL values", "An invalid index"],
+                    correct: 1,
+                    explanation: "Non-clustered indexes are stored in separate structures. They map keys to row locators (pointers to physical data positions)."
+                },
+                {
+                    question: "What is the primary goal of database normalization?",
+                    options: ["Speeding up inserts", "Eliminating redundant data and preventing update/delete anomalies", "Adding columns automatically", "Compressing database backups"],
+                    correct: 1,
+                    explanation: "Normalization organizes tables to reduce duplicate data storage, which prevents data integrity inconsistencies (anomalies)."
+                },
+                {
+                    question: "What condition must be met for a table to satisfy First Normal Form (1NF)?",
+                    options: ["No foreign keys", "Atomic column values and no repeating groups/arrays", "Single column primary keys", "No NULL values"],
+                    correct: 1,
+                    explanation: "1NF requires each table cell to contain only single, indivisible (atomic) values, with no arrays or multi-value repeating groups."
+                },
+                {
+                    question: "What is required for a table to be in Second Normal Form (2NF)?",
+                    options: ["Must be in 1NF and have no partial dependencies (every non-prime attribute must depend on the whole primary key)", "Must have no nullable columns", "Must have a clustered index", "Must be in 3NF"],
+                    correct: 0,
+                    explanation: "2NF eliminates partial dependencies. In tables with composite keys, all non-key columns must depend on the entire composite primary key, not just a subset of it."
+                },
+                {
+                    question: "What is required for a table to be in Third Normal Form (3NF)?",
+                    options: ["Must have no foreign keys", "Must be in 2NF and contain no transitive dependencies (non-key columns depending on other non-key columns)", "Must have 3 indexes", "Must have zero NULL values"],
+                    correct: 1,
+                    explanation: "3NF ensures that non-key attributes depend only on the primary key, removing indirect (transitive) dependencies."
+                },
+                {
+                    question: "What is Boyce-Codd Normal Form (BCNF)?",
+                    options: ["A weaker version of 2NF", "A strict version of 3NF where for every functional dependency X -> Y, X must be a superkey", "An index optimization rule", "A database backup standard"],
+                    correct: 1,
+                    explanation: "BCNF is a stricter form of 3NF that handles overlapping candidate keys, requiring every determinant to be a superkey."
+                },
+                {
+                    question: "What does the letter 'A' stand for in the ACID transaction acronym?",
+                    options: ["Availability", "Atomicity", "Aggregation", "Authorization"],
+                    correct: 1,
+                    explanation: "Atomicity ensures that transactions are all-or-nothing: either all modifications succeed, or the database is rolled back to its original state."
+                },
+                {
+                    question: "What does Consistency guarantee in ACID?",
+                    options: ["That the database is always available", "That transactions only transition the database from one valid state to another, preserving all schemas and constraints", "That data is not duplicated", "That queries run instantly"],
+                    correct: 1,
+                    explanation: "Consistency guarantees that a transaction cannot violate any defined database constraints (like primary keys, foreign keys, or check constraints)."
+                },
+                {
+                    question: "What transaction isolation issue occurs when Transaction 1 reads uncommitted modifications made by Transaction 2?",
+                    options: ["Non-repeatable Read", "Phantom Read", "Dirty Read", "Lost Update"],
+                    correct: 2,
+                    explanation: "A Dirty Read occurs when a transaction reads uncommitted data, which might subsequently be rolled back by the other transaction."
+                },
+                {
+                    question: "What isolation level prevents Dirty Reads but allows Non-repeatable Reads?",
+                    options: ["Read Uncommitted", "Read Committed", "Repeatable Read", "Serializable"],
+                    correct: 1,
+                    explanation: "Read Committed prevents reading uncommitted changes, but since shared read locks are released immediately, values can change if read again later."
+                },
+                {
+                    question: "What is a Phantom Read?",
+                    options: ["Reading deleted rows", "Re-running a query returns new rows inserted by another transaction that committed in the meantime", "Reading data that is corrupted", "A lock failure"],
+                    correct: 1,
+                    explanation: "A Phantom Read occurs when a transaction queries a range of rows and a concurrent transaction inserts new matching rows, which appear in subsequent reads."
+                },
+                {
+                    question: "Which isolation level offers the highest level of isolation, protecting against all read anomalies?",
+                    options: ["Read Committed", "Repeatable Read", "Serializable", "Snapshot Isolation"],
+                    correct: 2,
+                    explanation: "Serializable is the strictest isolation level. It makes transactions behave as if they ran sequentially one after another."
+                },
+                {
+                    question: "What limitation does a Hash Index have compared to a B-Tree Index?",
+                    options: ["It is slower for point lookups", "It does not support range queries (e.g. WHERE val > 10) because keys are hashed without sorting", "It cannot be created on integer columns", "It requires more disk space"],
+                    correct: 1,
+                    explanation: "Hash indexes assign keys to buckets via a hashing function, which lacks order. Thus, they support equality checks (=) but cannot optimize range searches (>, <, BETWEEN)."
+                },
+                {
+                    question: "What execution details does this command print?",
+                    code: "EXPLAIN SELECT * FROM users WHERE email = 'test@example.com';",
+                    options: ["The index contents", "The performance path and operations chosen by the query planner", "The error log details", "The rows in matching tables"],
+                    correct: 1,
+                    explanation: "EXPLAIN prints the execution path (e.g., nested loops, table scans, index scans) selected by the database query planner."
+                },
+                {
+                    question: "What is a table scan (sequential scan)?",
+                    options: ["Scanning the indexes", "Reading every page of the physical table on disk to find matching rows", "Checking column constraints", "A table backup process"],
+                    correct: 1,
+                    explanation: "A sequential scan reads all rows of a table from disk. It occurs when no indexes are available to help satisfy query filters."
+                },
+                {
+                    question: "What is a covering index?",
+                    options: ["An index on all tables", "An index containing all columns requested by a query, allowing the engine to return results entirely from the index without looking up rows on disk", "A clustered index", "An index that is hidden"],
+                    correct: 1,
+                    explanation: "A covering index contains all selected columns, allowing index-only scans, which drastically speeds up data retrieval by avoiding disk access."
+                },
+                {
+                    question: "What is the default transaction isolation level in PostgreSQL?",
+                    options: ["Read Uncommitted", "Read Committed", "Repeatable Read", "Serializable"],
+                    correct: 1,
+                    explanation: "PostgreSQL defaults to Read Committed, ensuring readers do not see uncommitted changes but allowing values to change during long transactions."
+                }
+            ]
         ];
 
         const QuizManager = {
@@ -2052,7 +2053,7 @@ $$ <span class="kw">LANGUAGE</span> plpgsql;
                         quizCard.className = 'quiz-card';
                         quizCard.id = `quiz-card-${modId}`;
                         quizCard.setAttribute('data-module', modId);
-                        
+
                         lastTopicCard.parentNode.insertBefore(quizCard, lastTopicCard.nextSibling);
                         this.renderStartScreen(modId);
                     }
