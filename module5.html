@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 5: DBMS Architecture & Indexing - SQL Topic & Placement Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar-wrapper" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                        <path d="M12 6v6l4 2"></path>
+                    </svg>
+                    <span class="logo-text">SQL Guide</span>
+                </div>
+                <button class="close-sidebar-btn" id="close-sidebar" aria-label="Close menu">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="search-box">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="search-input" placeholder="Search guide..." autocomplete="off">
+                </div>
+            </div>
+            <nav class="toc-nav" id="toc-nav">
+                <!-- Dynamically generated TOC -->
+            </nav>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="main-wrapper">
+            <header class="top-nav">
+                <div class="nav-left">
+                    <button id="menu-toggle" class="menu-btn" aria-label="Toggle menu">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="nav-title">The Complete SQL Topic &amp; Placement Guide</div>
+                </div>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Theme">
+                        <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-container">
+                <!-- ================= MODULE 5 ================= -->
+                <div class="module-header">
+                    <span>Module 5: Built-in Functions, Pivots & NULL Handling</span>
+                    <span class="module-tag">Data Transformation</span>
+                </div>
+
+                <!-- 5.1 String, Date & NULL Functions -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">13.</span><span class="topic-heading">String, Date, Math &amp; NULL
+                                Safeguards</span></div>
+                        <span class="topic-meta">Scalar Operations</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong> Essential utility functions for parsing raw values,
+                        computing durations, and preventing runtime errors (such as dividing by zero).
+                    </div>
+                    <div class="code-section-header"><span class="badge-easy">Example</span> String Manipulation &
+                        Substring Parsing</div>
+                    <pre><span class="kw">SELECT</span> 
+    <span class="fn">CONCAT_WS</span>(<span class="str">', '</span>, last_name, first_name) <span class="kw">AS</span> formatted_name,
+    <span class="fn">SUBSTRING</span>(email <span class="kw">FROM</span> <span class="num">1</span> <span class="kw">FOR</span> <span class="fn">POSITION</span>(<span class="str">'@'</span> <span class="kw">IN</span> email) - <span class="num">1</span>) <span class="kw">AS</span> username,
+    <span class="fn">TRIM</span>(<span class="kw">BOTH</span> <span class="str">' '</span> <span class="kw">FROM</span> phone_number) <span class="kw">AS</span> clean_phone
+<span class="kw">FROM</span> users;</pre>
+
+                    <div class="code-section-header"><span class="badge-tricky">Example</span> Date Math &
+                        Divide-by-Zero Guard</div>
+                    <pre><span class="kw">SELECT</span> 
+    order_id,
+    <span class="cm">-- Date arithmetic: Age in days</span>
+    <span class="kw">CURRENT_DATE</span> - order_date <span class="kw">AS</span> days_elapsed,
+    <span class="cm">-- NULLIF converts 0 to NULL, avoiding divide-by-zero errors</span>
+    revenue / <span class="fn">NULLIF</span>(units_sold, <span class="num">0</span>) <span class="kw">AS</span> unit_price
+<span class="kw">FROM</span> sales_orders;</pre>
+                </div>
+
+                <!-- 5.2 CASE Expressions & Pivoting -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">14.</span><span class="topic-heading">CASE Expressions & Pivoting
+                                Rows into Columns</span></div>
+                        <span class="topic-meta">Cross-Tabulation</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong> Conditional aggregation pairs <span
+                            class="code-inline">SUM(CASE WHEN ...)</span> with <span class="code-inline">GROUP BY</span>
+                        to pivot categorical rows into separate columns.
+                    </div>
+                    <div class="code-section-header"><span class="badge-tricky">Example</span> Quarterly Revenue Pivot
+                        Table</div>
+                    <pre><span class="kw">SELECT</span> 
+    product_name,
+    <span class="fn">SUM</span>(<span class="kw">CASE WHEN</span> quarter = <span class="str">'Q1'</span> <span class="kw">THEN</span> sales <span class="kw">ELSE</span> <span class="num">0</span> <span class="kw">END</span>) <span class="kw">AS</span> q1_sales,
+    <span class="fn">SUM</span>(<span class="kw">CASE WHEN</span> quarter = <span class="str">'Q2'</span> <span class="kw">THEN</span> sales <span class="kw">ELSE</span> <span class="num">0</span> <span class="kw">END</span>) <span class="kw">AS</span> q2_sales,
+    <span class="fn">SUM</span>(<span class="kw">CASE WHEN</span> quarter = <span class="str">'Q3'</span> <span class="kw">THEN</span> sales <span class="kw">ELSE</span> <span class="num">0</span> <span class="kw">END</span>) <span class="kw">AS</span> q3_sales,
+    <span class="fn">SUM</span>(<span class="kw">CASE WHEN</span> quarter = <span class="str">'Q4'</span> <span class="kw">THEN</span> sales <span class="kw">ELSE</span> <span class="num">0</span> <span class="kw">END</span>) <span class="kw">AS</span> q4_sales
+<span class="kw">FROM</span> quarterly_sales
+<span class="kw">GROUP BY</span> product_name;</pre>
+                </div>
+            </div> <!-- close content-container -->
+
+            <footer class="site-footer">© 2026 Mukesh Kumar Sanivada. All rights reserved.</footer>
+
+        </div> <!-- close main-wrapper -->
+    </div> <!-- close app-container -->
+
+    <button id="back-to-top" class="back-to-top-btn" title="Back to top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        window.QUIZ_QUESTIONS = [
+            {
+                    question: "What value does this query return?",
+                    code: "SELECT COALESCE(NULL, NULL, 'Gemini', 'SQL') as res;",
+                    options: ["NULL", "'Gemini'", "'SQL'", "'Gemini, SQL'"],
+                    correct: 1,
+                    explanation: "COALESCE returns the first non-NULL value in its arguments list. Here, 'Gemini' is the first non-NULL value."
+                },
+                {
+                    question: "What does NULLIF(100, 100) return?",
+                    options: ["0", "100", "NULL", "An error"],
+                    correct: 2,
+                    explanation: "NULLIF(x, y) returns NULL if x equals y. If they are different, it returns the first argument (x)."
+                },
+                {
+                    question: "What is the result of '100 + NULL' in standard SQL math operations?",
+                    options: ["100", "0", "NULL", "Throws a type error"],
+                    correct: 2,
+                    explanation: "Any arithmetic operation containing a NULL operand (e.g. +, -, *, /) results in NULL."
+                },
+                {
+                    question: "How do you write conditional logic inside an SQL SELECT statement?",
+                    options: ["IF/THEN statements", "CASE WHEN condition THEN value ELSE fallback END", "DECODE()", "SWITCH statements"],
+                    correct: 1,
+                    explanation: "The CASE expression is the standard, cross-platform way to implement conditional branch logic in SQL."
+                },
+                {
+                    question: "What does the comparison 'NULL = NULL' evaluate to in SQL's three-valued logic?",
+                    options: ["TRUE", "FALSE", "UNKNOWN", "NULL"],
+                    correct: 2,
+                    explanation: "In SQL, NULL represents missing/unknown data. Thus, comparing NULL to anything (even NULL itself) yields UNKNOWN."
+                },
+                {
+                    question: "What standard function converts a value from one data type to another?",
+                    options: ["TRANSFORM", "CONVERT_TYPE", "CAST(value AS target_type)", "FORMAT"],
+                    correct: 2,
+                    explanation: "The CAST function is the ANSI SQL standard for explicit type conversions."
+                },
+                {
+                    question: "What is returned by CONCAT('A', NULL, 'B') in standard ANSI SQL?",
+                    options: ["'AB'", "NULL", "'ANULLB'", "An error"],
+                    correct: 1,
+                    explanation: "Under ANSI SQL standard, concatenating a string with NULL yields NULL. Note that some engines (like SQL Server or MySQL) have settings or functions that treat NULL as empty strings."
+                },
+                {
+                    question: "What is returned by SUBSTRING('Database', 1, 4)?",
+                    options: ["'Data'", "'atab'", "'Datab'", "'base'"],
+                    correct: 0,
+                    explanation: "SUBSTRING extraction starts at position 1 (inclusive) and takes a length of 4 characters, returning 'Data'."
+                },
+                {
+                    question: "What is the primary role of the PIVOT operator?",
+                    options: ["To delete duplicate records", "To rotate rows into columns, performing aggregations along the way", "To join tables horizontally", "To sort columns"],
+                    correct: 1,
+                    explanation: "PIVOT transforms row-level unique keys into multiple distinct columns, summarizing data from vertical to horizontal format."
+                },
+                {
+                    question: "What does the UNPIVOT operator do?",
+                    options: ["Reverts a join", "Rotates columns into rows", "Deletes pivoted columns", "Splits strings into rows"],
+                    correct: 1,
+                    explanation: "UNPIVOT rotates columns of data into a vertical row-based format."
+                },
+                {
+                    question: "How do you search for text fields that start with the letter 'A'?",
+                    options: ["LIKE '%A'", "LIKE 'A%'", "LIKE '_A'", "LIKE '[A]'"],
+                    correct: 1,
+                    explanation: "The % wildcard matches zero or more characters. Placing it after 'A' matches any string starting with 'A'."
+                },
+                {
+                    question: "In LIKE wildcards, what does the underscore (_) character match?",
+                    options: ["Any string of any length", "Exactly one character", "Spaces only", "Numeric digits only"],
+                    correct: 1,
+                    explanation: "An underscore (_) matches exactly one character, acting as a single-character wildcard."
+                },
+                {
+                    question: "If a subquery returns a set containing a NULL (e.g. 10, 20, NULL), how does 'WHERE col NOT IN (subquery)' behave?",
+                    options: ["It ignores the NULL", "It returns all rows except 10 and 20", "It always returns an empty set (no rows)", "It throws a syntax error"],
+                    correct: 2,
+                    explanation: "NOT IN translates to (col != 10 AND col != 20 AND col != NULL). Since 'col != NULL' is UNKNOWN, the entire AND expression evaluates to UNKNOWN, returning no rows."
+                },
+                {
+                    question: "What is returned by COALESCE(NULL, NULL, NULL)?",
+                    options: ["0", "NULL", "An error", "Empty string"],
+                    correct: 1,
+                    explanation: "If all arguments passed to COALESCE are NULL, it returns NULL."
+                },
+                {
+                    question: "What function transforms string inputs to all caps?",
+                    options: ["CAPS()", "UPPER()", "UPCASE()", "TO_UPPER()"],
+                    correct: 1,
+                    explanation: "The UPPER() function converts all characters in a string to uppercase."
+                },
+                {
+                    question: "What is the standard operator used to check if a field contains no data?",
+                    options: ["= NULL", "!= NULL", "IS NULL", "== NULL"],
+                    correct: 2,
+                    explanation: "Because NULL comparisons yield UNKNOWN, you must check for NULLs using the specialized 'IS NULL' operator."
+                },
+                {
+                    question: "What is evaluated by: CASE WHEN 1=1 THEN 'Yes' ELSE 'No' END?",
+                    options: ["'Yes'", "'No'", "NULL", "An error"],
+                    correct: 0,
+                    explanation: "Since 1=1 is TRUE, the CASE expression evaluates the first branch, returning 'Yes'."
+                },
+                {
+                    question: "What is the Oracle database function that performs NVL(col, default) behavior?",
+                    options: ["ISNULL", "COALESCE", "NVL", "IFNULL"],
+                    correct: 2,
+                    explanation: "Oracle uses NVL() to replace NULL values with default values, which is equivalent to COALESCE or SQL Server's ISNULL."
+                },
+                {
+                    question: "What is the SQL Server specific function that replaces NULL with a default (takes exactly 2 arguments)?",
+                    options: ["NVL", "IFNULL", "ISNULL", "COALESCE"],
+                    correct: 2,
+                    explanation: "SQL Server provides ISNULL(check_expression, replacement_value) as a fast, 2-argument NULL-replacement helper."
+                },
+                {
+                    question: "Why does the query 'SELECT * FROM users WHERE age != 30' exclude users whose age is NULL?",
+                    options: ["Because age must be indexed", "Because NULL != 30 evaluates to UNKNOWN, and SQL only returns rows that evaluate to TRUE", "Because NULL is equal to 30", "Because SELECT excludes NULLs by default"],
+                    correct: 1,
+                    explanation: "WHERE filters only allow rows evaluating to TRUE. Since NULL comparisons evaluate to UNKNOWN, NULL rows are discarded."
+                }
+        ];
+    </script>
+</body>
+</html>

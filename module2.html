@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2: Complete Relational Joins Encyclopedia - SQL Topic & Placement Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar-wrapper" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                        <path d="M12 6v6l4 2"></path>
+                    </svg>
+                    <span class="logo-text">SQL Guide</span>
+                </div>
+                <button class="close-sidebar-btn" id="close-sidebar" aria-label="Close menu">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="search-box">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="search-input" placeholder="Search guide..." autocomplete="off">
+                </div>
+            </div>
+            <nav class="toc-nav" id="toc-nav">
+                <!-- Dynamically generated TOC -->
+            </nav>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="main-wrapper">
+            <header class="top-nav">
+                <div class="nav-left">
+                    <button id="menu-toggle" class="menu-btn" aria-label="Toggle menu">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="nav-title">The Complete SQL Topic &amp; Placement Guide</div>
+                </div>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Theme">
+                        <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-container">
+                <!-- ================= MODULE 2 ================= -->
+                <div class="module-header">
+                    <span>Module 2: Complete Relational Joins Encyclopedia</span>
+                    <span class="module-tag">All Join Types</span>
+                </div>
+
+                <!-- 2.1 INNER JOIN -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">04.</span><span class="topic-heading">1. INNER JOIN (Equi-Join &
+                                Non-Equi Join)</span></div>
+                        <span class="topic-meta">Exact Intersection</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong> Returns rows only when the join condition evaluates to true
+                        in <em>both</em> tables. Discards all non-matching records.
+                    </div>
+                    <div class="code-section-header"><span class="badge-easy">Equi-Join Example</span> Matching Primary
+                        and Foreign Keys</div>
+                    <pre><span class="kw">SELECT</span> e.name <span class="kw">AS</span> emp_name, d.dept_name
+<span class="kw">FROM</span> employees e
+<span class="kw">INNER JOIN</span> departments d <span class="kw">ON</span> e.department_id = d.id;</pre>
+
+                    <div class="code-section-header"><span class="badge-tricky">Non-Equi Join Example</span> Joining on
+                        Value Ranges (<span class="code-inline">&gt;=</span>, <span class="code-inline">&lt;=</span>)
+                    </div>
+                    <pre><span class="cm">-- Match employees to salary grades where salary falls between min and max bounds</span>
+<span class="kw">SELECT</span> e.name, e.salary, g.grade_level
+<span class="kw">FROM</span> employees e
+<span class="kw">INNER JOIN</span> salary_grades g 
+    <span class="kw">ON</span> e.salary <span class="kw">BETWEEN</span> g.min_salary <span class="kw">AND</span> g.max_salary;</pre>
+                </div>
+
+                <!-- 2.2 LEFT & RIGHT JOIN -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">05.</span><span class="topic-heading">2. LEFT JOIN &amp; 3. RIGHT
+                                JOIN</span></div>
+                        <span class="topic-meta">Outer Directional Joins</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong>
+                        <ul class="bullet-list">
+                            <li><strong>LEFT JOIN:</strong> Keeps <em>all</em> rows from the left table. If no match
+                                exists on the right, right columns fill with <span class="code-inline">NULL</span>.</li>
+                            <li><strong>RIGHT JOIN:</strong> Keeps <em>all</em> rows from the right table, filling
+                                unmatched left columns with <span class="code-inline">NULL</span>. (In industry, LEFT
+                                JOIN is preferred for readability).</li>
+                        </ul>
+                    </div>
+                    <div class="code-section-header"><span class="badge-easy">LEFT JOIN Example</span> All Customers
+                        Regardless of Order History</div>
+                    <pre><span class="kw">SELECT</span> c.name, o.order_id, o.total_amount
+<span class="kw">FROM</span> customers c
+<span class="kw">LEFT JOIN</span> orders o <span class="kw">ON</span> c.id = o.customer_id;</pre>
+
+                    <div class="code-section-header"><span class="badge-easy">RIGHT JOIN Example</span> All Departments
+                        Regardless of Assigned Employees</div>
+                    <pre><span class="kw">SELECT</span> e.name, d.dept_name
+<span class="kw">FROM</span> employees e
+<span class="kw">RIGHT JOIN</span> departments d <span class="kw">ON</span> e.department_id = d.id;</pre>
+                </div>
+
+                <!-- 2.3 FULL OUTER JOIN -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">06.</span><span class="topic-heading">4. FULL OUTER JOIN</span>
+                        </div>
+                        <span class="topic-meta">Complete Union of Datasets</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong> Combines LEFT JOIN and RIGHT JOIN. Preserves all rows from
+                        both tables, filling with <span class="code-inline">NULL</span> wherever a relationship does not
+                        exist.
+                    </div>
+                    <div class="code-section-header"><span class="badge-tricky">Example</span> Finding Unlinked Records
+                        Across Both Entities</div>
+                    <pre><span class="cm">-- Retains employees without departments AND departments with zero employees</span>
+<span class="kw">SELECT</span> e.name <span class="kw">AS</span> emp_name, d.dept_name
+<span class="kw">FROM</span> employees e
+<span class="kw">FULL OUTER JOIN</span> departments d <span class="kw">ON</span> e.department_id = d.id;</pre>
+                </div>
+
+                <!-- 2.4 CROSS JOIN & SELF JOIN -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">07.</span><span class="topic-heading">5. CROSS JOIN &amp; 6. SELF
+                                JOIN</span></div>
+                        <span class="topic-meta">Cartesian Products &amp; Hierarchies</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong>
+                        <ul class="bullet-list">
+                            <li><strong>CROSS JOIN:</strong> Cartesian product ($N \times M$ rows). Multiplies every row
+                                of table A by every row of table B.</li>
+                            <li><strong>SELF JOIN:</strong> Joining a table to itself using two distinct aliases to
+                                evaluate intra-table hierarchies.</li>
+                        </ul>
+                    </div>
+                    <div class="code-section-header"><span class="badge-easy">CROSS JOIN Example</span> Generating
+                        Permutations (All Sizes x All Colors)</div>
+                    <pre><span class="kw">SELECT</span> s.size_label, c.color_name
+<span class="kw">FROM</span> sizes s
+<span class="kw">CROSS JOIN</span> colors c;</pre>
+
+                    <div class="code-section-header"><span class="badge-tricky">SELF JOIN Example</span> Finding
+                        Employees Earning More Than Their Managers</div>
+                    <pre><span class="kw">SELECT</span> 
+    e.name <span class="kw">AS</span> employee_name, e.salary <span class="kw">AS</span> emp_salary,
+    m.name <span class="kw">AS</span> manager_name, m.salary <span class="kw">AS</span> manager_salary
+<span class="kw">FROM</span> employees e
+<span class="kw">JOIN</span> employees m <span class="kw">ON</span> e.manager_id = m.emp_id
+<span class="kw">WHERE</span> e.salary > m.salary;</pre>
+                </div>
+
+                <!-- 2.5 ANTI-JOIN, SEMI-JOIN & NATURAL JOIN -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">08.</span><span class="topic-heading">7. Anti-Join, 8. Semi-Join
+                                &amp; 9. NATURAL JOIN</span></div>
+                        <span class="topic-meta">Special Join Architectures</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong>
+                        <ul class="bullet-list">
+                            <li><strong>Anti-Join:</strong> Identifies records in table A that have <em>no</em> matching
+                                rows in table B (<span class="code-inline">LEFT JOIN ... WHERE B.id IS NULL</span>).
+                            </li>
+                            <li><strong>Semi-Join:</strong> Returns rows from table A if they exist in table B, without
+                                duplicating rows if table B has multiple matches (<span
+                                    class="code-inline">EXISTS</span>).</li>
+                            <li><strong>NATURAL JOIN:</strong> Automatically matches all columns with identical names
+                                across tables. (Interviewers warn against this because schema changes break queries
+                                silently).</li>
+                        </ul>
+                    </div>
+                    <div class="code-section-header"><span class="badge-tricky">Anti-Join Example</span> Customers with
+                        Zero Orders</div>
+                    <pre><span class="kw">SELECT</span> c.id, c.name
+<span class="kw">FROM</span> customers c
+<span class="kw">LEFT JOIN</span> orders o <span class="kw">ON</span> c.id = o.customer_id
+<span class="kw">WHERE</span> o.id <span class="kw">IS NULL</span>;  <span class="cm">-- Anti-join filter</span></pre>
+
+                    <div class="code-section-header"><span class="badge-tricky">Semi-Join Example</span> Customers Who
+                        Placed at Least One Order</div>
+                    <pre><span class="kw">SELECT</span> c.id, c.name
+<span class="kw">FROM</span> customers c
+<span class="kw">WHERE EXISTS</span> (
+    <span class="kw">SELECT</span> <span class="num">1</span> <span class="kw">FROM</span> orders o <span class="kw">WHERE</span> o.customer_id = c.id
+);</pre>
+
+                    <div class="code-section-header"><span class="badge-easy">NATURAL JOIN Example</span> Implicit
+                        Column Matching</div>
+                    <pre><span class="cm">-- Joins implicitly on identical column names (e.g. department_id)</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> employees <span class="kw">NATURAL JOIN</span> departments;</pre>
+                </div>
+            </div> <!-- close content-container -->
+
+            <footer class="site-footer">© 2026 Mukesh Kumar Sanivada. All rights reserved.</footer>
+
+        </div> <!-- close main-wrapper -->
+    </div> <!-- close app-container -->
+
+    <button id="back-to-top" class="back-to-top-btn" title="Back to top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        window.QUIZ_QUESTIONS = [
+            {
+                    question: "What is returned by a standard INNER JOIN?",
+                    options: ["All rows from both tables", "Only rows that have matching values in both tables", "All rows from the left table and matching rows from the right", "All rows from the right table and matching rows from the left"],
+                    correct: 1,
+                    explanation: "An INNER JOIN returns the intersection of the two tables. It only includes rows that meet the join condition."
+                },
+                {
+                    question: "In a LEFT JOIN (or LEFT OUTER JOIN), what values are populated for the right table's columns when a left row has no match?",
+                    options: ["Blank spaces", "Zeros", "NULL", "An empty string"],
+                    correct: 2,
+                    explanation: "A LEFT JOIN guarantees all rows from the left table. If there is no matching row on the right, the right columns are filled with NULLs."
+                },
+                {
+                    question: "Which join type returns all records from both tables, filling in NULLs where keys do not match?",
+                    options: ["INNER JOIN", "CROSS JOIN", "FULL OUTER JOIN", "SELF JOIN"],
+                    correct: 2,
+                    explanation: "FULL OUTER JOIN returns the union of both tables, generating NULLs for missing matches on either side."
+                },
+                {
+                    question: "What is a CROSS JOIN?",
+                    options: ["A join that matches columns by name", "A join that returns the Cartesian product of the two tables", "A join that compares a table to itself", "A join using non-equality operators"],
+                    correct: 1,
+                    explanation: "A CROSS JOIN pairs every row of the first table with every row of the second table, creating a Cartesian product."
+                },
+                {
+                    question: "What is a SELF JOIN?",
+                    options: ["A join that requires no ON clause", "A join that matches a table to itself using aliases", "A join between a table and a view", "A join that automatically commits"],
+                    correct: 1,
+                    explanation: "A SELF JOIN joins a table to itself. Table aliases (e.g., FROM employees e1 JOIN employees e2) are required to differentiate the instances."
+                },
+                {
+                    question: "What is a non-equi join?",
+                    options: ["A join with no keys", "A join condition that uses comparisons other than '=' (e.g., <, >, BETWEEN)", "A join returning mismatched rows", "A join that fails due to type mismatches"],
+                    correct: 1,
+                    explanation: "A non-equi join links tables using operators like <, >, <=, >=, or BETWEEN instead of checking for exact equality (=)."
+                },
+                {
+                    question: "How does a standard SQL JOIN condition ON a.id = b.id handle NULL values in those columns?",
+                    options: ["It joins them because NULL equals NULL", "It returns an error", "It ignores them because NULL = NULL evaluates to UNKNOWN", "It joins them only in outer joins"],
+                    correct: 2,
+                    explanation: "In SQL, NULL comparison (NULL = NULL) evaluates to UNKNOWN (not TRUE). Thus, join conditions will not match NULLs."
+                },
+                {
+                    question: "Which query structure finds records in Table A that have no matching records in Table B?",
+                    options: ["SELECT * FROM A INNER JOIN B ON A.id = B.id", "SELECT * FROM A LEFT JOIN B ON A.id = B.id WHERE B.id IS NULL", "SELECT * FROM A RIGHT JOIN B ON A.id = B.id WHERE A.id IS NULL", "SELECT * FROM A CROSS JOIN B WHERE A.id = B.id"],
+                    correct: 1,
+                    explanation: "By doing a LEFT JOIN and filtering for rows where B's joining column IS NULL, you isolate the rows in A that failed to match any row in B."
+                },
+                {
+                    question: "If Table A has 10 rows and Table B has 5 rows, how many rows are returned by a CROSS JOIN?",
+                    options: ["15", "5", "50", "2"],
+                    correct: 2,
+                    explanation: "A CROSS JOIN produces a Cartesian product. The total rows returned is the product of both table sizes (10 * 5 = 50)."
+                },
+                {
+                    question: "What is mandatory to write a valid SELF JOIN query?",
+                    options: ["A subquery", "The UNION operator", "Table aliases to distinguish the table references", "A primary key index"],
+                    correct: 2,
+                    explanation: "Since you reference the same table name multiple times, you must assign aliases (e.g., 't1' and 't2') so the query compiler can resolve column references."
+                },
+                {
+                    question: "Can multiple tables be joined together in a single query?",
+                    options: ["No, only two tables can be joined at a time", "Yes, by chaining join clauses sequentially", "Yes, but only using subqueries", "Only if they share a single compound key"],
+                    correct: 1,
+                    explanation: "You can join multiple tables by sequentially adding JOIN clauses. The result of the first join is joined to the next table, and so on."
+                },
+                {
+                    question: "What is the default join type if the JOIN keyword is used on its own?",
+                    options: ["LEFT JOIN", "INNER JOIN", "CROSS JOIN", "FULL OUTER JOIN"],
+                    correct: 1,
+                    explanation: "In SQL, writing 'JOIN' without any outer/cross qualifier default-resolves to an 'INNER JOIN'."
+                },
+                {
+                    question: "How does a NATURAL JOIN match columns between two tables?",
+                    options: ["By comparing primary key to foreign key definitions", "By matching columns that have the same name in both tables", "By matching columns in physical order", "By selecting the first indexed column"],
+                    correct: 1,
+                    explanation: "A NATURAL JOIN matches columns sharing the same name in both tables. It does not require an ON clause."
+                },
+                {
+                    question: "Why is NATURAL JOIN generally avoided in professional production database code?",
+                    options: ["It has terrible index usage", "Adding or renaming a column in either table can silently alter the join condition and break queries", "It is not ANSI SQL compliant", "It only works with integer columns"],
+                    correct: 1,
+                    explanation: "If another developer adds a column to one of the tables that happens to share a name with a column in the other table, the NATURAL JOIN will match on both columns, silently corrupting query results."
+                },
+                {
+                    question: "What is the computational complexity (growth) of a CROSS JOIN on two tables of size N and M?",
+                    options: ["O(N + M)", "O(log N + log M)", "O(N * M)", "O(N^2)"],
+                    correct: 2,
+                    explanation: "Every row in N is matched with every row in M, yielding N * M rows. The work grows quadratically if table sizes are equal."
+                },
+                {
+                    question: "What is the most effective database optimization for speeding up JOIN operations?",
+                    options: ["Using the HAVING clause", "Creating indexes on the columns used in the join condition", "Replacing joins with UNION operations", "Converting all joins to CROSS JOINS"],
+                    correct: 1,
+                    explanation: "Creating indexes on join keys (especially foreign keys) allows the query engine to look up matching rows in O(log N) time rather than performing full table scans."
+                },
+                {
+                    question: "In a LEFT JOIN, if table A has 5 rows and table B has 0 rows, how many rows will be returned?",
+                    options: ["0", "5", "10", "Error"],
+                    correct: 1,
+                    explanation: "A LEFT JOIN preserves all rows from the left table. Thus, all 5 rows from Table A are returned, with B's columns set to NULL."
+                },
+                {
+                    question: "Can you join tables on multiple columns (a composite join condition)?",
+                    options: ["No, joins only support single-column conditions", "Yes, by connecting column matches with the AND operator in the ON clause", "Yes, by nesting multiple JOIN statements", "Only if the columns are in a UNIQUE index"],
+                    correct: 1,
+                    explanation: "You can join on multiple keys by combining them with AND (e.g. ON a.key1 = b.key1 AND a.key2 = b.key2)."
+                },
+                {
+                    question: "Compare the filtering logic in these two queries:",
+                    code: "-- Query A\nSELECT * FROM A LEFT JOIN B ON A.id = B.id AND B.status = 'Active';\n\n-- Query B\nSELECT * FROM A LEFT JOIN B ON A.id = B.id WHERE B.status = 'Active';",
+                    options: ["They return identical result sets", "Query B filters out mismatched rows from A, effectively converting it to an INNER JOIN", "Query A throws a syntax error", "Query B runs significantly slower"],
+                    correct: 1,
+                    explanation: "Filtering in the ON clause decides what rows from the right table are joined. Mismatched left rows are still kept. Filtering in the WHERE clause applies to the final joined output, discarding any left rows that have NULL in b.status (effectively converting it to an INNER JOIN)."
+                },
+                {
+                    question: "What is returned by a RIGHT JOIN of tables A and B?",
+                    options: ["All rows from A, matching rows from B", "All rows from B, matching rows from A", "Only intersecting rows", "The Cartesian product of A and B"],
+                    correct: 1,
+                    explanation: "A RIGHT JOIN (or RIGHT OUTER JOIN) preserves all rows from the right table (B), returning NULLs for left table (A) columns where no match is found."
+                }
+        ];
+    </script>
+</body>
+</html>

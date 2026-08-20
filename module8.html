@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 8: Interactive SQL Practical Lab - SQL Topic & Placement Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar-wrapper" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                        <path d="M12 6v6l4 2"></path>
+                    </svg>
+                    <span class="logo-text">SQL Guide</span>
+                </div>
+                <button class="close-sidebar-btn" id="close-sidebar" aria-label="Close menu">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="search-box">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="search-input" placeholder="Search guide..." autocomplete="off">
+                </div>
+            </div>
+            <nav class="toc-nav" id="toc-nav">
+                <!-- Dynamically generated TOC -->
+            </nav>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="main-wrapper">
+            <header class="top-nav">
+                <div class="nav-left">
+                    <button id="menu-toggle" class="menu-btn" aria-label="Toggle menu">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="nav-title">The Complete SQL Topic &amp; Placement Guide</div>
+                </div>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Theme">
+                        <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-container">
+                <!-- ================= MODULE 8 ================= -->
+                <div class="module-header">
+                    <span>Module 8: Interactive SQL Practical Lab</span>
+                    <span class="module-tag">Visual Tools</span>
+                </div>
+
+                <!-- 9.1 JOIN Visualizer -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">01.</span><span class="topic-heading">Interactive JOIN Visualizer</span></div>
+                        <span class="topic-meta">Animated Client-Side Join Engine</span>
+                    </div>
+                    <p class="topic-description">Select a JOIN operation type below and click <strong>Run Join Animation</strong> to visualize how records match, resolve key values, and generate output row columns.</p>
+                    
+                    <div class="join-workspace">
+                        <div class="join-controls">
+                            <button class="join-type-btn active" data-type="INNER">INNER JOIN</button>
+                            <button class="join-type-btn" data-type="LEFT">LEFT JOIN</button>
+                            <button class="join-type-btn" data-type="RIGHT">RIGHT JOIN</button>
+                            <button class="join-type-btn" data-type="FULL">FULL OUTER JOIN</button>
+                            <button class="quiz-btn" id="run-join-btn" style="margin-left: auto; font-size: 0.8rem; padding: 0.4rem 1rem;">
+                                Run Join Animation
+                            </button>
+                        </div>
+                        
+                        <div class="join-tables-grid">
+                            <!-- Table A (Employees) -->
+                            <div class="join-table-wrapper">
+                                <div class="join-table-title">Table A: employees</div>
+                                <table class="join-table" id="join-table-a">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>name</th>
+                                            <th>dept_id</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="join-row" data-id="1" data-dept="10"><td>1</td><td>Alice</td><td>10</td></tr>
+                                        <tr class="join-row" data-id="2" data-dept="20"><td>2</td><td>Bob</td><td>20</td></tr>
+                                        <tr class="join-row" data-id="3" data-dept="30"><td>3</td><td>Charlie</td><td>30</td></tr>
+                                        <tr class="join-row" data-id="4" data-dept="NULL"><td>4</td><td>David</td><td>NULL</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- Middle Connector Container -->
+                            <div class="join-connector-container">
+                                <svg class="join-connector-svg" id="join-svg">
+                                    <!-- Dynamic lines generated in JS -->
+                                </svg>
+                            </div>
+                            
+                            <!-- Table B (Departments) -->
+                            <div class="join-table-wrapper">
+                                <div class="join-table-title">Table B: departments</div>
+                                <table class="join-table" id="join-table-b">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>dept_name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="join-row" data-id="10"><td>10</td><td>HR</td></tr>
+                                        <tr class="join-row" data-id="20"><td>20</td><td>Engineering</td></tr>
+                                        <tr class="join-row" data-id="40"><td>40</td><td>Marketing</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="join-result-container" id="join-result-wrapper" style="display: none;">
+                            <div class="join-table-title" style="background: var(--primary-light); color: var(--primary);">Joined Output Result</div>
+                            <table class="join-table" id="join-result-table">
+                                <thead>
+                                    <tr>
+                                        <th>employees.id</th>
+                                        <th>employees.name</th>
+                                        <th>employees.dept_id</th>
+                                        <th>departments.id</th>
+                                        <th>departments.dept_name</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="join-result-body">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9.2 Visual ERD Builder -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">02.</span><span class="topic-heading">Visual ERD Builder & Schema Generator</span></div>
+                        <span class="topic-meta">Schema Designer</span>
+                    </div>
+                    <p class="topic-description">Add tables, define columns, assign Primary/Foreign keys, and link them to view structural relations and download full DDL scripts.</p>
+                    
+                    <div class="erd-workspace">
+                        <div class="erd-toolbar">
+                            <button class="quiz-btn" id="erd-add-table-btn" style="font-size: 0.8rem; padding: 0.4rem 1rem;">+ Add Table</button>
+                            <button class="quiz-btn quiz-btn-secondary" id="erd-reset-btn" style="font-size: 0.8rem; padding: 0.4rem 1rem;">Reset Workspace</button>
+                            <button class="quiz-btn quiz-btn-secondary" id="erd-add-rel-btn" style="font-size: 0.8rem; padding: 0.4rem 1rem;">+ Link Relationship</button>
+                        </div>
+                        
+                        <div class="erd-canvas-container" id="erd-canvas-container">
+                            <div class="erd-canvas" id="erd-canvas">
+                                <svg class="erd-svg-overlay" id="erd-svg-overlay">
+                                    <defs>
+                                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--primary)" />
+                                        </marker>
+                                    </defs>
+                                </svg>
+                                <!-- Tables rendered dynamically -->
+                            </div>
+                        </div>
+                        
+                        <!-- DDL Output container -->
+                        <div class="erd-ddl-output">
+                            <div class="erd-ddl-title">Auto-Generated SQL DDL Code</div>
+                            <pre><code id="erd-ddl-code">-- Click "Add Table" to start designing schema.
+-- Drag tables around. Connect them using "+ Link Relationship".</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9.3 SQL Parsons Puzzles -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">03.</span><span class="topic-heading">SQL Parsons Puzzle Challenges</span></div>
+                        <span class="topic-meta">Interactive Drag &amp; Drop Syntax Builder</span>
+                    </div>
+                    <p class="topic-description">Arrange the scrambled query blocks in the correct logical sequence to solve the puzzle problem. Use clicking/dragging or the Up/Down controls.</p>
+                    
+                    <div class="parsons-workspace">
+                        <div class="parsons-challenge-card">
+                            <div class="parsons-challenge-title">
+                                <span id="parsons-title">Challenge 1: High Earners Filter</span>
+                                <select class="erd-select" id="parsons-selector" style="font-size: 0.8rem; padding: 0.2rem 0.5rem;"></select>
+                            </div>
+                            <div class="parsons-challenge-desc" id="parsons-desc">
+                                Find all names and departments of employees who earn more than 60,000, ordered descending by salary.
+                            </div>
+                        </div>
+                        
+                        <div class="parsons-board-grid">
+                            <!-- Block Bank -->
+                            <div class="parsons-column">
+                                <div class="parsons-col-header">Scrambled Blocks <span>(Click blocks to move &rarr;)</span></div>
+                                <div class="parsons-area" id="parsons-bank">
+                                    <!-- Scrambled blocks populated in JS -->
+                                </div>
+                            </div>
+                            
+                            <!-- Workspace -->
+                            <div class="parsons-column">
+                                <div class="parsons-col-header">Your Solution Query <span>(Click &larr; to return)</span></div>
+                                <div class="parsons-area" id="parsons-workbench">
+                                    <!-- User ordered blocks populated in JS -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="parsons-controls" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                            <button class="quiz-btn" id="parsons-check-btn" style="font-size: 0.8rem; padding: 0.4rem 1.2rem;">Verify Query</button>
+                            <button class="quiz-btn quiz-btn-secondary" id="parsons-reset-btn" style="font-size: 0.8rem; padding: 0.4rem 1.2rem;">Reset Puzzle</button>
+                        </div>
+                        
+                        <div class="parsons-feedback-message" id="parsons-feedback"></div>
+                    </div>
+                </div>
+
+                <!-- 9.4 Optimizer Simulator -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">04.</span><span class="topic-heading">Query Indexing &amp; Performance Simulator</span></div>
+                        <span class="topic-meta">Visual Execution Plans</span>
+                    </div>
+                    <p class="topic-description">Simulate how database engine indexes optimize speed. Toggle indexing ON and OFF to run query `SELECT * FROM users WHERE age = 30` and compare execution metrics.</p>
+                    
+                    <div class="opt-workspace">
+                        <div class="opt-grid">
+                            <!-- Left Controls/Stats Panel -->
+                            <div class="opt-config-panel">
+                                <div class="join-controls" style="flex-direction: column; align-items: stretch; padding: 1rem; gap: 0.75rem;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">Index on Columns (age):</span>
+                                        <label class="switch-container" style="display: flex; align-items: center; cursor: pointer; gap: 0.5rem; font-size: 0.8rem;">
+                                            <span id="index-toggle-lbl" style="font-weight: bold; color: var(--accent-warm);">OFF</span>
+                                            <input type="checkbox" id="opt-index-toggle" style="width: 16px; height: 16px; cursor: pointer;">
+                                        </label>
+                                    </div>
+                                    <button class="quiz-btn" id="opt-run-btn" style="font-size: 0.8rem; padding: 0.45rem;">
+                                        Run Query
+                                    </button>
+                                </div>
+                                
+                                <div class="opt-metrics-grid">
+                                    <div class="opt-metric-card">
+                                        <div class="opt-metric-lbl">Scan Type</div>
+                                        <div class="opt-metric-val scan-type" id="opt-metric-scan">--</div>
+                                    </div>
+                                    <div class="opt-metric-card">
+                                        <div class="opt-metric-lbl">Inspected Rows</div>
+                                        <div class="opt-metric-val" id="opt-metric-rows">--</div>
+                                    </div>
+                                    <div class="opt-metric-card">
+                                        <div class="opt-metric-lbl">Query Time</div>
+                                        <div class="opt-metric-val" id="opt-metric-time">--</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Right Visual DB pages panel -->
+                            <div class="opt-db-view">
+                                <div class="opt-db-title">
+                                    <span>Simulated database physical layout (`users` Table)</span>
+                                    <span id="opt-status-text" style="color: var(--primary);">Ready</span>
+                                </div>
+                                <div class="opt-rows-container" id="opt-rows-container">
+                                    <!-- Memory Row cards loaded dynamically -->
+                                </div>
+                                
+                                <!-- Mini B-Tree Node Visualization shown when index is active -->
+                                <div class="opt-btree-visual" id="opt-tree-container" style="display: none;">
+                                    <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem;">B-Tree Index Search Path</div>
+                                    <div class="opt-tree-level">
+                                        <div class="opt-tree-node" id="node-root">Root: age [26]</div>
+                                    </div>
+                                    <div class="opt-tree-level" style="gap: 2rem;">
+                                        <div class="opt-tree-node" id="node-left">Left Child: age &lt; 26</div>
+                                        <div class="opt-tree-node" id="node-right">Right Child: age &gt;= 26</div>
+                                    </div>
+                                    <div class="opt-tree-level" style="gap: 0.5rem; font-size: 0.65rem;">
+                                        <div class="opt-tree-node" id="node-leaf-1">Leaf: [18, 22]</div>
+                                        <div class="opt-tree-node" id="node-leaf-2">Leaf: [26, 30]</div>
+                                        <div class="opt-tree-node" id="node-leaf-3">Leaf: [35, 42]</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- close content-container -->
+
+            <footer class="site-footer">© 2026 Mukesh Kumar Sanivada. All rights reserved.</footer>
+
+        </div> <!-- close main-wrapper -->
+    </div> <!-- close app-container -->
+
+    <button id="back-to-top" class="back-to-top-btn" title="Back to top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        const JoinVisualizer = {
+            currentJoinType: 'INNER',
+            isAnimating: false,
+            
+            init() {
+                const buttons = document.querySelectorAll('.join-type-btn');
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        if (this.isAnimating) return;
+                        buttons.forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.currentJoinType = e.target.getAttribute('data-type');
+                        this.clearWorkspace();
+                    });
+                });
+                
+                document.getElementById('run-join-btn').addEventListener('click', () => {
+                    this.runAnimation();
+                });
+            },
+            
+            clearWorkspace() {
+                document.getElementById('join-result-wrapper').style.display = 'none';
+                document.getElementById('join-result-body').innerHTML = '';
+                document.getElementById('join-svg').innerHTML = '';
+                document.querySelectorAll('#join-table-a .join-row, #join-table-b .join-row').forEach(row => {
+                    row.className = 'join-row';
+                });
+            },
+            
+            async runAnimation() {
+                if (this.isAnimating) return;
+                this.isAnimating = true;
+                this.clearWorkspace();
+                
+                const runBtn = document.getElementById('run-join-btn');
+                runBtn.setAttribute('disabled', 'true');
+                runBtn.textContent = 'Animating...';
+                
+                const rowsA = Array.from(document.querySelectorAll('#join-table-a tbody .join-row'));
+                const rowsB = Array.from(document.querySelectorAll('#join-table-b tbody .join-row'));
+                const resultWrapper = document.getElementById('join-result-wrapper');
+                const resultBody = document.getElementById('join-result-body');
+                const svg = document.getElementById('join-svg');
+                
+                resultWrapper.style.display = 'block';
+                
+                // Track matched rows in table B (for RIGHT/FULL joins)
+                const matchedB = new Set();
+                
+                for (let i = 0; i < rowsA.length; i++) {
+                    const rowA = rowsA[i];
+                    rowA.classList.add('comparing');
+                    rowA.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    
+                    const deptValA = rowA.getAttribute('data-dept');
+                    let hasMatch = false;
+                    
+                    for (let j = 0; j < rowsB.length; j++) {
+                        const rowB = rowsB[j];
+                        rowB.classList.add('comparing');
+                        const idValB = rowB.getAttribute('data-id');
+                        
+                        await new Promise(r => setTimeout(r, 600));
+                        
+                        const isMatch = (deptValA !== 'NULL' && deptValA === idValB);
+                        
+                        if (isMatch) {
+                            hasMatch = true;
+                            matchedB.add(idValB);
+                            
+                            rowA.classList.remove('comparing');
+                            rowA.classList.add('matching');
+                            rowB.classList.remove('comparing');
+                            rowB.classList.add('matching');
+                            
+                            this.drawConnector(rowA, rowB, svg);
+                            
+                            this.appendResultRow(rowA, rowB);
+                            await new Promise(r => setTimeout(r, 600));
+                        } else {
+                            rowB.classList.remove('comparing');
+                        }
+                    }
+                    
+                    rowA.classList.remove('comparing');
+                    
+                    if (!hasMatch) {
+                        rowA.classList.add('unmatched');
+                        if (this.currentJoinType === 'LEFT' || this.currentJoinType === 'FULL') {
+                            this.appendResultRow(rowA, null);
+                            await new Promise(r => setTimeout(r, 600));
+                        }
+                    }
+                }
+                
+                // Add unmatched rows from Table B (for RIGHT/FULL joins)
+                if (this.currentJoinType === 'RIGHT' || this.currentJoinType === 'FULL') {
+                    for (let j = 0; j < rowsB.length; j++) {
+                        const rowB = rowsB[j];
+                        const idValB = rowB.getAttribute('data-id');
+                        if (!matchedB.has(idValB)) {
+                            rowB.classList.add('unmatched');
+                            this.appendResultRow(null, rowB);
+                            await new Promise(r => setTimeout(r, 600));
+                        }
+                    }
+                }
+                
+                this.isAnimating = false;
+                runBtn.removeAttribute('disabled');
+                runBtn.textContent = 'Run Join Animation';
+            },
+            
+            drawConnector(rowA, rowB, svg) {
+                const rectA = rowA.getBoundingClientRect();
+                const rectB = rowB.getBoundingClientRect();
+                const svgRect = svg.getBoundingClientRect();
+                
+                const y1 = (rectA.top + rectA.height / 2) - svgRect.top;
+                const y2 = (rectB.top + rectB.height / 2) - svgRect.top;
+                
+                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                line.setAttribute("x1", "0");
+                line.setAttribute("y1", y1);
+                line.setAttribute("x2", "80");
+                line.setAttribute("y2", y2);
+                line.setAttribute("class", "join-line active");
+                svg.appendChild(line);
+            },
+            
+            appendResultRow(rowA, rowB) {
+                const body = document.getElementById('join-result-body');
+                const tr = document.createElement('tr');
+                tr.style.opacity = 0;
+                tr.style.transition = 'opacity 0.5s';
+                
+                const val = (row, idx) => {
+                    if (!row) return '<span class="code-inline" style="color: var(--accent-warm); border-color: var(--accent-warm-border); background: var(--accent-warm-light);">NULL</span>';
+                    return row.cells[idx].textContent;
+                };
+                
+                tr.innerHTML = `
+                    <td>${val(rowA, 0)}</td>
+                    <td>${val(rowA, 1)}</td>
+                    <td>${val(rowA, 2)}</td>
+                    <td>${val(rowB, 0)}</td>
+                    <td>${val(rowB, 1)}</td>
+                `;
+                
+                body.appendChild(tr);
+                setTimeout(() => { tr.style.opacity = 1; }, 50);
+            }
+        };
+
+        const ERDBuilder = {
+            tables: [],
+            relationships: [],
+            activeTable: null,
+            dragTarget: null,
+            dragOffset: { x: 0, y: 0 },
+            
+            init() {
+                document.getElementById('erd-add-table-btn').addEventListener('click', () => this.addTablePrompt());
+                document.getElementById('erd-reset-btn').addEventListener('click', () => this.resetWorkspace());
+                document.getElementById('erd-add-rel-btn').addEventListener('click', () => this.addRelationshipPrompt());
+                
+                const canvas = document.getElementById('erd-canvas');
+                
+                // Track mouse events for drag and drop
+                canvas.addEventListener('mousemove', (e) => this.handleDrag(e));
+                canvas.addEventListener('mouseup', () => this.stopDrag());
+                canvas.addEventListener('mouseleave', () => this.stopDrag());
+                
+                // Track touch events for mobile support
+                canvas.addEventListener('touchmove', (e) => this.handleDrag(e.touches[0]), { passive: true });
+                canvas.addEventListener('touchend', () => this.stopDrag());
+                
+                // Load default tables
+                this.loadSampleSchema();
+            },
+            
+            loadSampleSchema() {
+                this.tables = [
+                    {
+                        id: 'tbl_employees',
+                        name: 'employees',
+                        x: 40,
+                        y: 80,
+                        columns: [
+                            { name: 'id', type: 'INT', isPk: true, isFk: false },
+                            { name: 'name', type: 'VARCHAR(100)', isPk: false, isFk: false },
+                            { name: 'dept_id', type: 'INT', isPk: false, isFk: true }
+                        ]
+                    },
+                    {
+                        id: 'tbl_departments',
+                        name: 'departments',
+                        x: 360,
+                        y: 120,
+                        columns: [
+                            { name: 'id', type: 'INT', isPk: true, isFk: false },
+                            { name: 'dept_name', type: 'VARCHAR(100)', isPk: false, isFk: false }
+                        ]
+                    }
+                ];
+                
+                this.relationships = [
+                    {
+                        fromTable: 'tbl_employees',
+                        fromCol: 'dept_id',
+                        toTable: 'tbl_departments',
+                        toCol: 'id'
+                    }
+                ];
+                
+                this.render();
+            },
+            
+            resetWorkspace() {
+                this.tables = [];
+                this.relationships = [];
+                this.render();
+            },
+            
+            addTablePrompt() {
+                const name = prompt("Enter new table name:", "users");
+                if (!name) return;
+                
+                const safeName = name.replace(/[^a-zA-Z0-9_]/g, '').toLowerCase();
+                if (!safeName) return;
+                
+                if (this.tables.find(t => t.name === safeName)) {
+                    alert("A table with this name already exists!");
+                    return;
+                }
+                
+                const id = 'tbl_' + safeName;
+                this.tables.push({
+                    id,
+                    name: safeName,
+                    x: 100 + Math.random() * 50,
+                    y: 100 + Math.random() * 50,
+                    columns: [
+                        { name: 'id', type: 'INT', isPk: true, isFk: false }
+                    ]
+                });
+                
+                this.render();
+            },
+            
+            addColumnPrompt(tableId) {
+                const name = prompt("Enter column name:", "email");
+                if (!name) return;
+                
+                const safeName = name.replace(/[^a-zA-Z0-9_]/g, '').toLowerCase();
+                if (!safeName) return;
+                
+                const type = prompt("Enter column type (e.g. INT, VARCHAR(100), DATE, DECIMAL(10,2)):", "VARCHAR(100)");
+                if (!type) return;
+                
+                const table = this.tables.find(t => t.id === tableId);
+                if (table.columns.find(c => c.name === safeName)) {
+                    alert("Column already exists!");
+                    return;
+                }
+                
+                const isPk = confirm("Is this Column a PRIMARY KEY?");
+                let isFk = false;
+                
+                if (!isPk) {
+                    isFk = confirm("Is this Column a FOREIGN KEY linking to another table?");
+                }
+                
+                table.columns.push({
+                    name: safeName,
+                    type: type.toUpperCase(),
+                    isPk,
+                    isFk
+                });
+                
+                this.render();
+            },
+            
+            deleteTable(tableId) {
+                this.tables = this.tables.filter(t => t.id !== tableId);
+                this.relationships = this.relationships.filter(r => r.fromTable !== tableId && r.toTable !== tableId);
+                this.render();
+            },
+            
+            addRelationshipPrompt() {
+                if (this.tables.length < 2) {
+                    alert("You need at least 2 tables to define a relationship.");
+                    return;
+                }
+                
+                const list = this.tables.map((t, idx) => `${idx + 1}. ${t.name}`).join('\n');
+                const fromIdx = parseInt(prompt(`Select Source Table (containing the Foreign Key):\n${list}`)) - 1;
+                const toIdx = parseInt(prompt(`Select Target Table (referenced by Foreign Key):\n${list}`)) - 1;
+                
+                if (isNaN(fromIdx) || isNaN(toIdx) || !this.tables[fromIdx] || !this.tables[toIdx]) {
+                    alert("Invalid table selections!");
+                    return;
+                }
+                
+                const fromT = this.tables[fromIdx];
+                const toT = this.tables[toIdx];
+                
+                if (fromT.id === toT.id) {
+                    alert("Self-referencing relationships are not visually supported in this demo.");
+                    return;
+                }
+                
+                const fromCols = fromT.columns.map((c, idx) => `${idx + 1}. ${c.name}`).join('\n');
+                const fromColIdx = parseInt(prompt(`Select Column in ${fromT.name} (Source):\n${fromCols}`)) - 1;
+                
+                const toCols = toT.columns.map((c, idx) => `${idx + 1}. ${c.name}`).join('\n');
+                const toColIdx = parseInt(prompt(`Select Column in ${toT.name} (Target):\n${toCols}`)) - 1;
+                
+                if (isNaN(fromColIdx) || isNaN(toColIdx) || !fromT.columns[fromColIdx] || !toT.columns[toColIdx]) {
+                    alert("Invalid column selections!");
+                    return;
+                }
+                
+                const fromColName = fromT.columns[fromColIdx].name;
+                const toColName = toT.columns[toColIdx].name;
+                
+                // Mark columns as FK / PK appropriately
+                fromT.columns[fromColIdx].isFk = true;
+                
+                this.relationships.push({
+                    fromTable: fromT.id,
+                    fromCol: fromColName,
+                    toTable: toT.id,
+                    toCol: toColName
+                });
+                
+                this.render();
+            },
+            
+            startDrag(e, tableId) {
+                e.preventDefault();
+                this.dragTarget = document.getElementById(tableId);
+                const table = this.tables.find(t => t.id === tableId);
+                
+                // Support both touch and mouse positions
+                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+                
+                const containerRect = document.getElementById('erd-canvas-container').getBoundingClientRect();
+                
+                this.dragOffset.x = clientX - containerRect.left - table.x;
+                this.dragOffset.y = clientY - containerRect.top - table.y;
+                
+                this.dragTarget.classList.add('active');
+            },
+            
+            handleDrag(e) {
+                if (!this.dragTarget) return;
+                
+                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+                
+                const container = document.getElementById('erd-canvas-container');
+                const containerRect = container.getBoundingClientRect();
+                
+                let x = clientX - containerRect.left - this.dragOffset.x;
+                let y = clientY - containerRect.top - this.dragOffset.y;
+                
+                // Boundary checking
+                x = Math.max(10, Math.min(containerRect.width - this.dragTarget.offsetWidth - 10, x));
+                y = Math.max(10, Math.min(containerRect.height - this.dragTarget.offsetHeight - 10, y));
+                
+                const table = this.tables.find(t => t.id === this.dragTarget.id);
+                table.x = x;
+                table.y = y;
+                
+                this.dragTarget.style.left = `${x}px`;
+                this.dragTarget.style.top = `${y}px`;
+                
+                this.drawLines();
+            },
+            
+            stopDrag() {
+                if (!this.dragTarget) return;
+                this.dragTarget.classList.remove('active');
+                this.dragTarget = null;
+                this.generateDDL();
+            },
+            
+            drawLines() {
+                const svg = document.getElementById('erd-svg-overlay');
+                
+                // Clear old relationship lines
+                svg.querySelectorAll('.erd-relationship-path').forEach(p => p.remove());
+                
+                this.relationships.forEach(rel => {
+                    const fromEl = document.getElementById(rel.fromTable);
+                    const toEl = document.getElementById(rel.toTable);
+                    
+                    if (!fromEl || !toEl) return;
+                    
+                    const fromRect = {
+                        x: parseFloat(fromEl.style.left),
+                        y: parseFloat(fromEl.style.top),
+                        w: fromEl.offsetWidth,
+                        h: fromEl.offsetHeight
+                    };
+                    
+                    const toRect = {
+                        x: parseFloat(toEl.style.left),
+                        y: parseFloat(toEl.style.top),
+                        w: toEl.offsetWidth,
+                        h: toEl.offsetHeight
+                    };
+                    
+                    // Simple path routing connecting edges closest to each other
+                    let x1, y1, x2, y2;
+                    
+                    if (fromRect.x + fromRect.w < toRect.x) { // Left to Right
+                        x1 = fromRect.x + fromRect.w;
+                        y1 = fromRect.y + fromRect.h / 2;
+                        x2 = toRect.x;
+                        y2 = toRect.y + toRect.h / 2;
+                    } else if (toRect.x + toRect.w < fromRect.x) { // Right to Left
+                        x1 = fromRect.x;
+                        y1 = fromRect.y + fromRect.h / 2;
+                        x2 = toRect.x + toRect.w;
+                        y2 = toRect.y + toRect.h / 2;
+                    } else if (fromRect.y + fromRect.h < toRect.y) { // Top to Bottom
+                        x1 = fromRect.x + fromRect.w / 2;
+                        y1 = fromRect.y + fromRect.h;
+                        x2 = toRect.x + toRect.w / 2;
+                        y2 = toRect.y;
+                    } else { // Bottom to Top
+                        x1 = fromRect.x + fromRect.w / 2;
+                        y1 = fromRect.y;
+                        x2 = toRect.x + toRect.w / 2;
+                        y2 = toRect.y + toRect.h;
+                    }
+                    
+                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    
+                    // Bezier routing
+                    const dx = Math.abs(x1 - x2) * 0.5;
+                    const pathStr = `M ${x1} ${y1} C ${x1 + (x1 < x2 ? dx : -dx)} ${y1}, ${x2 + (x2 < x1 ? dx : -dx)} ${y2}, ${x2} ${y2}`;
+                    
+                    path.setAttribute("d", pathStr);
+                    path.setAttribute("class", "erd-relationship-path");
+                    path.setAttribute("marker-end", "url(#arrow)");
+                    
+                    svg.appendChild(path);
+                });
+            },
+            
+            render() {
+                const canvas = document.getElementById('erd-canvas');
+                
+                // Clear old nodes
+                canvas.querySelectorAll('.erd-table-node').forEach(n => n.remove());
+                
+                this.tables.forEach(table => {
+                    const node = document.createElement('div');
+                    node.id = table.id;
+                    node.className = 'erd-table-node';
+                    node.style.left = `${table.x}px`;
+                    node.style.top = `${table.y}px`;
+                    
+                    let colRowsHtml = '';
+                    table.columns.forEach(col => {
+                        let keyHtml = '';
+                        if (col.isPk) keyHtml = '<span class="erd-key-icon erd-pk">PK</span>';
+                        else if (col.isFk) keyHtml = '<span class="erd-key-icon erd-fk">FK</span>';
+                        
+                        colRowsHtml += `
+                            <div class="erd-node-col-row">
+                                <div class="erd-col-name">${keyHtml} ${col.name}</div>
+                                <div class="erd-col-type">${col.type}</div>
+                            </div>
+                        `;
+                    });
+                    
+                    node.innerHTML = `
+                        <div class="erd-node-header" onmousedown="ERDBuilder.startDrag(event, '${table.id}')" ontouchstart="ERDBuilder.startDrag(event, '${table.id}')">
+                            <span>${table.name}</span>
+                            <div class="erd-node-actions" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()">
+                                <button class="erd-node-btn add-col-btn" title="Add Column" onclick="ERDBuilder.addColumnPrompt('${table.id}')">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                </button>
+                                <button class="erd-node-btn" title="Delete Table" onclick="ERDBuilder.deleteTable('${table.id}')">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="erd-node-columns">
+                            ${colRowsHtml}
+                        </div>
+                    `;
+                    
+                    canvas.appendChild(node);
+                });
+                
+                // Draw lines and generate script
+                setTimeout(() => {
+                    this.drawLines();
+                    this.generateDDL();
+                }, 50);
+            },
+            
+            generateDDL() {
+                const codeEl = document.getElementById('erd-ddl-code');
+                if (this.tables.length === 0) {
+                    codeEl.textContent = '-- Click "Add Table" to start designing schema.\n-- Drag tables around. Connect them using "+ Link Relationship".';
+                    return;
+                }
+                
+                let sql = '';
+                this.tables.forEach(table => {
+                    sql += `CREATE TABLE ${table.name} (\n`;
+                    const colDefs = [];
+                    
+                    table.columns.forEach(col => {
+                        let def = `    ${col.name} ${col.type}`;
+                        if (col.isPk) def += ' PRIMARY KEY';
+                        colDefs.push(def);
+                    });
+                    
+                    // Extract relationships pointing from this table
+                    const rels = this.relationships.filter(r => r.fromTable === table.id);
+                    rels.forEach(rel => {
+                        const targetT = this.tables.find(t => t.id === rel.toTable);
+                        if (targetT) {
+                            colDefs.push(`    FOREIGN KEY (${rel.fromCol}) REFERENCES ${targetT.name}(${rel.toCol})`);
+                        }
+                    });
+                    
+                    sql += colDefs.join(',\n');
+                    sql += `\n);\n\n`;
+                });
+                
+                codeEl.textContent = sql.trim();
+            }
+        };
+
+        const ParsonsPuzzle = {
+            puzzles: [
+                {
+                    title: "Challenge 1: High Earners Filter",
+                    desc: "Find name and salary of employees who earn more than 60,000, ordered by salary descending.",
+                    correct: [
+                        "SELECT name, salary",
+                        "FROM employees",
+                        "WHERE salary > 60000",
+                        "ORDER BY salary DESC;"
+                    ],
+                    distractors: [
+                        "HAVING salary > 60000",
+                        "ORDER BY salary ASC;"
+                    ],
+                    explanation: "Correct! We use SELECT to fetch the columns, FROM to target the table, WHERE for column value filtering, and ORDER BY with DESC for descending sorting. HAVING is incorrect because there is no aggregation."
+                },
+                {
+                    title: "Challenge 2: Department Aggregates",
+                    desc: "Find department IDs and their average salaries, returning only departments with an average salary exceeding 50,000.",
+                    correct: [
+                        "SELECT dept_id, AVG(salary)",
+                        "FROM employees",
+                        "GROUP BY dept_id",
+                        "HAVING AVG(salary) > 50000;"
+                    ],
+                    distractors: [
+                        "WHERE AVG(salary) > 50000",
+                        "GROUP BY salary"
+                    ],
+                    explanation: "Brilliant! Aggregate filtering must be placed in a HAVING clause. GROUP BY aggregates rows by department ID. Placing the aggregate filter in WHERE triggers a syntax error."
+                },
+                {
+                    title: "Challenge 3: Department Joins",
+                    desc: "Retrieve all employee names and their matching department names.",
+                    correct: [
+                        "SELECT e.name, d.dept_name",
+                        "FROM employees e",
+                        "INNER JOIN departments d",
+                        "ON e.dept_id = d.id;"
+                    ],
+                    distractors: [
+                        "ON e.id = d.dept_id",
+                        "WHERE e.dept_id = d.dept_name"
+                    ],
+                    explanation: "Perfect! We fetch `e.name` and `d.dept_name` by performing an INNER JOIN between `employees` and `departments`, linking them on the primary key-foreign key pair: `e.dept_id = d.id`."
+                }
+            ],
+            
+            currentIdx: 0,
+            workbenchBlocks: [],
+            bankBlocks: [],
+            
+            init() {
+                const selector = document.getElementById('parsons-selector');
+                selector.innerHTML = '';
+                this.puzzles.forEach((p, idx) => {
+                    const opt = document.createElement('option');
+                    opt.value = idx;
+                    opt.textContent = `Challenge ${idx + 1}`;
+                    selector.appendChild(opt);
+                });
+                
+                selector.addEventListener('change', (e) => {
+                    this.currentIdx = parseInt(e.target.value);
+                    this.loadPuzzle();
+                });
+                
+                document.getElementById('parsons-check-btn').addEventListener('click', () => this.verify());
+                document.getElementById('parsons-reset-btn').addEventListener('click', () => this.loadPuzzle());
+                
+                this.loadPuzzle();
+            },
+            
+            loadPuzzle() {
+                const puzzle = this.puzzles[this.currentIdx];
+                document.getElementById('parsons-title').firstChild.textContent = puzzle.title + ' ';
+                document.getElementById('parsons-desc').textContent = puzzle.desc;
+                
+                const feedback = document.getElementById('parsons-feedback');
+                feedback.className = 'parsons-feedback-message';
+                feedback.style.display = 'none';
+                
+                // Shuffle correct answers and distractors
+                const allContent = [...puzzle.correct, ...puzzle.distractors];
+                this.bankBlocks = allContent
+                    .map((content, idx) => ({ id: `block-${idx}`, content }))
+                    .sort(() => Math.random() - 0.5);
+                    
+                this.workbenchBlocks = [];
+                this.render();
+            },
+            
+            moveBlock(blockId, direction) {
+                const feedback = document.getElementById('parsons-feedback');
+                feedback.style.display = 'none';
+                
+                if (direction === 'to-workbench') {
+                    const blockIdx = this.bankBlocks.findIndex(b => b.id === blockId);
+                    if (blockIdx !== -1) {
+                        const block = this.bankBlocks.splice(blockIdx, 1)[0];
+                        this.workbenchBlocks.push(block);
+                    }
+                } else {
+                    const blockIdx = this.workbenchBlocks.findIndex(b => b.id === blockId);
+                    if (blockIdx !== -1) {
+                        const block = this.workbenchBlocks.splice(blockIdx, 1)[0];
+                        this.bankBlocks.push(block);
+                    }
+                }
+                this.render();
+            },
+            
+            shiftOrder(blockId, direction) {
+                const idx = this.workbenchBlocks.findIndex(b => b.id === blockId);
+                if (idx === -1) return;
+                
+                if (direction === 'up' && idx > 0) {
+                    const temp = this.workbenchBlocks[idx];
+                    this.workbenchBlocks[idx] = this.workbenchBlocks[idx - 1];
+                    this.workbenchBlocks[idx - 1] = temp;
+                } else if (direction === 'down' && idx < this.workbenchBlocks.length - 1) {
+                    const temp = this.workbenchBlocks[idx];
+                    this.workbenchBlocks[idx] = this.workbenchBlocks[idx + 1];
+                    this.workbenchBlocks[idx + 1] = temp;
+                }
+                this.render();
+            },
+            
+            render() {
+                const bankArea = document.getElementById('parsons-bank');
+                const benchArea = document.getElementById('parsons-workbench');
+                
+                bankArea.innerHTML = '';
+                benchArea.innerHTML = '';
+                
+                this.bankBlocks.forEach(block => {
+                    const el = document.createElement('div');
+                    el.className = 'parsons-block';
+                    el.innerHTML = `
+                        <span>${this.escapeHtml(block.content)}</span>
+                        <div class="parsons-block-actions">
+                            <button class="parsons-block-btn" onclick="ParsonsPuzzle.moveBlock('${block.id}', 'to-workbench')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </button>
+                        </div>
+                    `;
+                    bankArea.appendChild(el);
+                });
+                
+                this.workbenchBlocks.forEach((block, idx) => {
+                    const el = document.createElement('div');
+                    el.className = 'parsons-block';
+                    el.innerHTML = `
+                        <span>${this.escapeHtml(block.content)}</span>
+                        <div class="parsons-block-actions">
+                            <button class="parsons-block-btn" onclick="ParsonsPuzzle.shiftOrder('${block.id}', 'up')" ${idx === 0 ? 'disabled style="opacity:0.2"' : ''}>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                            </button>
+                            <button class="parsons-block-btn" onclick="ParsonsPuzzle.shiftOrder('${block.id}', 'down')" ${idx === this.workbenchBlocks.length - 1 ? 'disabled style="opacity:0.2"' : ''}>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </button>
+                            <button class="parsons-block-btn" onclick="ParsonsPuzzle.moveBlock('${block.id}', 'to-bank')" title="Remove">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        </div>
+                    `;
+                    benchArea.appendChild(el);
+                });
+            },
+            
+            verify() {
+                const puzzle = this.puzzles[this.currentIdx];
+                const feedback = document.getElementById('parsons-feedback');
+                
+                const userContent = this.workbenchBlocks.map(b => b.content);
+                const correctContent = puzzle.correct;
+                
+                let isPerfect = true;
+                if (userContent.length !== correctContent.length) {
+                    isPerfect = false;
+                }
+                
+                // Color individual blocks in workbench
+                const benchCards = document.querySelectorAll('#parsons-workbench .parsons-block');
+                this.workbenchBlocks.forEach((block, idx) => {
+                    const card = benchCards[idx];
+                    card.classList.remove('correct', 'incorrect');
+                    
+                    if (correctContent[idx] === block.content) {
+                        card.classList.add('correct');
+                    } else {
+                        card.classList.add('incorrect');
+                        isPerfect = false;
+                    }
+                });
+                
+                feedback.style.display = 'block';
+                if (isPerfect) {
+                    feedback.className = 'parsons-feedback-message success';
+                    feedback.innerHTML = `<strong>Success!</strong> ${puzzle.explanation}`;
+                } else {
+                    feedback.className = 'parsons-feedback-message error';
+                    feedback.innerHTML = `<strong>Try Again!</strong> Your query has syntax errors or incorrect clause sequencing. Check red blocks.`;
+                }
+            },
+            
+            escapeHtml(str) {
+                return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            }
+        };
+
+        const OptimizerSimulator = {
+            dbRows: [
+                { id: 1, name: 'Alice', age: 22 },
+                { id: 2, name: 'Bob', age: 30 },
+                { id: 3, name: 'Charlie', age: 18 },
+                { id: 4, name: 'Diana', age: 35 },
+                { id: 5, name: 'Evan', age: 26 },
+                { id: 6, name: 'Fiona', age: 30 },
+                { id: 7, name: 'George', age: 42 },
+                { id: 8, name: 'Hannah', age: 22 },
+                { id: 9, name: 'Ian', age: 30 },
+                { id: 10, name: 'Julia', age: 26 }
+            ],
+            
+            isIdxOn: false,
+            isRunning: false,
+            
+            init() {
+                const toggle = document.getElementById('opt-index-toggle');
+                toggle.addEventListener('change', (e) => {
+                    this.isIdxOn = e.target.checked;
+                    document.getElementById('index-toggle-lbl').textContent = this.isIdxOn ? 'ON' : 'OFF';
+                    document.getElementById('index-toggle-lbl').style.color = this.isIdxOn ? 'var(--primary)' : 'var(--accent-warm)';
+                    document.getElementById('opt-tree-container').style.display = this.isIdxOn ? 'flex' : 'none';
+                    this.resetView();
+                });
+                
+                document.getElementById('opt-run-btn').addEventListener('click', () => this.runQuery());
+                this.resetView();
+            },
+            
+            resetView() {
+                const container = document.getElementById('opt-rows-container');
+                container.innerHTML = '';
+                
+                this.dbRows.forEach(row => {
+                    const el = document.createElement('div');
+                    el.className = 'opt-row-card';
+                    el.id = `opt-row-${row.id}`;
+                    el.innerHTML = `
+                        <span style="font-family: var(--font-mono); font-weight:bold;">#${row.id}</span>
+                        <span>${row.name}</span>
+                        <span style="color: var(--primary); font-family: var(--font-mono);">age: ${row.age}</span>
+                    `;
+                    container.appendChild(el);
+                });
+                
+                document.getElementById('opt-metric-scan').textContent = '--';
+                document.getElementById('opt-metric-rows').textContent = '--';
+                document.getElementById('opt-metric-time').textContent = '--';
+                document.getElementById('opt-status-text').textContent = 'Ready';
+                document.getElementById('opt-status-text').style.color = 'var(--text-muted)';
+                
+                // Reset tree node animations
+                document.querySelectorAll('.opt-tree-node').forEach(node => {
+                    node.className = 'opt-tree-node';
+                });
+            },
+            
+            async runQuery() {
+                if (this.isRunning) return;
+                this.isRunning = true;
+                this.resetView();
+                
+                const runBtn = document.getElementById('opt-run-btn');
+                const toggle = document.getElementById('opt-index-toggle');
+                
+                runBtn.setAttribute('disabled', 'true');
+                toggle.setAttribute('disabled', 'true');
+                
+                document.getElementById('opt-status-text').textContent = 'Running Query...';
+                document.getElementById('opt-status-text').style.color = 'var(--accent-warm)';
+                
+                if (!this.isIdxOn) {
+                    // --- TABLE SCAN ---
+                    let inspected = 0;
+                    for (let i = 0; i < this.dbRows.length; i++) {
+                        const row = this.dbRows[i];
+                        const el = document.getElementById(`opt-row-${row.id}`);
+                        
+                        el.classList.add('scanned');
+                        inspected++;
+                        document.getElementById('opt-metric-rows').textContent = inspected;
+                        
+                        await new Promise(r => setTimeout(r, 350));
+                        
+                        if (row.age === 30) {
+                            el.classList.remove('scanned');
+                            el.classList.add('matched');
+                        } else {
+                            el.classList.remove('scanned');
+                            el.style.opacity = 0.5;
+                        }
+                    }
+                    
+                    document.getElementById('opt-metric-scan').textContent = 'TABLE SCAN';
+                    document.getElementById('opt-metric-time').textContent = '2.50 ms';
+                    
+                } else {
+                    // --- INDEX SEEK ---
+                    // Animate tree traversal
+                    // Step 1: Root
+                    const rootNode = document.getElementById('node-root');
+                    rootNode.className = 'opt-tree-node traversed';
+                    await new Promise(r => setTimeout(r, 600));
+                    
+                    // Step 2: Right child (age >= 26)
+                    const rightChild = document.getElementById('node-right');
+                    rightChild.className = 'opt-tree-node traversed';
+                    await new Promise(r => setTimeout(r, 600));
+                    
+                    // Step 3: Leaf (26, 30)
+                    const leaf = document.getElementById('node-leaf-2');
+                    leaf.className = 'opt-tree-node selected';
+                    await new Promise(r => setTimeout(r, 600));
+                    
+                    // Highlight matching values in Database
+                    this.dbRows.forEach(row => {
+                        const el = document.getElementById(`opt-row-${row.id}`);
+                        if (row.age === 30) {
+                            el.classList.add('matched');
+                        } else {
+                            el.classList.add('bypassed');
+                        }
+                    });
+                    
+                    document.getElementById('opt-metric-scan').textContent = 'INDEX SEEK';
+                    document.getElementById('opt-metric-rows').textContent = '3 (Index steps)';
+                    document.getElementById('opt-metric-time').textContent = '0.04 ms';
+                }
+                
+                document.getElementById('opt-status-text').textContent = 'Completed';
+                document.getElementById('opt-status-text').style.color = 'var(--primary)';
+                
+                runBtn.removeAttribute('disabled');
+                toggle.removeAttribute('disabled');
+                this.isRunning = false;
+            }
+        };
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            JoinVisualizer.init();
+            ERDBuilder.init();
+            ParsonsPuzzle.init();
+            OptimizerSimulator.init();
+        });
+    </script>
+</body>
+</html>

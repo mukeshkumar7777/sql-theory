@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick-Review Placement Summary Matrix - SQL Topic & Placement Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar-wrapper" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                        <path d="M12 6v6l4 2"></path>
+                    </svg>
+                    <span class="logo-text">SQL Guide</span>
+                </div>
+                <button class="close-sidebar-btn" id="close-sidebar" aria-label="Close menu">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="search-box">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="search-input" placeholder="Search guide..." autocomplete="off">
+                </div>
+            </div>
+            <nav class="toc-nav" id="toc-nav">
+                <!-- Dynamically generated TOC -->
+            </nav>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="main-wrapper">
+            <header class="top-nav">
+                <div class="nav-left">
+                    <button id="menu-toggle" class="menu-btn" aria-label="Toggle menu">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="nav-title">The Complete SQL Topic &amp; Placement Guide</div>
+                </div>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Theme">
+                        <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-container">
+                <!-- ================= SUMMARY MATRIX ================= -->
+                <div class="module-header">
+                    <span>Quick-Review Placement Summary Matrix</span>
+                    <span class="module-tag">Revision</span>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">#</th>
+                            <th style="width: 22%;">Topic</th>
+                            <th style="width: 33%;">Key Syntax / Clause</th>
+                            <th style="width: 40%;">What to Say in the Interview</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>01</td>
+                            <td><strong>TRUNCATE vs DELETE</strong></td>
+                            <td><span class="code-inline">TRUNCATE</span> vs <span class="code-inline">DELETE</span></td>
+                            <td>TRUNCATE is DDL (deallocates pages, resets IDs); DELETE is DML (row-by-row, logged).</td>
+                        </tr>
+                        <tr>
+                            <td>02</td>
+                            <td><strong>NULL Logic (3VL)</strong></td>
+                            <td><span class="code-inline">IS NULL</span>, <span class="code-inline">IS NOT NULL</span></td>
+                            <td>SQL uses Three-Valued Logic. <span class="code-inline">= NULL</span> yields UNKNOWN and returns zero rows.</td>
+                        </tr>
+                        <tr>
+                            <td>03</td>
+                            <td><strong>Execution Order</strong></td>
+                            <td><span class="code-inline">FROM → WHERE → GROUP BY → SELECT</span></td>
+                            <td>Column aliases created in SELECT cannot be used in WHERE because WHERE runs earlier.</td>
+                        </tr>
+                        <tr>
+                            <td>04</td>
+                            <td><strong>INNER vs OUTER Joins</strong></td>
+                            <td><span class="code-inline">INNER</span>, <span class="code-inline">LEFT</span>, <span class="code-inline">FULL JOIN</span></td>
+                            <td>INNER drops non-matches; LEFT keeps all left rows; FULL keeps all rows from both.</td>
+                        </tr>
+                        <tr>
+                            <td>05</td>
+                            <td><strong>Anti-Join Pattern</strong></td>
+                            <td><span class="code-inline">LEFT JOIN ... WHERE right.id IS NULL</span></td>
+                            <td>Optimal way to identify missing relationships without expensive subqueries.</td>
+                        </tr>
+                        <tr>
+                            <td>06</td>
+                            <td><strong>NOT IN NULL Pitfall</strong></td>
+                            <td><span class="code-inline">NOT EXISTS</span></td>
+                            <td>NOT IN returns zero rows if the subquery contains a single NULL. Use NOT EXISTS.</td>
+                        </tr>
+                        <tr>
+                            <td>07</td>
+                            <td><strong>Rank Functions</strong></td>
+                            <td><span class="code-inline">ROW_NUMBER</span>, <span class="code-inline">RANK</span>, <span class="code-inline">DENSE_RANK</span></td>
+                            <td>ROW_NUMBER is strictly sequential; RANK skips numbers on ties; DENSE_RANK has no gaps.</td>
+                        </tr>
+                        <tr>
+                            <td>08</td>
+                            <td><strong>N-th Salary</strong></td>
+                            <td><span class="code-inline">DENSE_RANK() OVER (ORDER BY salary DESC)</span></td>
+                            <td>DENSE_RANK handles duplicate salary ties cleanly across departments.</td>
+                        </tr>
+                        <tr>
+                            <td>09</td>
+                            <td><strong>Gaps & Islands</strong></td>
+                            <td><span class="code-inline">date - ROW_NUMBER() * INTERVAL</span></td>
+                            <td>Subtracting a sequential row number produces a constant anchor date for consecutive days.</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td><strong>SARGable Indexes</strong></td>
+                            <td><span class="code-inline">WHERE date >= '2024-01-01'</span></td>
+                            <td>Never wrap indexed columns in functions; keep columns bare to enable B-Tree seeks.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> <!-- close content-container -->
+
+            <footer class="site-footer">© 2026 Mukesh Kumar Sanivada. All rights reserved.</footer>
+
+        </div> <!-- close main-wrapper -->
+    </div> <!-- close app-container -->
+
+    <button id="back-to-top" class="back-to-top-btn" title="Back to top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

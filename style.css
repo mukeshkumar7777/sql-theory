@@ -1099,6 +1099,756 @@
             }
         }
 
+        /* ==========================================
+                  INTERACTIVE LAB STYLES
+           ========================================== */
+        
+        .lab-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .lab-panel {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .lab-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+        }
+
+        .lab-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .lab-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid var(--primary-border);
+        }
+
+        /* 1. JOIN Visualizer Styles */
+        .join-workspace {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .join-controls {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            background: var(--bg-app);
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .join-type-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .join-type-btn:hover {
+            color: var(--text-main);
+            background: var(--bg-card);
+        }
+
+        .join-type-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .join-tables-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 1.5rem;
+            position: relative;
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .join-tables-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .join-connector-container {
+                display: none;
+            }
+        }
+
+        .join-table-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .join-table-title {
+            background: var(--bg-app);
+            padding: 0.6rem 1rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+
+        .join-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .join-table th, .join-table td {
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .join-table th {
+            background: var(--bg-card);
+            font-weight: 600;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .join-row {
+            transition: background-color 0.3s;
+        }
+
+        .join-row.matching {
+            background-color: var(--primary-light) !important;
+        }
+
+        .join-row.comparing {
+            background-color: var(--accent-warm-light) !important;
+        }
+
+        .join-row.unmatched {
+            opacity: 0.6;
+        }
+
+        .join-connector-container {
+            width: 80px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .join-connector-svg {
+            width: 80px;
+            height: 200px;
+            pointer-events: none;
+        }
+
+        .join-line {
+            fill: none;
+            stroke: var(--border-color);
+            stroke-width: 2;
+            stroke-dasharray: 4 2;
+            transition: stroke 0.3s, stroke-width 0.3s, stroke-dasharray 0.3s;
+        }
+
+        .join-line.active {
+            stroke: var(--primary);
+            stroke-width: 3;
+            stroke-dasharray: none;
+            animation: linePulse 1.5s infinite;
+        }
+
+        .join-result-container {
+            margin-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+        }
+
+        /* 2. ER Diagram Builder Styles */
+        .erd-workspace {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .erd-toolbar {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .erd-canvas-container {
+            position: relative;
+            width: 100%;
+            height: 480px;
+            background-color: var(--bg-app);
+            background-image: 
+                radial-gradient(var(--border-color) 1px, transparent 1px), 
+                radial-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .erd-canvas {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .erd-svg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .erd-table-node {
+            position: absolute;
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            min-width: 200px;
+            box-shadow: var(--shadow-md);
+            z-index: 2;
+            cursor: move;
+            user-select: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .erd-table-node:hover, .erd-table-node.active {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .erd-node-header {
+            background-color: var(--bg-app);
+            padding: 0.5rem 0.75rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        .erd-node-actions {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .erd-node-btn {
+            background: transparent;
+            border: none;
+            padding: 2px;
+            cursor: pointer;
+            border-radius: 3px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .erd-node-btn:hover {
+            color: var(--accent-warm);
+            background: var(--border-color);
+        }
+
+        .erd-node-btn.add-col-btn:hover {
+            color: var(--primary);
+        }
+
+        .erd-node-columns {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.75rem;
+        }
+
+        .erd-node-col-row {
+            padding: 0.4rem 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .erd-node-col-row:last-child {
+            border-bottom: none;
+        }
+
+        .erd-col-name {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .erd-col-type {
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+        }
+
+        .erd-key-icon {
+            font-size: 0.6rem;
+            font-weight: bold;
+            padding: 1px 3px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+
+        .erd-pk {
+            background-color: var(--accent-warm-light);
+            color: var(--accent-warm);
+            border: 1px solid var(--accent-warm-border);
+        }
+
+        .erd-fk {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid var(--primary-border);
+        }
+
+        .erd-relationship-path {
+            fill: none;
+            stroke: var(--primary);
+            stroke-width: 2.5;
+            transition: stroke 0.2s;
+        }
+
+        .erd-relationship-path.hovered {
+            stroke: var(--accent-warm);
+            stroke-width: 3.5;
+        }
+
+        .erd-ddl-output {
+            margin-top: 1rem;
+        }
+
+        .erd-ddl-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* ERD Forms styling */
+        .erd-modal {
+            position: absolute;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 10;
+            width: 240px;
+        }
+
+        .erd-form-group {
+            margin-bottom: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .erd-form-group label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .erd-input, .erd-select {
+            padding: 0.35rem 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            font-size: 0.75rem;
+            background: var(--bg-card);
+            color: var(--text-main);
+        }
+
+        .erd-form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        /* 3. SQL Parsons Puzzle Styles */
+        .parsons-workspace {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .parsons-challenge-card {
+            background-color: var(--bg-app);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .parsons-challenge-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .parsons-challenge-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .parsons-board-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .parsons-board-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .parsons-column {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .parsons-col-header {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .parsons-area {
+            background: var(--bg-app);
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            min-height: 280px;
+            padding: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .parsons-area.drag-over {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .parsons-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.6rem 0.9rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-main);
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            position: relative;
+        }
+
+        .parsons-block:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-border);
+            transform: translateY(-1px);
+        }
+
+        .parsons-block.dragging {
+            opacity: 0.4;
+        }
+
+        .parsons-block-actions {
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
+        }
+
+        .parsons-block-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 2px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .parsons-block-btn:hover {
+            color: var(--primary);
+            background: var(--border-color);
+        }
+
+        .parsons-block.correct {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .parsons-block.incorrect {
+            border-color: var(--accent-warm);
+            background-color: var(--accent-warm-light);
+        }
+
+        .parsons-feedback-message {
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .parsons-feedback-message.success {
+            display: block;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid var(--primary-border);
+        }
+
+        .parsons-feedback-message.error {
+            display: block;
+            background-color: var(--accent-warm-light);
+            color: var(--accent-warm);
+            border: 1px solid var(--accent-warm-border);
+        }
+
+        /* 4. Optimizer Simulator Styles */
+        .opt-workspace {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .opt-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1.8fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 992px) {
+            .opt-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .opt-config-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .opt-db-view {
+            background: var(--bg-app);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .opt-db-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .opt-rows-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 480px) {
+            .opt-rows-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .opt-row-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            transition: all 0.25s;
+        }
+
+        .opt-row-card.scanned {
+            background: var(--accent-warm-light);
+            border-color: var(--accent-warm-border);
+            transform: scale(1.02);
+        }
+
+        .opt-row-card.matched {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
+            transform: scale(1.04);
+            font-weight: bold;
+        }
+
+        .opt-row-card.bypassed {
+            opacity: 0.4;
+        }
+
+        .opt-btree-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 1rem 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            position: relative;
+        }
+
+        .opt-tree-level {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .opt-tree-node {
+            background: var(--bg-app);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.35rem 0.6rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .opt-tree-node.traversed {
+            background: var(--accent-warm-light);
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            transform: scale(1.08);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .opt-tree-node.selected {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .opt-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .opt-metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.6rem;
+            text-align: center;
+        }
+
+        .opt-metric-val {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--primary);
+            margin-top: 0.2rem;
+        }
+
+        .opt-metric-lbl {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .opt-metric-val.scan-type {
+            font-size: 0.8rem;
+            color: var(--accent-warm);
+        }
+
+        /* Helper animations */
+        @keyframes linePulse {
+            0% { stroke-width: 2.5px; }
+            50% { stroke-width: 4.5px; stroke: var(--primary-hover); }
+            100% { stroke-width: 2.5px; }
+        }
+
         @media print {
             @page {
                 size: A4 portrait;

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 7: SQL Query Interview Zoo - SQL Topic & Placement Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar-wrapper" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                        <path d="M12 6v6l4 2"></path>
+                    </svg>
+                    <span class="logo-text">SQL Guide</span>
+                </div>
+                <button class="close-sidebar-btn" id="close-sidebar" aria-label="Close menu">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="search-box">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="search-input" placeholder="Search guide..." autocomplete="off">
+                </div>
+            </div>
+            <nav class="toc-nav" id="toc-nav">
+                <!-- Dynamically generated TOC -->
+            </nav>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="main-wrapper">
+            <header class="top-nav">
+                <div class="nav-left">
+                    <button id="menu-toggle" class="menu-btn" aria-label="Toggle menu">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="nav-title">The Complete SQL Topic &amp; Placement Guide</div>
+                </div>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Theme">
+                        <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-container">
+                <!-- ================= MODULE 7 ================= -->
+                <div class="module-header">
+                    <span>Module 7: DBMS Internals, Indexes & Normalization</span>
+                    <span class="module-tag">Architecture & Theory</span>
+                </div>
+
+                <!-- 7.1 ACID & Isolation -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">15.</span><span class="topic-heading">ACID Properties & Transaction
+                                Isolation Levels</span></div>
+                        <span class="topic-meta">Core DBMS Theory</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong> ACID governs transaction integrity:
+                        <ul class="bullet-list">
+                            <li><strong>Atomicity:</strong> All modifications succeed or all roll back.</li>
+                            <li><strong>Consistency:</strong> Preserves all declarative constraints and foreign key
+                                references.</li>
+                            <li><strong>Isolation:</strong> Concurrent transactions run safely without reading
+                                uncommitted intermediate states.</li>
+                            <li><strong>Durability:</strong> Committed data persists across system crashes and power
+                                failures.</li>
+                        </ul>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Isolation Level</th>
+                                <th style="width: 25%;">Dirty Read</th>
+                                <th style="width: 25%;">Non-Repeatable Read</th>
+                                <th style="width: 25%;">Phantom Read</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>READ UNCOMMITTED</strong></td>
+                                <td style="color:#b91c1c; font-weight:700;">Allowed</td>
+                                <td style="color:#b91c1c; font-weight:700;">Allowed</td>
+                                <td style="color:#b91c1c; font-weight:700;">Allowed</td>
+                            </tr>
+                            <tr>
+                                <td><strong>READ COMMITTED</strong></td>
+                                <td style="color:#047857; font-weight:700;">Prevented</td>
+                                <td style="color:#b91c1c; font-weight:700;">Allowed</td>
+                                <td style="color:#b91c1c; font-weight:700;">Allowed</td>
+                            </tr>
+                            <tr>
+                                <td><strong>REPEATABLE READ</strong></td>
+                                <td style="color:#047857; font-weight:700;">Prevented</td>
+                                <td style="color:#047857; font-weight:700;">Prevented</td>
+                                <td style="color:#b91c1c; font-weight:700;">Allowed (Engine-dependent)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SERIALIZABLE</strong></td>
+                                <td style="color:#047857; font-weight:700;">Prevented</td>
+                                <td style="color:#047857; font-weight:700;">Prevented</td>
+                                <td style="color:#047857; font-weight:700;">Prevented</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 7.2 Indexing & SARGability -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">16.</span><span class="topic-heading">Clustered vs. Non-Clustered
+                                Indexes & SARGability</span></div>
+                        <span class="topic-meta">Performance Tuning</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong>
+                        <ul class="bullet-list">
+                            <li><strong>Clustered Index:</strong> Dictates the physical storage order of rows on disk
+                                (only 1 per table).</li>
+                            <li><strong>Non-Clustered Index:</strong> A separate lookup structure of pointers to the
+                                underlying data rows.</li>
+                            <li><strong>SARGable (Search Argument Able):</strong> Conditions that allow direct B-Tree
+                                index seeks. Applying functions to indexed columns prevents seeks and forces full table
+                                scans.</li>
+                        </ul>
+                    </div>
+                    <div class="code-section-header"><span class="badge-tricky">Example</span> Non-SARGable vs. SARGable
+                        Query Design</div>
+                    <pre><span class="cm">-- ❌ Non-SARGable: Wrapping indexed column in function forces a Full Table Scan</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> orders <span class="kw">WHERE</span> <span class="fn">EXTRACT</span>(<span class="kw">YEAR FROM</span> order_date) = <span class="num">2024</span>;
+
+<span class="cm">-- ✅ SARGable: Column is untouched; uses B-Tree Index Seek</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> orders 
+<span class="kw">WHERE</span> order_date >= <span class="str">'2024-01-01'</span> <span class="kw">AND</span> order_date < <span class="str">'2025-01-01'</span>;</pre>
+                </div>
+
+                <!-- 7.3 Normalization -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">17.</span><span class="topic-heading">Database Normalization (1NF,
+                                2NF, 3NF, BCNF)</span></div>
+                        <span class="topic-meta">Schema Design</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong> Normalization minimizes redundancy and prevents insertion,
+                        update, and deletion anomalies.
+                        <ul class="bullet-list">
+                            <li><strong>1NF:</strong> Atomic values per cell (no lists), primary key defined.</li>
+                            <li><strong>2NF:</strong> 1NF + no partial dependencies (every non-key attribute depends on
+                                the <em>whole</em> primary key).</li>
+                            <li><strong>3NF:</strong> 2NF + no transitive dependencies ($A \rightarrow B \rightarrow
+                                C$). Non-keys must depend <em>only</em> on the primary key.</li>
+                            <li><strong>BCNF:</strong> Stricter 3NF: for every functional dependency $X \rightarrow Y$,
+                                $X$ must be a super key.</li>
+                        </ul>
+                    </div>
+                    <div class="code-section-header"><span class="badge-easy">Example</span> 3NF Transformation
+                        (Eliminating Transitive Dependencies)</div>
+                    <pre><span class="cm">-- ❌ Violates 3NF: zip determines city and state (transitive dependency via customer_id -> zip)</span>
+<span class="cm">-- customers(id, name, zip, city, state)</span>
+
+<span class="cm">-- ✅ 3NF Compliant: Normalized Lookup Structure</span>
+<span class="kw">CREATE TABLE</span> zip_directory (
+    zip <span class="type">VARCHAR</span>(<span class="num">10</span>) <span class="kw">PRIMARY KEY</span>,
+    city <span class="type">VARCHAR</span>(<span class="num">50</span>),
+    state <span class="type">VARCHAR</span>(<span class="num">50</span>)
+);
+
+<span class="kw">CREATE TABLE</span> customers (
+    id <span class="type">INT</span> <span class="kw">PRIMARY KEY</span>,
+    name <span class="type">VARCHAR</span>(<span class="num">100</span>),
+    zip <span class="type">VARCHAR</span>(<span class="num">10</span>) <span class="kw">REFERENCES</span> zip_directory(zip)
+);</pre>
+                </div>
+
+                <!-- 7.4 Views, Procedures & Triggers -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">18.</span><span class="topic-heading">Views, Stored Procedures &
+                                Triggers</span></div>
+                        <span class="topic-meta">Server-side Objects</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong> Server-side database objects that encapsulate business
+                        rules, security layers, and automated event hooks.
+                    </div>
+                    <div class="code-section-header"><span class="badge-easy">1. View with Check Option</span> Security
+                        & Validation Layer</div>
+                    <pre><span class="kw">CREATE VIEW</span> active_students <span class="kw">AS</span>
+<span class="kw">SELECT</span> id, name, status <span class="kw">FROM</span> students <span class="kw">WHERE</span> status = <span class="str">'active'</span>
+<span class="kw">WITH CHECK OPTION</span>; <span class="cm">-- Blocks any INSERT/UPDATE that would set status != 'active'</span></pre>
+
+                    <div class="code-section-header"><span class="badge-tricky">2. Audit Trigger</span> Event Hook for
+                        Automated Logging</div>
+                    <pre><span class="kw">CREATE OR REPLACE FUNCTION</span> log_student_deletions() <span class="kw">RETURNS TRIGGER AS</span> $$
+<span class="kw">BEGIN</span>
+    <span class="kw">INSERT INTO</span> audit_log (table_name, record_id, deleted_at)
+    <span class="kw">VALUES</span> (<span class="str">'students'</span>, OLD.id, <span class="fn">NOW</span>());
+    <span class="kw">RETURN</span> OLD;
+<span class="kw">END</span>;
+$$ <span class="kw">LANGUAGE</span> plpgsql;
+
+<span class="kw">CREATE TRIGGER</span> student_delete_trigger
+<span class="kw">AFTER DELETE ON</span> students
+<span class="kw">FOR EACH ROW EXECUTE FUNCTION</span> log_student_deletions();</pre>
+                </div>
+            </div> <!-- close content-container -->
+
+            <footer class="site-footer">© 2026 Mukesh Kumar Sanivada. All rights reserved.</footer>
+
+        </div> <!-- close main-wrapper -->
+    </div> <!-- close app-container -->
+
+    <button id="back-to-top" class="back-to-top-btn" title="Back to top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        window.QUIZ_QUESTIONS = [
+            {
+                    question: "What default index structure is used by most relational database engines?",
+                    options: ["Hash Index", "B-Tree Index", "Bitmap Index", "GIST Index"],
+                    correct: 1,
+                    explanation: "B-Trees (Balanced Trees) are the default because they keep data sorted and support logarithmic search, insertion, deletion, and range queries."
+                },
+                {
+                    question: "What is a clustered index?",
+                    options: ["An index on multiple columns", "An index that defines the physical storage order of rows in the table", "A temp index", "An index containing no keys"],
+                    correct: 1,
+                    explanation: "A clustered index forces the table data to be stored on disk sorted in the order of the index key. This is why a table can only have one clustered index."
+                },
+                {
+                    question: "How many clustered indexes can exist on a single table?",
+                    options: ["Unlimited", "One", "Two", "Zero"],
+                    correct: 1,
+                    explanation: "Since the physical data rows can only be sorted in one physical sequence on disk, a table is restricted to exactly one clustered index."
+                },
+                {
+                    question: "What is a non-clustered index?",
+                    options: ["An index that is not sorted", "An index stored separately from the data rows, containing pointers to the physical rows", "An index on NULL values", "An invalid index"],
+                    correct: 1,
+                    explanation: "Non-clustered indexes are stored in separate structures. They map keys to row locators (pointers to physical data positions)."
+                },
+                {
+                    question: "What is the primary goal of database normalization?",
+                    options: ["Speeding up inserts", "Eliminating redundant data and preventing update/delete anomalies", "Adding columns automatically", "Compressing database backups"],
+                    correct: 1,
+                    explanation: "Normalization organizes tables to reduce duplicate data storage, which prevents data integrity inconsistencies (anomalies)."
+                },
+                {
+                    question: "What condition must be met for a table to satisfy First Normal Form (1NF)?",
+                    options: ["No foreign keys", "Atomic column values and no repeating groups/arrays", "Single column primary keys", "No NULL values"],
+                    correct: 1,
+                    explanation: "1NF requires each table cell to contain only single, indivisible (atomic) values, with no arrays or multi-value repeating groups."
+                },
+                {
+                    question: "What is required for a table to be in Second Normal Form (2NF)?",
+                    options: ["Must be in 1NF and have no partial dependencies (every non-prime attribute must depend on the whole primary key)", "Must have no nullable columns", "Must have a clustered index", "Must be in 3NF"],
+                    correct: 0,
+                    explanation: "2NF eliminates partial dependencies. In tables with composite keys, all non-key columns must depend on the entire composite primary key, not just a subset of it."
+                },
+                {
+                    question: "What is required for a table to be in Third Normal Form (3NF)?",
+                    options: ["Must have no foreign keys", "Must be in 2NF and contain no transitive dependencies (non-key columns depending on other non-key columns)", "Must have 3 indexes", "Must have zero NULL values"],
+                    correct: 1,
+                    explanation: "3NF ensures that non-key attributes depend only on the primary key, removing indirect (transitive) dependencies."
+                },
+                {
+                    question: "What is Boyce-Codd Normal Form (BCNF)?",
+                    options: ["A weaker version of 2NF", "A strict version of 3NF where for every functional dependency X -> Y, X must be a superkey", "An index optimization rule", "A database backup standard"],
+                    correct: 1,
+                    explanation: "BCNF is a stricter form of 3NF that handles overlapping candidate keys, requiring every determinant to be a superkey."
+                },
+                {
+                    question: "What does the letter 'A' stand for in the ACID transaction acronym?",
+                    options: ["Availability", "Atomicity", "Aggregation", "Authorization"],
+                    correct: 1,
+                    explanation: "Atomicity ensures that transactions are all-or-nothing: either all modifications succeed, or the database is rolled back to its original state."
+                },
+                {
+                    question: "What does Consistency guarantee in ACID?",
+                    options: ["That the database is always available", "That transactions only transition the database from one valid state to another, preserving all schemas and constraints", "That data is not duplicated", "That queries run instantly"],
+                    correct: 1,
+                    explanation: "Consistency guarantees that a transaction cannot violate any defined database constraints (like primary keys, foreign keys, or check constraints)."
+                },
+                {
+                    question: "What transaction isolation issue occurs when Transaction 1 reads uncommitted modifications made by Transaction 2?",
+                    options: ["Non-repeatable Read", "Phantom Read", "Dirty Read", "Lost Update"],
+                    correct: 2,
+                    explanation: "A Dirty Read occurs when a transaction reads uncommitted data, which might subsequently be rolled back by the other transaction."
+                },
+                {
+                    question: "What isolation level prevents Dirty Reads but allows Non-repeatable Reads?",
+                    options: ["Read Uncommitted", "Read Committed", "Repeatable Read", "Serializable"],
+                    correct: 1,
+                    explanation: "Read Committed prevents reading uncommitted changes, but since shared read locks are released immediately, values can change if read again later."
+                },
+                {
+                    question: "What is a Phantom Read?",
+                    options: ["Reading deleted rows", "Re-running a query returns new rows inserted by another transaction that committed in the meantime", "Reading data that is corrupted", "A lock failure"],
+                    correct: 1,
+                    explanation: "A Phantom Read occurs when a transaction queries a range of rows and a concurrent transaction inserts new matching rows, which appear in subsequent reads."
+                },
+                {
+                    question: "Which isolation level offers the highest level of isolation, protecting against all read anomalies?",
+                    options: ["Read Committed", "Repeatable Read", "Serializable", "Snapshot Isolation"],
+                    correct: 2,
+                    explanation: "Serializable is the strictest isolation level. It makes transactions behave as if they ran sequentially one after another."
+                },
+                {
+                    question: "What limitation does a Hash Index have compared to a B-Tree Index?",
+                    options: ["It is slower for point lookups", "It does not support range queries (e.g. WHERE val > 10) because keys are hashed without sorting", "It cannot be created on integer columns", "It requires more disk space"],
+                    correct: 1,
+                    explanation: "Hash indexes assign keys to buckets via a hashing function, which lacks order. Thus, they support equality checks (=) but cannot optimize range searches (>, <, BETWEEN)."
+                },
+                {
+                    question: "What execution details does this command print?",
+                    code: "EXPLAIN SELECT * FROM users WHERE email = 'test@example.com';",
+                    options: ["The index contents", "The performance path and operations chosen by the query planner", "The error log details", "The rows in matching tables"],
+                    correct: 1,
+                    explanation: "EXPLAIN prints the execution path (e.g., nested loops, table scans, index scans) selected by the database query planner."
+                },
+                {
+                    question: "What is a table scan (sequential scan)?",
+                    options: ["Scanning the indexes", "Reading every page of the physical table on disk to find matching rows", "Checking column constraints", "A table backup process"],
+                    correct: 1,
+                    explanation: "A sequential scan reads all rows of a table from disk. It occurs when no indexes are available to help satisfy query filters."
+                },
+                {
+                    question: "What is a covering index?",
+                    options: ["An index on all tables", "An index containing all columns requested by a query, allowing the engine to return results entirely from the index without looking up rows on disk", "A clustered index", "An index that is hidden"],
+                    correct: 1,
+                    explanation: "A covering index contains all selected columns, allowing index-only scans, which drastically speeds up data retrieval by avoiding disk access."
+                },
+                {
+                    question: "What is the default transaction isolation level in PostgreSQL?",
+                    options: ["Read Uncommitted", "Read Committed", "Repeatable Read", "Serializable"],
+                    correct: 1,
+                    explanation: "PostgreSQL defaults to Read Committed, ensuring readers do not see uncommitted changes but allowing values to change during long transactions."
+                }
+        ];
+    </script>
+</body>
+</html>

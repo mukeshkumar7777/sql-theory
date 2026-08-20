@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6: Query Tuning & Optimizers - SQL Topic & Placement Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar-wrapper" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                        <path d="M12 6v6l4 2"></path>
+                    </svg>
+                    <span class="logo-text">SQL Guide</span>
+                </div>
+                <button class="close-sidebar-btn" id="close-sidebar" aria-label="Close menu">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="search-box">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="search-input" placeholder="Search guide..." autocomplete="off">
+                </div>
+            </div>
+            <nav class="toc-nav" id="toc-nav">
+                <!-- Dynamically generated TOC -->
+            </nav>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="main-wrapper">
+            <header class="top-nav">
+                <div class="nav-left">
+                    <button id="menu-toggle" class="menu-btn" aria-label="Toggle menu">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="nav-title">The Complete SQL Topic &amp; Placement Guide</div>
+                </div>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Theme">
+                        <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-container">
+                <!-- ================= MODULE 6 ================= -->
+                <div class="module-header">
+                    <span>Module 6: Top 3 Placement Problem Patterns</span>
+                    <span class="module-tag">Interview Coding Round</span>
+                </div>
+
+                <!-- 6.1 Nth Salary -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">Pattern 1.</span><span class="topic-heading">Find N-th Highest
+                                Salary (3 Implementations)</span></div>
+                        <span class="topic-meta">Asked in 90% of Interviews</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong> Always handle duplicate salaries using <span
+                            class="code-inline">DENSE_RANK()</span> or <span class="code-inline">DISTINCT</span> so ties
+                        receive the same rank.
+                    </div>
+                    <div class="code-section-header"><span class="badge-easy">Method A: DENSE_RANK() (Recommended
+                            Standard)</span></div>
+                    <pre><span class="kw">WITH</span> RankedSalaries <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> salary, <span class="fn">DENSE_RANK</span>() <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> rnk
+    <span class="kw">FROM</span> employees
+)
+<span class="kw">SELECT DISTINCT</span> salary <span class="kw">FROM</span> RankedSalaries <span class="kw">WHERE</span> rnk = <span class="num">2</span>;  <span class="cm">-- Change '2' to N</span></pre>
+
+                    <div class="code-section-header"><span class="badge-easy">Method B: Correlated Subquery (Universal
+                            ANSI SQL)</span></div>
+                    <pre><span class="kw">SELECT DISTINCT</span> salary
+<span class="kw">FROM</span> employees e1
+<span class="kw">WHERE</span> <span class="num">2</span> = (  <span class="cm">-- Change '2' to N</span>
+    <span class="kw">SELECT</span> <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> salary)
+    <span class="kw">FROM</span> employees e2
+    <span class="kw">WHERE</span> e2.salary >= e1.salary
+);</pre>
+
+                    <div class="code-section-header"><span class="badge-easy">Method C: LIMIT / OFFSET</span></div>
+                    <pre><span class="kw">SELECT DISTINCT</span> salary 
+<span class="kw">FROM</span> employees 
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span> 
+<span class="kw">LIMIT</span> <span class="num">1</span> <span class="kw">OFFSET</span> <span class="num">1</span>;  <span class="cm">-- OFFSET is (N - 1), so OFFSET 1 = 2nd highest</span></pre>
+                </div>
+
+                <!-- 6.2 Top 3 Earners per Dept -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">Pattern 2.</span><span class="topic-heading">Department-wise Top 3
+                                Earners</span></div>
+                        <span class="topic-meta">LeetCode Benchmark</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong> Partition by department and order by salary descending
+                        within a CTE, then filter the calculated rank.
+                    </div>
+                    <div class="code-section-header"><span class="badge-tricky">Solution</span> Complete Query</div>
+                    <pre><span class="kw">WITH</span> DeptRanks <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> 
+        d.dept_name, e.name <span class="kw">AS</span> employee_name, e.salary,
+        <span class="fn">DENSE_RANK</span>() <span class="kw">OVER</span> (
+            <span class="kw">PARTITION BY</span> e.department_id 
+            <span class="kw">ORDER BY</span> e.salary <span class="kw">DESC</span>
+        ) <span class="kw">AS</span> rank_in_dept
+    <span class="kw">FROM</span> employees e
+    <span class="kw">JOIN</span> departments d <span class="kw">ON</span> e.department_id = d.id
+)
+<span class="kw">SELECT</span> dept_name, employee_name, salary
+<span class="kw">FROM</span> DeptRanks
+<span class="kw">WHERE</span> rank_in_dept <= <span class="num">3</span>;</pre>
+                </div>
+
+                <!-- 6.3 Consecutive Logins / Gaps & Islands -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">Pattern 3.</span><span class="topic-heading">Consecutive Login
+                                Streaks (Gaps & Islands)</span></div>
+                        <span class="topic-meta">Advanced Placement Problem</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong> Subtracting a row number from consecutive calendar dates
+                        produces a constant group anchor date for the entire active streak.
+                    </div>
+                    <div class="code-section-header"><span class="badge-tricky">Solution</span> Find Users with 3+
+                        Consecutive Active Days</div>
+                    <pre><span class="kw">WITH</span> DedupedLogins <span class="kw">AS</span> (
+    <span class="kw">SELECT DISTINCT</span> user_id, login_date <span class="kw">FROM</span> user_logins
+  ),
+  StreakGroups <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> 
+        user_id, login_date,
+        login_date - (<span class="fn">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> user_id <span class="kw">ORDER BY</span> login_date) * <span class="kw">INTERVAL</span> <span class="str">'1 day'</span>) <span class="kw">AS</span> streak_anchor
+    <span class="kw">FROM</span> DedupedLogins
+  )
+<span class="kw">SELECT</span> 
+    user_id, 
+    <span class="fn">MIN</span>(login_date) <span class="kw">AS</span> streak_start, 
+    <span class="fn">MAX</span>(login_date) <span class="kw">AS</span> streak_end, 
+    <span class="fn">COUNT</span>(*) <span class="kw">AS</span> streak_length
+<span class="kw">FROM</span> StreakGroups
+<span class="kw">GROUP BY</span> user_id, streak_anchor
+<span class="kw">HAVING</span> <span class="fn">COUNT</span>(*) >= <span class="num">3</span>;</pre>
+                </div>
+            </div> <!-- close content-container -->
+
+            <footer class="site-footer">© 2026 Mukesh Kumar Sanivada. All rights reserved.</footer>
+
+        </div> <!-- close main-wrapper -->
+    </div> <!-- close app-container -->
+
+    <button id="back-to-top" class="back-to-top-btn" title="Back to top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        window.QUIZ_QUESTIONS = [
+            {
+                    question: "What salary position does this query return from the database?",
+                    code: "SELECT salary FROM employee\nORDER BY salary DESC\nLIMIT 1 OFFSET 2;",
+                    options: ["The 2nd highest salary", "The 3rd highest salary", "The 1st highest salary", "The 4th highest salary"],
+                    correct: 1,
+                    explanation: "LIMIT 1 returns 1 row. OFFSET 2 skips the first 2 rows (1st and 2nd highest), returning the 3rd highest salary."
+                },
+                {
+                    question: "How do you calculate a running total of deposits in a transactions table?",
+                    options: ["SUM(amount) GROUP BY trans_date", "SUM(amount) OVER (ORDER BY trans_date)", "SUM(amount) OVER (PARTITION BY trans_date)", "AVG(amount) OVER (ORDER BY trans_date)"],
+                    correct: 1,
+                    explanation: "Using SUM(amount) OVER (ORDER BY trans_date) calculates a running sum by accumulating amounts chronologically."
+                },
+                {
+                    question: "How do you find duplicate user records based on email?",
+                    options: ["SELECT email FROM users WHERE COUNT(email) > 1", "SELECT email FROM users GROUP BY email HAVING COUNT(*) > 1", "SELECT DISTINCT email FROM users", "SELECT email FROM users WHERE email IS DUPLICATE"],
+                    correct: 1,
+                    explanation: "Grouping by email aggregates duplicates. HAVING COUNT(*) > 1 filters for emails occurring more than once."
+                },
+                {
+                    question: "What is the standard strategy for calculating consecutive login streaks?",
+                    options: ["Using the Lead function only", "Subtracting a ROW_NUMBER() sequence from the login date to create a constant grouped date anchor", "Doing a self-join on id = id + 1", "Grouping by week"],
+                    correct: 1,
+                    explanation: "Subtracting ROW_NUMBER() from a date sequence yields a constant date for consecutive intervals, which you can then GROUP BY to find streaks."
+                },
+                {
+                    question: "In a self-referencing table of categories, how do you locate root-level categories?",
+                    options: ["WHERE parent_id = 0", "WHERE parent_id IS NULL", "WHERE parent_id = self_id", "WHERE level = 1"],
+                    correct: 1,
+                    explanation: "In relational tree designs, root-level categories have no parent, indicated by NULL in the foreign key parent_id column."
+                },
+                {
+                    question: "How do you delete duplicate employee names while keeping only the one with the lowest ID?",
+                    options: ["DELETE FROM emp WHERE id NOT IN (SELECT MIN(id) FROM emp GROUP BY name)", "DELETE DUPLICATES FROM emp", "DELETE FROM emp WHERE id IN (SELECT MIN(id) FROM emp)", "DROP TABLE emp"],
+                    correct: 0,
+                    explanation: "By keeping the MIN(id) for each name group and deleting any ID not in that list, you remove all duplicates."
+                },
+                {
+                    question: "Which window function is best for finding the top N highest earners in each department?",
+                    options: ["DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC)", "RANK() OVER (ORDER BY salary DESC)", "ROW_NUMBER() OVER (ORDER BY dept_id)", "SUM(salary) OVER (PARTITION BY dept_id)"],
+                    correct: 0,
+                    explanation: "DENSE_RANK partitioned by department rankings ensures you can filter rank <= N in an outer query."
+                },
+                {
+                    question: "How do you calculate active users month-over-month (users active in consecutive months)?",
+                    options: ["A self-join on user_id and months difference = 1", "Doing a UNION of monthly tables", "Using the ROW_NUMBER function", "Grouping by year"],
+                    correct: 0,
+                    explanation: "Self-joining user logs on user_id and matching month numbers with an offset of 1 checks if a user was active in consecutive months."
+                },
+                {
+                    question: "What CTE type is required to query hierarchies like corporate org charts?",
+                    options: ["Nested CTE", "Recursive CTE", "Iterative CTE", "Standard CTE"],
+                    correct: 1,
+                    explanation: "A recursive CTE references itself, allowing you to walk down or up parent-child pointer structures recursively."
+                },
+                {
+                    question: "What function helps find the time difference between consecutive events?",
+                    options: ["LAG() or LEAD() to fetch the timestamp of the prior/next row", "DATEDIFF() alone", "SUM(event_time)", "NTILE()"],
+                    correct: 0,
+                    explanation: "Using LAG(event_time) OVER (...) fetches the previous event's timestamp, enabling subtraction from the current event's time."
+                },
+                {
+                    question: "How do you isolate rows where a status column changed compared to the previous chronological record?",
+                    options: ["Using LAG(status) and comparing it to the current status row-by-row", "WHERE status != status", "GROUP BY status", "Using the CROSS JOIN operator"],
+                    correct: 0,
+                    explanation: "Compare status with LAG(status) OVER (ORDER BY date). If they differ, the status changed at that point."
+                },
+                {
+                    question: "How do you prevent division-by-zero errors in SQL calculations like rates?",
+                    options: ["Use a check constraint", "Wrap the denominator in NULLIF(denominator, 0)", "Use the COALESCE function on the numerator", "Convert the numbers to floats"],
+                    correct: 1,
+                    explanation: "NULLIF(val, 0) converts 0 to NULL. Since dividing by NULL yields NULL rather than crashing, this prevents division errors."
+                },
+                {
+                    question: "How is the median value computed in SQL databases?",
+                    options: ["Using the AVG() function", "Using PERCENTILE_CONT(0.5) or sorting rows and selecting the middle row(s)", "Using SUM(val)/2", "Using the MEDIAN() keyword (standard in all SQL dialects)"],
+                    correct: 1,
+                    explanation: "PERCENTILE_CONT(0.5) OVER () computes the median. In databases without it, you assign row numbers and locate middle values."
+                },
+                {
+                    question: "What does the LIMIT clause restrict in SQL?",
+                    options: ["The number of columns", "The maximum number of rows returned by the query", "The database file size", "The execution time in seconds"],
+                    correct: 1,
+                    explanation: "LIMIT constrains the row count of the output result set."
+                },
+                {
+                    question: "How do you extract the single latest purchase transaction for each user?",
+                    options: ["SELECT MAX(purchase_date) GROUP BY user_id", "Using ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY purchase_date DESC) = 1 in a subquery", "SELECT DISTINCT user_id, purchase_date", "Using LAG()"],
+                    correct: 1,
+                    explanation: "ROW_NUMBER partitions by user and orders by date descending. Filtering row number = 1 gives the latest record for each user."
+                },
+                {
+                    question: "In hierarchical category tables, what characterizes a leaf category row?",
+                    options: ["Its parent_id is NULL", "Its ID does not appear in any row's parent_id column", "It has no primary key", "It is at level 0"],
+                    correct: 1,
+                    explanation: "Leaf categories have no children referencing them. Therefore, their ID is absent from the parent_id foreign key column."
+                },
+                {
+                    question: "How do you calculate the cumulative percentage contribution of sales?",
+                    options: ["Running total of sales divided by the grand total of sales", "Sales divided by average sales", "Running total of sales * 100", "Using the NTILE function"],
+                    correct: 0,
+                    explanation: "Cumulative percentage is: SUM(sales) OVER (ORDER BY date) / SUM(sales) OVER ()."
+                },
+                {
+                    question: "What does LAG(col) return if there is no preceding row available?",
+                    options: ["0", "An error", "NULL", "The current row's value"],
+                    correct: 2,
+                    explanation: "By default, LAG returns NULL if it attempts to read a row that is out of partition boundaries."
+                },
+                {
+                    question: "How do you find the top 10% of earners in a table?",
+                    options: ["Filter on PERCENT_RANK() OVER (ORDER BY salary DESC) <= 0.1", "LIMIT 10", "WHERE salary > AVG(salary) * 0.1", "Using the DENSE_RANK function"],
+                    correct: 0,
+                    explanation: "PERCENT_RANK calculates relative rank from 0.0 to 1.0. A value <= 0.1 isolates the top 10% of rows."
+                },
+                {
+                    question: "What is a correlated subquery?",
+                    options: ["A subquery that runs once before the outer query", "A subquery that references columns from the outer query, executing once for each candidate row in the outer query", "A subquery combined with UNION", "A subquery containing a JOIN"],
+                    correct: 1,
+                    explanation: "Correlated subqueries depend on the outer query's row variables. The subquery executes repeatedly for each row evaluated by the outer query."
+                }
+        ];
+    </script>
+</body>
+</html>

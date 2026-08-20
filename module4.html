@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4: Window Functions & Analytics - SQL Topic & Placement Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar-wrapper" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                        <path d="M12 6v6l4 2"></path>
+                    </svg>
+                    <span class="logo-text">SQL Guide</span>
+                </div>
+                <button class="close-sidebar-btn" id="close-sidebar" aria-label="Close menu">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="search-box">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="search-input" placeholder="Search guide..." autocomplete="off">
+                </div>
+            </div>
+            <nav class="toc-nav" id="toc-nav">
+                <!-- Dynamically generated TOC -->
+            </nav>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="main-wrapper">
+            <header class="top-nav">
+                <div class="nav-left">
+                    <button id="menu-toggle" class="menu-btn" aria-label="Toggle menu">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="nav-title">The Complete SQL Topic &amp; Placement Guide</div>
+                </div>
+                <div class="nav-actions">
+                    <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Theme">
+                        <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-container">
+                <!-- ================= MODULE 4 ================= -->
+                <div class="module-header">
+                    <span>Module 4: Window Functions & Analytical SQL</span>
+                    <span class="module-tag">Analytical Ranking</span>
+                </div>
+
+                <!-- 4.1 Ranking Functions -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">11.</span><span class="topic-heading">Ranking: ROW_NUMBER, RANK,
+                                DENSE_RANK, NTILE</span></div>
+                        <span class="topic-meta">Most Asked Interview Topic</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong>
+                        <ul class="bullet-list">
+                            <li><span class="code-inline">ROW_NUMBER()</span>: Unique sequential integers (<span
+                                    class="code-inline">1, 2, 3, 4</span>).</li>
+                            <li><span class="code-inline">RANK()</span>: Tied values get identical ranks; skips the next
+                                rank (<span class="code-inline">1, 2, 2, 4</span>).</li>
+                            <li><span class="code-inline">DENSE_RANK()</span>: Tied values get identical ranks; does not
+                                skip numbers (<span class="code-inline">1, 2, 2, 3</span>).</li>
+                            <li><span class="code-inline">NTILE(k)</span>: Splits sorted dataset into $k$ equal buckets
+                                (e.g., quartiles, percentiles).</li>
+                        </ul>
+                    </div>
+                    <div class="code-section-header"><span class="badge-tricky">Example</span> Comparison of All 4
+                        Ranking Functions</div>
+                    <pre><span class="kw">SELECT</span> 
+    name, department_id, score,
+    <span class="fn">ROW_NUMBER</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> department_id <span class="kw">ORDER BY</span> score <span class="kw">DESC</span>) <span class="kw">AS</span> row_num,
+    <span class="fn">RANK</span>()       <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> department_id <span class="kw">ORDER BY</span> score <span class="kw">DESC</span>) <span class="kw">AS</span> rnk,
+    <span class="fn">DENSE_RANK</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> department_id <span class="kw">ORDER BY</span> score <span class="kw">DESC</span>) <span class="kw">AS</span> dense_rnk,
+    <span class="fn">NTILE</span>(<span class="num">4</span>)     <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> department_id <span class="kw">ORDER BY</span> score <span class="kw">DESC</span>) <span class="kw">AS</span> quartile
+<span class="kw">FROM</span> test_results;</pre>
+                </div>
+
+                <!-- 4.2 Value Functions & Running Frames -->
+                <div class="topic-card">
+                    <div class="topic-top-bar">
+                        <div><span class="topic-num">12.</span><span class="topic-heading">LEAD, LAG, FIRST_VALUE &amp;
+                                Window Frames</span></div>
+                        <span class="topic-meta">Time-Series &amp; Deltas</span>
+                    </div>
+                    <div class="intuition-box">
+                        <strong>Student Intuition:</strong>
+                        <ul class="bullet-list">
+                            <li><span class="code-inline">LAG(col, 1)</span> accesses the previous row; <span
+                                    class="code-inline">LEAD(col, 1)</span> accesses the next row.</li>
+                            <li><span class="code-inline">FIRST_VALUE(col)</span> / <span
+                                    class="code-inline">LAST_VALUE(col)</span> fetch boundaries in a window frame.</li>
+                            <li><span class="code-inline">ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</span>
+                                evaluates running accumulations.</li>
+                        </ul>
+                    </div>
+                    <div class="code-section-header"><span class="badge-tricky">Example</span> Day-over-Day Growth &
+                        3-Day Moving Average</div>
+                    <pre><span class="kw">SELECT</span> 
+    txn_date, amount,
+    <span class="cm">-- 1. Day-over-Day Delta</span>
+    amount - <span class="fn">LAG</span>(amount, <span class="num">1</span>) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> txn_date) <span class="kw">AS</span> dod_change,
+    <span class="cm">-- 2. Running Total</span>
+    <span class="fn">SUM</span>(amount) <span class="kw">OVER</span> (
+        <span class="kw">ORDER BY</span> txn_date 
+        <span class="kw">ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</span>
+    ) <span class="kw">AS</span> running_total,
+    <span class="cm">-- 3. 3-Day Moving Average (Current day + 2 previous days)</span>
+    <span class="fn">AVG</span>(amount) <span class="kw">OVER</span> (
+        <span class="kw">ORDER BY</span> txn_date 
+        <span class="kw">ROWS BETWEEN 2 PRECEDING AND CURRENT ROW</span>
+    ) <span class="kw">AS</span> moving_avg_3d
+<span class="kw">FROM</span> transactions;</pre>
+                </div>
+            </div> <!-- close content-container -->
+
+            <footer class="site-footer">© 2026 Mukesh Kumar Sanivada. All rights reserved.</footer>
+
+        </div> <!-- close main-wrapper -->
+    </div> <!-- close app-container -->
+
+    <button id="back-to-top" class="back-to-top-btn" title="Back to top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        window.QUIZ_QUESTIONS = [
+            {
+                    question: "What is the key difference between window functions and GROUP BY aggregates?",
+                    options: ["Window functions are faster", "GROUP BY collapses individual rows; window functions compute aggregates while keeping all individual rows visible", "Window functions can only be run on numbers", "GROUP BY is only for SQL Server"],
+                    correct: 1,
+                    explanation: "While GROUP BY reduces multiple rows to single summary rows, window functions calculate values over frames of rows while returning all original detail rows."
+                },
+                {
+                    question: "Which clause is mandatory in any query using a window function?",
+                    options: ["GROUP BY", "HAVING", "OVER", "PARTITION BY"],
+                    correct: 2,
+                    explanation: "The OVER clause defines the window (partitioning, ordering, and framing) for the function. It is mandatory."
+                },
+                {
+                    question: "What does the PARTITION BY sub-clause inside OVER() do?",
+                    options: ["It divides the result set into partitions to apply the function independently to each partition", "It sorts the rows", "It deletes duplicate records", "It creates physical partitions on disk"],
+                    correct: 0,
+                    explanation: "PARTITION BY groups rows with similar values into partitions. The window function resets and recalculates for each partition."
+                },
+                {
+                    question: "Given a scores list: [100, 100, 90], what are values of r and dr for the score 90 in this query?",
+                    code: "SELECT score,\n       RANK() OVER (ORDER BY score DESC) as r,\n       DENSE_RANK() OVER (ORDER BY score DESC) as dr\nFROM scores;",
+                    options: ["r = 2, dr = 2", "r = 3, dr = 2", "r = 2, dr = 3", "r = 3, dr = 3"],
+                    correct: 1,
+                    explanation: "RANK leaves gaps. The first two scores (100) are ranked 1, so the next score (90) is ranked 3. DENSE_RANK does not leave gaps, assigning rank 2 to 90."
+                },
+                {
+                    question: "What does the ROW_NUMBER() window function assign?",
+                    options: ["A random number", "A unique sequential integer to each row in the window partition, starting at 1", "The primary key of the row", "The count of rows"],
+                    correct: 1,
+                    explanation: "ROW_NUMBER() guarantees a unique sequential number from 1 to N for each row in a partition based on the window sort order."
+                },
+                {
+                    question: "What does the LEAD() window function do?",
+                    options: ["Retrieves a value from a subsequent row in the partition relative to the current row", "Retrieves a value from a preceding row", "Selects the highest value", "Creates an index"],
+                    correct: 0,
+                    explanation: "LEAD() lets you access data from rows further down the partition without doing self-joins."
+                },
+                {
+                    question: "What does the LAG() window function do?",
+                    options: ["Retrieves a value from a preceding row in the partition relative to the current row", "Retrieves a value from a subsequent row", "Finds the lowest value", "Introduces latency"],
+                    correct: 0,
+                    explanation: "LAG() accesses data from rows further up (preceding) in the partition relative to the current row's position."
+                },
+                {
+                    question: "What is the function NTILE(4) used for?",
+                    options: ["Selecting every fourth row", "Dividing rows in each partition into 4 numbered buckets as equally as possible", "Rounding numbers to 4 decimal places", "Grouping rows into 4 separate tables"],
+                    correct: 1,
+                    explanation: "NTILE(n) splits the ordered partition into 'n' groups and returns the group bucket number (1 to n) for each row."
+                },
+                {
+                    question: "What is the default window frame if ORDER BY is specified, but no ROWS/RANGE frame is defined?",
+                    options: ["ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING", "RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW", "ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING", "There is no default, it throws an error"],
+                    correct: 1,
+                    explanation: "When ORDER BY is present, the default frame is RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW, which calculates cumulative sums/aggregates."
+                },
+                {
+                    question: "How do you define a window frame that includes exactly 3 preceding rows and the current row?",
+                    options: ["ROWS 3 PRECEDING", "ROWS BETWEEN 3 PRECEDING AND CURRENT ROW", "RANGE 3 PRECEDING", "ROWS BETWEEN CURRENT ROW AND 3 FOLLOWING"],
+                    correct: 1,
+                    explanation: "Using 'ROWS BETWEEN 3 PRECEDING AND CURRENT ROW' establishes a sliding window frame of exactly 4 rows."
+                },
+                {
+                    question: "Can window functions be placed in the WHERE clause (e.g. WHERE ROW_NUMBER() OVER (...) = 1)?",
+                    options: ["Yes, always", "No, because WHERE filters rows *before* window functions are calculated", "Only in Oracle", "Only if grouping exists"],
+                    correct: 1,
+                    explanation: "Window functions execute in the SELECT phase, which happens *after* the WHERE clause. To filter on window outputs, you must wrap the query in a CTE or subquery."
+                },
+                {
+                    question: "What does the FIRST_VALUE(col) function return?",
+                    options: ["The lowest value of the column", "The value of col from the first row of the window frame", "The default value", "The value from row number 1 of the table"],
+                    correct: 1,
+                    explanation: "FIRST_VALUE retrieves the specified column's value from the very first row within the window frame boundaries."
+                },
+                {
+                    question: "What is returned by LEAD(salary, 2, 0) if the offset goes beyond the partition bounds?",
+                    options: ["NULL", "An error", "0", "The salary of the last row"],
+                    correct: 2,
+                    explanation: "The third argument in LEAD/LAG defines the default value to return if the offset falls out of partition bounds."
+                },
+                {
+                    question: "How do you calculate a running total of sales ordered by date?",
+                    options: ["SUM(sales) GROUP BY sales_date", "SUM(sales) OVER (ORDER BY sales_date)", "SUM(sales) OVER (PARTITION BY sales_date)", "SUM(sales) OVER (ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)"],
+                    correct: 1,
+                    explanation: "Using SUM(col) OVER (ORDER BY col2) creates a default running sum frame from start of partition to the current row."
+                },
+                {
+                    question: "How does the default RANGE framing treat rows with identical ORDER BY sorting values?",
+                    options: ["It assigns sequential ranks", "It aggregates them together as peers, summing them all at once in running totals", "It throws a duplicate error", "It ignores them"],
+                    correct: 1,
+                    explanation: "RANGE treats duplicate sorting values as equal peers. If two rows share a date, a RANGE running total sums both salaries and shows the same accumulated value for both."
+                },
+                {
+                    question: "Why should you use ROW_NUMBER() instead of RANK() if you want to find the single latest login record?",
+                    options: ["It executes faster", "It guarantees a unique index, ensuring exactly one row is chosen even if timestamps tie", "RANK does not support DESC sorting", "ROW_NUMBER ignores NULLs"],
+                    correct: 1,
+                    explanation: "If two logins tie for the latest timestamp, RANK will assign both a rank of 1. ROW_NUMBER assigns 1 and 2, allowing you to select exactly one row."
+                },
+                {
+                    question: "In which clauses of an SQL query are window functions allowed?",
+                    options: ["SELECT and WHERE", "SELECT and ORDER BY", "FROM and GROUP BY", "HAVING and SELECT"],
+                    correct: 1,
+                    explanation: "Under ANSI SQL standards, window functions are only allowed in the SELECT list and the final ORDER BY clause."
+                },
+                {
+                    question: "What does LAST_VALUE(col) return under the default RANGE frame (RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)?",
+                    options: ["The last row in the partition", "The current row's value, because the frame ends at the current row", "NULL", "An error"],
+                    correct: 1,
+                    explanation: "Since the default frame ends at the CURRENT ROW, LAST_VALUE only looks up to the current row, returning the current row's value instead of the absolute last value. To fix this, define the frame as BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING."
+                },
+                {
+                    question: "How do you find the second-highest salary using window functions?",
+                    options: ["SELECT DENSE_RANK() OVER (ORDER BY salary DESC) = 2", "Define DENSE_RANK() in a CTE or subquery, then filter rank = 2 in the outer query", "SELECT MAX(salary) WHERE salary < MAX(salary)", "Use NTILE(2)"],
+                    correct: 1,
+                    explanation: "Since window functions cannot be filtered in WHERE directly, you compute ranks in a subquery/CTE and filter on the alias in the outer query."
+                },
+                {
+                    question: "How is the sorting order of rows inside a window partition determined?",
+                    options: ["By the main ORDER BY clause at the end of the query", "By the ORDER BY sub-clause inside the OVER() clause of that window function", "By the table's clustered index", "By physical insert order"],
+                    correct: 1,
+                    explanation: "Each window function can have its own independent sorting sequence defined inside its OVER(ORDER BY ...) clause, which is independent of the query's main sorting."
+                }
+        ];
+    </script>
+</body>
+</html>
